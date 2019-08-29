@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>SpringCloud | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;emsp;&amp;emsp;Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。   Eureka（服务注册与发现）：&amp;emsp;&amp;emsp;Eureka是Netflix子模块之一，">
-<meta name="keywords" content="Framework">
+  <meta name="description" content="&amp;emsp;&amp;emsp;Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。">
+<meta name="keywords" content="Framework,微服务,SOA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringCloud">
 <meta property="og:url" content="http://yoursite.com/2019/08/29/SpringCloud/index.html">
 <meta property="og:site_name" content="Logan Moorees">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。   Eureka（服务注册与发现）：&amp;emsp;&amp;emsp;Eureka是Netflix子模块之一，">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/eureka">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/zuul.jpg">
-<meta property="og:updated_time" content="2019-08-29T08:59:53.209Z">
+<meta property="og:updated_time" content="2019-08-29T09:06:55.822Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringCloud">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。   Eureka（服务注册与发现）：&amp;emsp;&amp;emsp;Eureka是Netflix子模块之一，">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。">
 <meta name="twitter:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/eureka">
   
     <link rel="alternative" href="/atom.xml" title="Logan Moorees" type="application/atom+xml">
@@ -163,7 +163,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>&emsp;&emsp;Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。</p>
-<!-- moore -->
+<a id="more"></a>
 
 <h5 id="Eureka（服务注册与发现）："><a href="#Eureka（服务注册与发现）：" class="headerlink" title="Eureka（服务注册与发现）："></a>Eureka（服务注册与发现）：</h5><p>&emsp;&emsp;Eureka是Netflix子模块之一，也是核心模块之一， 是一个基REST(Representational State Transfer)的服务，主要用于AWS云，用于定位服务，以实现中间层服务器的负载平衡和故障转移。我们将此服务称为Eureka Server。Eureka还附带了一个基于Java的客户端组件Eureka Client，它使与服务的交互变得更加容易。客户端还有一个内置的负载均衡器，可以进行基本的循环负载均衡。在Netflix，一个更复杂的负载均衡器包含Eureka基于流量，资源使用，错误条件等多种因素提供加权负载平衡，以提供卓越的弹性。（来自GitHub Eureka Wiki）<br>理解：首先Eureka是为了解决AWS庞大云集群而诞生的，当服务多了，服务错综复杂，难以管理，Eureka提供了服务管理类似Dubbo的注册中心的作用。每个服务都是一个实例，每个实例都需要一个统一的名称或者服务ID。其他服务调用接口时候，可以看到多个该服务实例信息，根据负载均衡策略或者提供某个服务调用信息后，调用者直接调用该实例。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/eureka" alt></p>
 <h5 id="emsp-emsp-Eureka官方Wiki架构图："><a href="#emsp-emsp-Eureka官方Wiki架构图：" class="headerlink" title="&emsp;&emsp;Eureka官方Wiki架构图："></a>&emsp;&emsp;Eureka官方Wiki架构图：</h5><h5 id="emsp-emsp-Eureka-Server：表示注册中心集群"><a href="#emsp-emsp-Eureka-Server：表示注册中心集群" class="headerlink" title="&emsp;&emsp;Eureka Server：表示注册中心集群"></a>&emsp;&emsp;Eureka Server：表示注册中心集群</h5><h5 id="emsp-emsp-us-east-xxx：表示集群所在的区域"><a href="#emsp-emsp-us-east-xxx：表示集群所在的区域" class="headerlink" title="&emsp;&emsp;us-east-xxx：表示集群所在的区域"></a>&emsp;&emsp;us-east-xxx：表示集群所在的区域</h5><h5 id="emsp-emsp-Application-Service：表示服务提供者"><a href="#emsp-emsp-Application-Service：表示服务提供者" class="headerlink" title="&emsp;&emsp;Application Service：表示服务提供者"></a>&emsp;&emsp;Application Service：表示服务提供者</h5><h5 id="emsp-emsp-Application-Client：表示服务消费者"><a href="#emsp-emsp-Application-Client：表示服务消费者" class="headerlink" title="&emsp;&emsp;Application Client：表示服务消费者"></a>&emsp;&emsp;Application Client：表示服务消费者</h5><h5 id="emsp-emsp-Eureka-Client：表示Eureka客户端"><a href="#emsp-emsp-Eureka-Client：表示Eureka客户端" class="headerlink" title="&emsp;&emsp;Eureka Client：表示Eureka客户端"></a>&emsp;&emsp;Eureka Client：表示Eureka客户端</h5><p>&emsp;&emsp;每个都us-east区域有个Server和多个提供者和调用者。提供者启动后向Eureka Server注册中心注册服务，包括IP、Port、服务名等信息。消费者启动后从Eureka Server拉取注册列表。消费者发起远程调用的时候优先调用本区域内的Application Service。如果本区内没有可用的Application Service，才会发起对其他区内的Service调用。不同区域的服务调用过程：区域内的Application Service启动后，向本区内的Eureka Server注册服务信息。并跟本区内的Eureka Server维持心跳续约。不同区域内的Eureka Server会将服务信息互相同步。</p>
@@ -190,6 +190,14 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Framework</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">微服务</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SOA</a>
         		</li>
       		
 		</ul>
@@ -345,6 +353,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Framework</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SOA</a>
               </li>
             
             <div class="clearfix"></div>
