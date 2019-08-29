@@ -136,6 +136,93 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-SpringCloud" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/29/SpringCloud/">SpringCloud</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/29/SpringCloud/" class="archive-article-date">
+  	<time datetime="2019-08-29T08:51:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&emsp;&emsp;Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。</p>
+<!-- moore -->
+
+<h5 id="Eureka（服务注册与发现）："><a href="#Eureka（服务注册与发现）：" class="headerlink" title="Eureka（服务注册与发现）："></a>Eureka（服务注册与发现）：</h5><p>&emsp;&emsp;Eureka是Netflix子模块之一，也是核心模块之一， 是一个基REST(Representational State Transfer)的服务，主要用于AWS云，用于定位服务，以实现中间层服务器的负载平衡和故障转移。我们将此服务称为Eureka Server。Eureka还附带了一个基于Java的客户端组件Eureka Client，它使与服务的交互变得更加容易。客户端还有一个内置的负载均衡器，可以进行基本的循环负载均衡。在Netflix，一个更复杂的负载均衡器包含Eureka基于流量，资源使用，错误条件等多种因素提供加权负载平衡，以提供卓越的弹性。（来自GitHub Eureka Wiki）<br>理解：首先Eureka是为了解决AWS庞大云集群而诞生的，当服务多了，服务错综复杂，难以管理，Eureka提供了服务管理类似Dubbo的注册中心的作用。每个服务都是一个实例，每个实例都需要一个统一的名称或者服务ID。其他服务调用接口时候，可以看到多个该服务实例信息，根据负载均衡策略或者提供某个服务调用信息后，调用者直接调用该实例。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/eureka" alt></p>
+<h5 id="emsp-emsp-Eureka官方Wiki架构图："><a href="#emsp-emsp-Eureka官方Wiki架构图：" class="headerlink" title="&emsp;&emsp;Eureka官方Wiki架构图："></a>&emsp;&emsp;Eureka官方Wiki架构图：</h5><h5 id="emsp-emsp-Eureka-Server：表示注册中心集群"><a href="#emsp-emsp-Eureka-Server：表示注册中心集群" class="headerlink" title="&emsp;&emsp;Eureka Server：表示注册中心集群"></a>&emsp;&emsp;Eureka Server：表示注册中心集群</h5><h5 id="emsp-emsp-us-east-xxx：表示集群所在的区域"><a href="#emsp-emsp-us-east-xxx：表示集群所在的区域" class="headerlink" title="&emsp;&emsp;us-east-xxx：表示集群所在的区域"></a>&emsp;&emsp;us-east-xxx：表示集群所在的区域</h5><h5 id="emsp-emsp-Application-Service：表示服务提供者"><a href="#emsp-emsp-Application-Service：表示服务提供者" class="headerlink" title="&emsp;&emsp;Application Service：表示服务提供者"></a>&emsp;&emsp;Application Service：表示服务提供者</h5><h5 id="emsp-emsp-Application-Client：表示服务消费者"><a href="#emsp-emsp-Application-Client：表示服务消费者" class="headerlink" title="&emsp;&emsp;Application Client：表示服务消费者"></a>&emsp;&emsp;Application Client：表示服务消费者</h5><h5 id="emsp-emsp-Eureka-Client：表示Eureka客户端"><a href="#emsp-emsp-Eureka-Client：表示Eureka客户端" class="headerlink" title="&emsp;&emsp;Eureka Client：表示Eureka客户端"></a>&emsp;&emsp;Eureka Client：表示Eureka客户端</h5><p>&emsp;&emsp;每个都us-east区域有个Server和多个提供者和调用者。提供者启动后向Eureka Server注册中心注册服务，包括IP、Port、服务名等信息。消费者启动后从Eureka Server拉取注册列表。消费者发起远程调用的时候优先调用本区域内的Application Service。如果本区内没有可用的Application Service，才会发起对其他区内的Service调用。不同区域的服务调用过程：区域内的Application Service启动后，向本区内的Eureka Server注册服务信息。并跟本区内的Eureka Server维持心跳续约。不同区域内的Eureka Server会将服务信息互相同步。</p>
+<p>&emsp;&emsp;Application Service内的Eureka Client后台启动一个定时任务，跟Eureka Server保持一个心跳续约任务，每隔一段时间(默认30S)向Eureka Server发送一次renew请求，进行续约，告诉Eureka Server我还活着，防止被Eureka Server的Evict任务剔除。</p>
+<h4 id="emsp-emsp-服务下线："><a href="#emsp-emsp-服务下线：" class="headerlink" title="&emsp;&emsp;服务下线："></a>&emsp;&emsp;服务下线：</h4><p>&emsp;&emsp;Application Service应用停止后，向Eureka Server发送一个cancel请求，告诉注册中心我已经退出了，Eureka Server接收到之后会将其移出注册列表，后面再有获取注册服务列表的时候就获取不到了，防止消费端消费不可用的服务。</p>
+<h4 id="emsp-emsp-自我保护机制："><a href="#emsp-emsp-自我保护机制：" class="headerlink" title="&emsp;&emsp;自我保护机制："></a>&emsp;&emsp;自我保护机制：</h4><p>&emsp;&emsp;默认情况下，当eureka server在一定时间内没有收到实例的心跳，便会把该实例从注册表中删除（默认是90秒），但是，如果短时间内丢失大量的实例心跳，便会触发eureka server的自我保护机制。<br>&emsp;&emsp;该保护机制的目的是避免网络连接故障，在发生网络故障时，微服务和注册中心之间无法正常通信，但服务本身是健康的，不应该注销该服务，如果eureka因网络故障而把微服务误删了，那即使网络恢复了，该微服务也不会重新注册到eureka server了，因为只有在微服务启动的时候才会发起注册请求，后面只会发送心跳和服务列表请求，这样的话，该实例虽然是运行着，但永远不会被其它服务所感知。所以，eureka server在短时间内丢失过多的客户端心跳时，会进入自我保护模式，该模式下，eureka会保护注册表中的信息，不在注销任何微服务，当网络故障恢复后，eureka会自动退出保护模式。自我保护模式可以让集群更加健壮。</p>
+<h5 id="emsp-emsp-和Zookeep的比较："><a href="#emsp-emsp-和Zookeep的比较：" class="headerlink" title="&emsp;&emsp;和Zookeep的比较："></a>&emsp;&emsp;和Zookeep的比较：</h5><p>&emsp;&emsp;根据CAP理论，Zookeep保证的是CP，而Eureka遵守的是AP原则，ZooKeeper基于CP，不保证高可用，如果zookeeper正在选主，或者Zookeeper集群中半数以上机器不可用，那么将无法获得数据。Eureka基于AP，能保证高可用，即使所有机器都挂了，也能拿到本地缓存的数据。作为注册中心，其实配置是不经常变动的，只有发版和机器出故障时会变。对于不经常变动的配置来说，CP是不合适的，而AP在遇到问题时可以用牺牲一致性来保证可用性，既返回旧数据，缓存数据。因为在Server中，Server端是不经常改动的，SpringCloud设计过程中，也结合了Dubbo的案例，在集群中，分区容错性比强一致性更重要。避免了整个服务的瘫痪。</p>
+<h5 id="Feign（负载均衡）"><a href="#Feign（负载均衡）" class="headerlink" title="Feign（负载均衡）"></a>Feign（负载均衡）</h5><p>&emsp;&emsp;Feign是一个声明式WebService客户端，它主要作用是将服务提供者和消费者连接起来的一个工具，从而服务与消费功能更加明确。</p>
+<h5 id="Hystrix（断路器：服务熔断降级监控）："><a href="#Hystrix（断路器：服务熔断降级监控）：" class="headerlink" title="Hystrix（断路器：服务熔断降级监控）："></a>Hystrix（断路器：服务熔断降级监控）：</h5><p>&emsp;&emsp; <strong>在分布式环境中，许多服务依赖项中的一些不可避免地会失败。Hystrix是一个库，可通过添加延迟容错和容错逻辑来帮助您控制这些分布式服务之间的交互。Hystrix通过隔离服务之间的访问点，阻止它们之间的级联故障以及提供后备选项来实现这一目标，所有这些都可以提高系统的整体弹性。（来自Wiki）&emsp;&emsp;在分布式环境中，许多服务依赖项中的一些不可避免地会失败。Hystrix是一个库，可通过添加延迟容错和容错逻辑来帮助您控制这些分布式服务之间的交互。Hystrix通过隔离服务之间的访问点，阻止它们之间的级联故障以及提供后备选项来实现这一目标，所有这些都可以提高系统的整体弹性。（来自Wiki）</strong></p>
+<p>&emsp;&emsp;理解： 首先是降级，在每年年底12306都是最繁忙的时候，那么再这个情况会发现有一些神奇的情况：当到了指定的时间，大家开始抢票的时候，如果你不抢，而后查询一些冷门的车次，票有可能查询不出来。因为这个时候会将所有的系统资源给抢票调度了，而其他的服务由于其暂时不受到过多的关注，这个时候可以考虑将服务降级（服务暂停）,整体资源快不够了，忍痛将某些服务先关掉，渡过难关再开回来。<br>&emsp;&emsp;熔断，如果A服务调用B服务，B服务依赖C服务，但是C服务超时会出现什么情况，整个系统就挂了，也就是feign去调别人的接口，出现问题了，会等待，当更多的服务请求到这些资源时，发生连锁效应，雪崩，有了断路器。一定时间内 达到一定的次数无法调用 并且多次检测没有恢复的迹象 断路器完全打开，那么下次请求就不会请求到该服务。短时间内 有恢复迹象 断路器会将部分请求发给该服务 当能正常调用时 断路器关闭。有了断路器，本服务就有个备选方案，当请求到其他服务时候，那边超时了，就使用备选方案，避免了连锁雪崩。<br>&emsp;&emsp;监控，Hystrix提供了准实时的调用监控，Hystr会持续的记录所有通过Hystrix发起的请求执行信息，并以统计报表和图形的方式展现出来，包括每秒执行了多少成功和失败等等，有了监控，更增加了服务的壮健性。</p>
+<h5 id="Zuul-动态路由，监控，弹性和安全-："><a href="#Zuul-动态路由，监控，弹性和安全-：" class="headerlink" title="Zuul(动态路由，监控，弹性和安全)："></a>Zuul(动态路由，监控，弹性和安全)：</h5><p>&emsp;&emsp;<strong>Zuul是从设备和网站到Netflix流应用程序后端的所有请求的前门。作为边缘服务应用程序，Zuul旨在实现动态路由，监控，弹性和安全性。（来自Wiki）</strong><br>&emsp;&emsp;理解：Zuul包含了对请求的路由和过滤两个最主要的功能，其中路由的功能负责将外部请求转发到具体服务实例上，是实现外部请求访问统一入口的基础，而过滤器负责对请求的处理过程进行干预，是实现请求校验，服务聚合等功能的基础。Zuul自身就是一个服务，通过注册进Eureka中，并获得其他服务信息。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/zuul.jpg" alt></p>
+<h4 id="emsp-emsp-为什么需要Zuul："><a href="#emsp-emsp-为什么需要Zuul：" class="headerlink" title="&emsp;&emsp;为什么需要Zuul："></a>&emsp;&emsp;为什么需要Zuul：</h4><p>&emsp;&emsp;假设现在服务要迁移，原来的旧代码不动，通过url映射就可以原封不动的进行迁移。<br>由于zuul充当着所有请求的前门，在zuul中可以解决所有请求跨域的问题，和token解析的问题，zuul能够解决所有服务之间的跨域，假设有个伪造的错误toekn，zuul解析token出现问题根本不用请求服务，直接返回错误给前端。<br>限流，假设接口要暴露出来，防止用户恶意攻击，根据用户IP和接口进行限流。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Framework</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/29/SpringCloud/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-数据结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -387,6 +474,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
@@ -400,10 +491,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Framework</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
             
             <div class="clearfix"></div>
