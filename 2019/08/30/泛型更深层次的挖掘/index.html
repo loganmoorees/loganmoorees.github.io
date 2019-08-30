@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>分类 | Logan Moorees</title>
+  <title>泛型更深层次的挖掘 | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://yoursite.com/categories/index.html">
+  <meta name="description" content="&amp;emsp;&amp;emsp;Java泛型是JDK1.5引入的一个新特性，泛型提供了编译时类型安全检测机制，该机制允许开发者在编译时检测到非法的类型。&amp;emsp;&amp;emsp;它的本质是参数化类型，也就是说操作的数据类型被指定为一个参数。 为什么需要泛型&amp;emsp;&amp;emsp;泛型就是不确定的数据类型，如ArrayList&amp;lt;E&amp;gt;中 E 是泛型，泛型可以省略，如果省略默认泛型是Object类型。">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="泛型更深层次的挖掘">
+<meta property="og:url" content="http://yoursite.com/2019/08/30/泛型更深层次的挖掘/index.html">
 <meta property="og:site_name" content="Logan Moorees">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;Java泛型是JDK1.5引入的一个新特性，泛型提供了编译时类型安全检测机制，该机制允许开发者在编译时检测到非法的类型。&amp;emsp;&amp;emsp;它的本质是参数化类型，也就是说操作的数据类型被指定为一个参数。 为什么需要泛型&amp;emsp;&amp;emsp;泛型就是不确定的数据类型，如ArrayList&amp;lt;E&amp;gt;中 E 是泛型，泛型可以省略，如果省略默认泛型是Object类型。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-29T06:05:32.000Z">
+<meta property="og:updated_time" content="2019-08-30T15:49:25.034Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分类">
+<meta name="twitter:title" content="泛型更深层次的挖掘">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;Java泛型是JDK1.5引入的一个新特性，泛型提供了编译时类型安全检测机制，该机制允许开发者在编译时检测到非法的类型。&amp;emsp;&amp;emsp;它的本质是参数化类型，也就是说操作的数据类型被指定为一个参数。 为什么需要泛型&amp;emsp;&amp;emsp;泛型就是不确定的数据类型，如ArrayList&amp;lt;E&amp;gt;中 E 是泛型，泛型可以省略，如果省略默认泛型是Object类型。">
   
     <link rel="alternative" href="/atom.xml" title="Logan Moorees" type="application/atom+xml">
   
@@ -135,27 +139,38 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-泛型更深层次的挖掘" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      分类
+      泛型更深层次的挖掘
     </h1>
   
 
         
-        <a href="/categories/index.html" class="archive-article-date">
-  	<time datetime="2019-08-29T05:59:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
+        <a href="/2019/08/30/泛型更深层次的挖掘/" class="archive-article-date">
+  	<time datetime="2019-08-30T15:45:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>&emsp;&emsp;Java泛型是JDK1.5引入的一个新特性，泛型提供了编译时类型安全检测机制，该机制允许开发者在编译时检测到非法的类型。<br>&emsp;&emsp;它的本质是参数化类型，也就是说操作的数据类型被指定为一个参数。</p>
+<h4 id="为什么需要泛型"><a href="#为什么需要泛型" class="headerlink" title="为什么需要泛型"></a>为什么需要泛型</h4><p>&emsp;&emsp;泛型就是不确定的数据类型，如<code>ArrayList&lt;E&gt;</code>中 E 是泛型，泛型可以省略，如果省略默认泛型是Object类型。<br>&emsp;&emsp;泛型我们并不陌生，JDK源码中就使用了大量的泛型，如<code>ArrayList&lt;E&gt;</code>,<code>Class&lt;T&gt;</code>,<code>HashMap&lt;K, V&gt;</code>或者<code>Class&lt;?&gt;</code>，每种通配符都有着不同的含义。<br>&emsp;&emsp;1. 省略了强制转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List list = <span class="keyword">new</span> ArrayList();</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">short</span> a = (<span class="keyword">short</span>) list.get(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;但是运行结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread <span class="string">"main"</span> java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.Short</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;类型转换异常了，看样子没什么错，明明上面的代码1是属于short类型范围，但是仔细一看，Java中整型的变量都默认为int类型，int类型也可以强转short阿，也没错。接着看他们在JVM中执行的经过</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(java.lang.String[])</span></span>;</span><br><span class="line">    Code:</span><br><span class="line">       0: new           #2                  // class java/util/ArrayList</span><br><span class="line">       <span class="number">3</span>: dup</span><br><span class="line">       4: invokespecial #3                  // Method java/util/ArrayList."&lt;init&gt;":()V</span><br><span class="line">       <span class="number">7</span>: astore_1</span><br><span class="line">       <span class="number">8</span>: aload_1</span><br><span class="line">       <span class="number">9</span>: iconst_1</span><br><span class="line">      10: invokestatic  #4                  // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;</span><br><span class="line">      13: invokeinterface #5,  2            // InterfaceMethod java/util/List.add:(Ljava/lang/Object;)Z</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;第9行代码，本来是int类型的，结果自动包装成了Integer类型了，Integer包装类型转成short类型，肯定类型转换错误。本来不起眼的错误，结果就导致程序运行错误了，所以泛型省略了强转，代码的健壮性更好。</p>
+
       
 
       
@@ -163,6 +178,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -174,6 +200,16 @@
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/29/SpringCloud/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SpringCloud</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -192,6 +228,16 @@
 </aside>
 
 
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
           </div>
@@ -214,7 +260,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

@@ -136,6 +136,90 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-泛型更深层次的挖掘" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/30/泛型更深层次的挖掘/">泛型更深层次的挖掘</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/30/泛型更深层次的挖掘/" class="archive-article-date">
+  	<time datetime="2019-08-30T15:45:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&emsp;&emsp;Java泛型是JDK1.5引入的一个新特性，泛型提供了编译时类型安全检测机制，该机制允许开发者在编译时检测到非法的类型。<br>&emsp;&emsp;它的本质是参数化类型，也就是说操作的数据类型被指定为一个参数。</p>
+<h4 id="为什么需要泛型"><a href="#为什么需要泛型" class="headerlink" title="为什么需要泛型"></a>为什么需要泛型</h4><p>&emsp;&emsp;泛型就是不确定的数据类型，如<code>ArrayList&lt;E&gt;</code>中 E 是泛型，泛型可以省略，如果省略默认泛型是Object类型。<br>&emsp;&emsp;泛型我们并不陌生，JDK源码中就使用了大量的泛型，如<code>ArrayList&lt;E&gt;</code>,<code>Class&lt;T&gt;</code>,<code>HashMap&lt;K, V&gt;</code>或者<code>Class&lt;?&gt;</code>，每种通配符都有着不同的含义。<br>&emsp;&emsp;1. 省略了强制转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List list = <span class="keyword">new</span> ArrayList();</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">short</span> a = (<span class="keyword">short</span>) list.get(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;但是运行结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread <span class="string">"main"</span> java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.Short</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;类型转换异常了，看样子没什么错，明明上面的代码1是属于short类型范围，但是仔细一看，Java中整型的变量都默认为int类型，int类型也可以强转short阿，也没错。接着看他们在JVM中执行的经过</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(java.lang.String[])</span></span>;</span><br><span class="line">    Code:</span><br><span class="line">       0: new           #2                  // class java/util/ArrayList</span><br><span class="line">       <span class="number">3</span>: dup</span><br><span class="line">       4: invokespecial #3                  // Method java/util/ArrayList."&lt;init&gt;":()V</span><br><span class="line">       <span class="number">7</span>: astore_1</span><br><span class="line">       <span class="number">8</span>: aload_1</span><br><span class="line">       <span class="number">9</span>: iconst_1</span><br><span class="line">      10: invokestatic  #4                  // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;</span><br><span class="line">      13: invokeinterface #5,  2            // InterfaceMethod java/util/List.add:(Ljava/lang/Object;)Z</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;第9行代码，本来是int类型的，结果自动包装成了Integer类型了，Integer包装类型转成short类型，肯定类型转换错误。本来不起眼的错误，结果就导致程序运行错误了，所以泛型省略了强转，代码的健壮性更好。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/30/泛型更深层次的挖掘/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-SpringCloud" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -381,10 +465,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Framework</a>
               </li>
              
@@ -394,6 +474,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SOA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
             
             <div class="clearfix"></div>
