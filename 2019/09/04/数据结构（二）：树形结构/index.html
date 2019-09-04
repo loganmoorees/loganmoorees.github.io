@@ -17,7 +17,10 @@
 <meta property="og:description" content="树形结构&amp;emsp;&amp;emsp;树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&amp;gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：  每个节点有零个或多个子节点 没有父节点的节点称">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%97%A0%E5%BA%8F%E6%A0%91.jpg">
-<meta property="og:updated_time" content="2019-09-04T08:01:06.003Z">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%9C%89%E5%BA%8F%E6%A0%911.jpg">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E4%BA%8C%E5%8F%89%E6%A0%911.png">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E4%BA%8C%E5%8F%89%E6%A0%912%20.png">
+<meta property="og:updated_time" content="2019-09-04T08:44:30.109Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构（二）：树形结构">
 <meta name="twitter:description" content="树形结构&amp;emsp;&amp;emsp;树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&amp;gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：  每个节点有零个或多个子节点 没有父节点的节点称">
@@ -168,7 +171,7 @@
 <li>每一个非根节点有且只有一个父节点</li>
 <li>除了根节点外，每个子节点可以分为多个不相交的子树</li>
 </ol>
-<p><strong>树的种类大范围可以分为无序树和有序树，有序树大范围可以分为二叉树和非二叉树。</strong></p>
+<p><strong>树的种类大范围可以分为无序树和有序树。</strong></p>
 <ol>
 <li>节点的度：一个节点含有的子树的个数称为该节点的度；</li>
 <li>树的度：一棵树中，最大的节点的度称为树的度；</li>
@@ -183,8 +186,19 @@
 <li>堂兄弟节点：父节点在同一层的节点互为堂兄弟；</li>
 <li>节点的祖先：从根到该节点所经分支上的所有节点；</li>
 <li>子孙：以某节点为根的子树中任一节点都称为该节点的子孙。</li>
-<li>森林：由m（m&gt;=0）棵互不相交的树的集合称为森林；<h4 id="无序树"><a href="#无序树" class="headerlink" title="无序树"></a>无序树</h4>&emsp;&emsp;树中任意节点的子节点之间没有顺序关系，这种树称为无序树，也称为自由树。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%97%A0%E5%BA%8F%E6%A0%91.jpg" alt></li>
+<li>森林：由m（m&gt;=0）棵互不相交的树的集合称为森林；</li>
 </ol>
+<h4 id="无序树"><a href="#无序树" class="headerlink" title="无序树"></a>无序树</h4><p>&emsp;&emsp;树中任意节点的子节点之间没有顺序关系，这种树称为无序树，也称为自由树。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%97%A0%E5%BA%8F%E6%A0%91.jpg" alt></p>
+<h4 id="有序树"><a href="#有序树" class="headerlink" title="有序树"></a>有序树</h4><p>&emsp;&emsp;用自己的话归纳就是兄弟节点有顺序的树就可以称为有序树<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%9C%89%E5%BA%8F%E6%A0%911.jpg" alt></p>
+<h4 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h4><p>&emsp;&emsp;二叉树是每个结点最多有两个子树的树结构。通常子树被称作“左子树”（left subtree）和“右子树”（right subtree）。二叉树常被用于实现二叉查找树和二叉堆<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E4%BA%8C%E5%8F%89%E6%A0%911.png" alt><br>二叉树是递归定义的，其结点有左右子树之分，逻辑上二叉树有五种基本形态：<br>二叉树又可以被分为满二叉树 full binary tree（一棵深度为 k，且最底层有 2^(k- 1) 个节点称之为满二叉树；形如其名，所有的节点都是满的）和完全二叉树 complete binary tree（深度为 k，有 n 个节点的二叉树，当且仅当其每一个节点都与深度为 k 的满二叉树中序号为 1 至 n 的节点对应；简单来说，就是除深度是k 层之外，其他各层（1至k-1）的节点数都达到最大个数，第k 层的所有节点都连续几个在最左边）。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E4%BA%8C%E5%8F%89%E6%A0%912%20.png" alt></p>
+<p>&emsp;&emsp;二叉树的遍历</p>
+<ul>
+<li>先序遍历；根节点-&gt;左子树-&gt;右子树。</li>
+<li>中序遍历；左子树-&gt;根节点-&gt;右子树。</li>
+<li>后序遍历；左子树-&gt;右子树-&gt;根节点。</li>
+<li>层次遍历；根据层次遍历的顺序，每一层都按照从左到右的遍历输出。</li>
+</ul>
+<p>** 树结构又可以分为：二叉树：（完全二叉树，平衡二叉树（AVL树），排序二叉树（二叉查找树）），霍夫曼树，B树。 **</p>
 
       
 
@@ -337,15 +351,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Framework</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
