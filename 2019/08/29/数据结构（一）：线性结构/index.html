@@ -6,13 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>数据结构 | Logan Moorees</title>
+  <title>数据结构（一）：线性结构 | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="什么是数据结构？&amp;emsp;&amp;emsp;数据结构就是计算机组织，存储数据的方式。数据结构是指互相之间一种或多种特定关系的数据元素的集合。&amp;emsp;&amp;emsp;数据类型：&amp;emsp;&amp;emsp;根据数据与数据之间的互相关系，它们的逻辑结构可分为4类：&amp;emsp;&amp;emsp;1.    集合&amp;emsp;&amp;emsp;2.    线性结构&amp;emsp;&amp;emsp;3.    树形结构&amp;emsp;&amp;emsp">
 <meta name="keywords" content="数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构">
-<meta property="og:url" content="http://yoursite.com/2019/08/29/数据结构/index.html">
+<meta property="og:title" content="数据结构（一）：线性结构">
+<meta property="og:url" content="http://yoursite.com/2019/08/29/数据结构（一）：线性结构/index.html">
 <meta property="og:site_name" content="Logan Moorees">
 <meta property="og:description" content="什么是数据结构？&amp;emsp;&amp;emsp;数据结构就是计算机组织，存储数据的方式。数据结构是指互相之间一种或多种特定关系的数据元素的集合。&amp;emsp;&amp;emsp;数据类型：&amp;emsp;&amp;emsp;根据数据与数据之间的互相关系，它们的逻辑结构可分为4类：&amp;emsp;&amp;emsp;1.    集合&amp;emsp;&amp;emsp;2.    线性结构&amp;emsp;&amp;emsp;3.    树形结构&amp;emsp;&amp;emsp">
 <meta property="og:locale" content="en">
@@ -20,9 +20,10 @@
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8.png">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E5%88%A0%E9%99%A4.png">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%A0%88%E7%BB%93%E6%9E%84%E9%A1%BA%E5%BA%8F.png">
-<meta property="og:updated_time" content="2019-09-03T16:09:38.256Z">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E9%98%9F%E5%88%97.png">
+<meta property="og:updated_time" content="2019-09-04T07:58:02.306Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据结构">
+<meta name="twitter:title" content="数据结构（一）：线性结构">
 <meta name="twitter:description" content="什么是数据结构？&amp;emsp;&amp;emsp;数据结构就是计算机组织，存储数据的方式。数据结构是指互相之间一种或多种特定关系的数据元素的集合。&amp;emsp;&amp;emsp;数据类型：&amp;emsp;&amp;emsp;根据数据与数据之间的互相关系，它们的逻辑结构可分为4类：&amp;emsp;&amp;emsp;1.    集合&amp;emsp;&amp;emsp;2.    线性结构&amp;emsp;&amp;emsp;3.    树形结构&amp;emsp;&amp;emsp">
 <meta name="twitter:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8.png">
   
@@ -144,19 +145,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-数据结构" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-数据结构（一）：线性结构" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      数据结构
+      数据结构（一）：线性结构
     </h1>
   
 
         
-        <a href="/2019/08/29/数据结构/" class="archive-article-date">
+        <a href="/2019/08/29/数据结构（一）：线性结构/" class="archive-article-date">
   	<time datetime="2019-08-29T08:20:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
 </a>
         
@@ -170,7 +171,14 @@
 <h4 id="线性结构"><a href="#线性结构" class="headerlink" title="线性结构"></a>线性结构</h4><p>&emsp;&emsp;线性结构是一个有序数据元素的集合，数据元素是一对一的概念系。<br>常用的线性结构有：线性表，栈，队列，数组，串。</p>
 <h5 id="emsp-emsp-1-线性表"><a href="#emsp-emsp-1-线性表" class="headerlink" title="&emsp;&emsp; 1.    线性表"></a>&emsp;&emsp; 1.    线性表</h5><p>&emsp;&emsp;线性表中数据元素之间的关系是一对一的关系，即除了第一个和最后一个数据元素之外，其它数据元素都是首尾相接的。本质：线性表是数据结构中的逻辑结构。线性表可以通过数组（顺序存储结构）存储，也可以通过链式存储。</p>
 <h5 id="emsp-emsp-2-数组"><a href="#emsp-emsp-2-数组" class="headerlink" title="&emsp;&emsp;2.    数组"></a>&emsp;&emsp;2.    数组</h5><p>数组就是相同数据类型的元素按一定顺序排列的集合。本质：物理上存储在一组联系的地址上，也就是数据结构中的顺序存储物理结构。数组的内存是连续分配的，并且是静态分配的，即在使用数组之前需要分配固定大小的空间。可以通过索引直接得到数组中的而元素，即获取数组中元素的时间复杂度为O(1)。</p>
-<h5 id="emsp-emsp-3-链表"><a href="#emsp-emsp-3-链表" class="headerlink" title="&emsp;&emsp;3.    链表"></a>&emsp;&emsp;3.    链表</h5><p>&emsp;&emsp;链表就是线性表的链式存储方式。链表的内存是不连续的，前一个元素存储地址的下一个地址中存储的不一定是下一个元素。链表通过一个指向下一个元素地址的引用将链表中的元素串起来。<br>链表又可以分为单向链表和双向链表<br>&emsp;&emsp;&emsp;&emsp;a.    单向链表<br>&emsp;&emsp;&emsp;&emsp;每一个节点包含了数据块和指向下一个节点的指针<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8.png" alt><br>&emsp;&emsp;&emsp;&emsp;b.    双向链表<br>&emsp;&emsp;&emsp;&emsp;双向链表就是有两个方向的链表。同单向链表不同，在双向链表中每一个节点不仅存储指向下一个节点的指针，而且存储指向前一个节点的指针。通过这种方式，能够通过在O(1)时间内通过目的节点直接找到前驱节点，但是同时会增加大量的指针存储空间。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8.png" alt><br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E5%88%A0%E9%99%A4.png" alt><br>&emsp;&emsp;&emsp;&emsp;c.    栈<br>&emsp;&emsp;&emsp;&emsp;栈是一种只能在表尾进行插入或者删除的线性表，通常称为表尾端为栈顶，表头端为栈底。它是一种先进后出的线性表，既只能在表尾端插入和删除元素，分别称为入栈和出栈。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%A0%88%E7%BB%93%E6%9E%84%E9%A1%BA%E5%BA%8F.png" alt></p>
+<h5 id="emsp-emsp-3-链表"><a href="#emsp-emsp-3-链表" class="headerlink" title="&emsp;&emsp;3.    链表"></a>&emsp;&emsp;3.    链表</h5><p>&emsp;&emsp;链表就是线性表的链式存储方式。链表的内存是不连续的，前一个元素存储地址的下一个地址中存储的不一定是下一个元素。链表通过一个指向下一个元素地址的引用将链表中的元素串起来。<br>链表又可以分为单向链表和双向链表<br>&emsp;&emsp;&emsp;&emsp;a.    单向链表<br>&emsp;&emsp;&emsp;&emsp;每一个节点包含了数据块和指向下一个节点的指针<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8.png" alt><br>&emsp;&emsp;&emsp;&emsp;b.    双向链表<br>&emsp;&emsp;&emsp;&emsp;双向链表就是有两个方向的链表。同单向链表不同，在双向链表中每一个节点不仅存储指向下一个节点的指针，而且存储指向前一个节点的指针。通过这种方式，能够通过在O(1)时间内通过目的节点直接找到前驱节点，但是同时会增加大量的指针存储空间。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8.png" alt><br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E5%88%A0%E9%99%A4.png" alt><br>&emsp;&emsp;&emsp;&emsp;c.    栈<br>&emsp;&emsp;&emsp;&emsp;栈是一种只能在表尾进行插入或者删除的线性表，通常称为表尾端为栈顶，表头端为栈底。它是一种先进后出的线性表，既只能在表尾端插入和删除元素，分别称为入栈和出栈，可以通过数组和链表实现。从栈中放入取出元素的顺序有它的专属名称Last In First Out(最后进，最先出；LIFO)。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%A0%88%E7%BB%93%E6%9E%84%E9%A1%BA%E5%BA%8F.png" alt><br>&emsp;&emsp;&emsp;&emsp;d.    队列<br>&emsp;&emsp;&emsp;&emsp;一个队列queue 是一种特殊的抽象数据类型(Abstract Data Type) 或其中元素保持一定顺序的集合。其中最主要的（或则说唯一的）的在此集合上的操作是加元素到队列的末端，被称为入队/入列 enqueue；将元素从队列的前段移除，则称为出队/出列 dequeue；这让队列成为了先进先出（First-In-First-Out，FIFO）的数据结构。在先进先出的数据结构中，添加到队列中的第一个元素将会是第一个被删除的元素。队列是线性数据结构中的一种，或者更抽象地说，是一种顺序收集sequential collection。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E9%98%9F%E5%88%97.png" alt><br>&emsp;&emsp;&emsp;&emsp;e.  串<br>&emsp;&emsp;&emsp;&emsp;字符串 string 通常是字符序列，要么是文字常量，要么是某种变量。后者可能允许其元素发生突变，长度改变，或者是固定的（在创建之后）。字符串通常被认为是一种数据类型，通常作为字节（或字）的数组数据结构来实现，它存储了一系列元素，通常是使用一些字符编码的字符。字符串还可以用来表示更一般的数组或其他序列（或列表）数据类型和结构。</p>
+<p>&emsp;&emsp;&emsp;&emsp;根据所使用的编程语言和精确的数据类型，声明为字符串的变量可能会导致内存中的存储被静态地分配给预先确定的最大长度，或者可以使用动态分配来容纳可变数量的元素。</p>
+<p>&emsp;&emsp;&emsp;&emsp;当一个字符串在源代码中出现时，它被称为字符串文字或匿名字符串。<br>&emsp;&emsp;&emsp;&emsp;在数学逻辑和理论计算机科学中使用的正式语言中，string 是由一个叫做字母表的集合所选择的有限的符号序列。(<a href="https://en.wikipedia.org/wiki/String_(computer_science)" target="_blank" rel="noopener">维基百科</a>)<br>&emsp;&emsp;&emsp;&emsp;子串：串中任意几个连续的字符组成的子序列即为该串的子串</p>
+<p>&emsp;&emsp;&emsp;&emsp;主串:相应地，包含该子串的串称为主串</p>
+<p>&emsp;&emsp;&emsp;&emsp;子串的位置:子串在主串中首次出现时，该子串的首字符对应在主串中的序号，即为子串在主串中的位置。这里有一个很经典的例子用来辅助说明。例如，设A和B分别为 A=‘This is a string’ B=‘is’ 则B是A的子串，A为主串。B在A中出现了两次，其中首次出现所对应的主串位置是3。因此，称B在A中的位置为3。 特别地，空串是任意串的子串，任意串是其自身的子串。</p>
+<p>&emsp;&emsp;&emsp;&emsp;连接(concatenation)：连接是一个重要的二进制操作。对于任意两个主串中的子串s和t，它们的连接根据放置s和t 的前后顺序来定符号序列。例如，子串s = love，t = hug，那么st 就是lovehug，ts 就是huglove。</p>
+<p>&emsp;&emsp;&emsp;&emsp;前缀和后缀（prefixes and suffixes）：字符串s 可以说是t 的前缀，如果存在一个字符串u 满足条件t =su。如果u 是非空的，那么可以说s 是t 的一个合适的前缀；相应地，串s 可以说t 的后缀如果存在一个串u 满足条件t=us。如果u 是非空的，s 可以说是t 的一个合适的后缀。前缀和后缀可以说是t 的子串。</p>
+<p>&emsp;&emsp;&emsp;&emsp;旋转：串s = uv 可以被说成t 的旋转如果t = vu. 举个例子，当u = 00110, v = 01的时候，串0011001 是0100110 的旋转。<br>逆转：串的逆转就是具有相同符号单顺序相反的字符串。例如，如果s=abc（a、b和c是字母表中符号），那么s 的逆转就是cba。一个与自身相反的字符串（例如，s=madam，逆转还是madam）被称为回文 palindrome，它还包括空字符串和所有长度为1的字符串。</p>
 
       
 
@@ -331,19 +339,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -352,6 +356,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SOA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
             
             <div class="clearfix"></div>

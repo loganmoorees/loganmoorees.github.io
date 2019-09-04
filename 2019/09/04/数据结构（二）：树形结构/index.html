@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Java | Logan Moorees</title>
+  <title>数据结构（二）：树形结构 | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Logan Moorees">
-<meta property="og:url" content="http://yoursite.com/tags/Java/index.html">
+  <meta name="description" content="树形结构&amp;emsp;&amp;emsp;树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&amp;gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：  每个节点有零个或多个子节点 没有父节点的节点称">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构（二）：树形结构">
+<meta property="og:url" content="http://yoursite.com/2019/09/04/数据结构（二）：树形结构/index.html">
 <meta property="og:site_name" content="Logan Moorees">
+<meta property="og:description" content="树形结构&amp;emsp;&amp;emsp;树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&amp;gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：  每个节点有零个或多个子节点 没有父节点的节点称">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%97%A0%E5%BA%8F%E6%A0%91.jpg">
+<meta property="og:updated_time" content="2019-09-04T08:01:06.003Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Logan Moorees">
+<meta name="twitter:title" content="数据结构（二）：树形结构">
+<meta name="twitter:description" content="树形结构&amp;emsp;&amp;emsp;树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&amp;gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：  每个节点有零个或多个子节点 没有父节点的节点称">
+<meta name="twitter:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%97%A0%E5%BA%8F%E6%A0%91.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Logan Moorees" type="application/atom+xml">
   
@@ -134,60 +141,118 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-数据结构（二）：树形结构" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/30/泛型更深层次的挖掘/" class="archive-article-date">
-  	<time datetime="2019-08-30T15:45:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/30/泛型更深层次的挖掘/">泛型更深层次的挖掘</a>
+    <h1 class="article-title" itemprop="name">
+      数据结构（二）：树形结构
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/09/04/数据结构（二）：树形结构/" class="archive-article-date">
+  	<time datetime="2019-09-04T07:59:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="树形结构"><a href="#树形结构" class="headerlink" title="树形结构"></a>树形结构</h4><p>&emsp;&emsp;树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：</p>
+<ol>
+<li>每个节点有零个或多个子节点</li>
+<li>没有父节点的节点称为根节点</li>
+<li>每一个非根节点有且只有一个父节点</li>
+<li>除了根节点外，每个子节点可以分为多个不相交的子树</li>
+</ol>
+<p><strong>树的种类大范围可以分为无序树和有序树，有序树大范围可以分为二叉树和非二叉树。</strong></p>
+<ol>
+<li>节点的度：一个节点含有的子树的个数称为该节点的度；</li>
+<li>树的度：一棵树中，最大的节点的度称为树的度；</li>
+<li>叶节点或终端节点：度为零的节点；</li>
+<li>非终端节点或分支节点：度不为零的节点；</li>
+<li>父亲节点或父节点：若一个节点含有子节点，则这个节点称为其子节点的父节点；</li>
+<li>孩子节点或子节点：一个节点含有的子树的根节点称为该节点的子节点；</li>
+<li>兄弟节点：具有相同父节点的节点互称为兄弟节点；</li>
+<li>节点的层次：从根开始定义起，根为第1层，根的子节点为第2层，以此类推；</li>
+<li>深度：对于任意节点n,n的深度为从根到n的唯一路径长，根的深度为0；</li>
+<li>高度：对于任意节点n,n的高度为从n到一片树叶的最长路径长，所有树叶的高度为0；</li>
+<li>堂兄弟节点：父节点在同一层的节点互为堂兄弟；</li>
+<li>节点的祖先：从根到该节点所经分支上的所有节点；</li>
+<li>子孙：以某节点为根的子树中任一节点都称为该节点的子孙。</li>
+<li>森林：由m（m&gt;=0）棵互不相交的树的集合称为森林；<h4 id="无序树"><a href="#无序树" class="headerlink" title="无序树"></a>无序树</h4>&emsp;&emsp;树中任意节点的子节点之间没有顺序关系，这种树称为无序树，也称为自由树。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%97%A0%E5%BA%8F%E6%A0%91.jpg" alt></li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/09/02/网络协议/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">网络协议</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -210,9 +275,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
