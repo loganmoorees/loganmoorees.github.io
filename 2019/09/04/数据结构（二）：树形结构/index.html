@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E4%BA%8C%E5%8F%89%E6%A0%912%20.png">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%B9%B3%E8%A1%A1%E5%9B%A0%E5%AD%90.jpg">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%A4%B1%E8%A1%A1%E5%AD%90%E6%A0%91.jpg">
-<meta property="og:updated_time" content="2019-09-06T08:59:37.115Z">
+<meta property="og:updated_time" content="2019-09-06T09:07:14.616Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构（二）：树形结构">
 <meta name="twitter:description" content="树形结构&amp;emsp;&amp;emsp;树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&amp;gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：  每个节点有零个或多个子节点 没有父节点的节点称">
@@ -200,7 +200,7 @@
 <li>后序遍历；左子树-&gt;右子树-&gt;根节点。</li>
 <li>层次遍历；根据层次遍历的顺序，每一层都按照从左到右的遍历输出。</li>
 </ul>
-<p><strong>树结构又可以分为：二叉树（二叉树，完全二叉树，平衡二叉树（AVL树），排序二叉树（二叉查找树）），霍夫曼树，B树等等</strong><br>&emsp;&emsp;二叉树：&emsp;二叉查找树（BST），笛卡尔树，MVP树，Top treeT，树<br>&emsp;&emsp;自平衡二叉查找树：&emsp;AA树,AVL树,左倾红黑树,红黑树替,罪羊树,伸展树,树堆,加权平衡树<br>&emsp;&emsp;B树：&emsp;B+树，B<em>树，Bx树，UB树，2-3树，2-3-4树，(a,b)-树，Dancing tree，H树<br>&emsp;&emsp;堆：&emsp;二叉堆，二项堆，斐波那契堆，左偏树配对，堆斜，堆Van，Emde Boas tree<br>&emsp;&emsp;二叉空间分割（BSP）树：&emsp;四叉树，八叉树，k-d树，隐式k-d树，VP树<br>&emsp;&emsp;非二叉树：&emsp;指数树，融合树，区间树，PQ树，Range tree，SPQR树<br>&emsp;&emsp;空间数据分割树：&emsp;R树，R</em>树，R+树，X树，M树，线段树，可持久化线段树，希尔伯特R树，优先R树</p>
+<p><strong>树结构又可以分为：二叉树（二叉树，完全二叉树，平衡二叉树（AVL树），排序二叉树（二叉查找树）），霍夫曼树，B树等等</strong><br>        二叉树：二叉查找树（BST），笛卡尔树，MVP树，Top treeT，树<br>        自平衡二叉查找树：AA树,AVL树,左倾红黑树,红黑树替,罪羊树,伸展树,树堆,加权平衡树<br>        B树：B+树，B<em>树，Bx树，UB树，2-3树，2-3-4树，(a,b)-树，Dancing tree，H树<br>        堆：二叉堆，二项堆，斐波那契堆，左偏树配对，堆斜，堆Van，Emde Boas tree<br>        二叉空间分割（BSP）树：四叉树，八叉树，k-d树，隐式k-d树，VP树<br>        非二叉树：指数树，融合树，区间树，PQ树，Range tree，SPQR树<br>        空间数据分割树：R树，R</em>树，R+树，X树，M树，线段树，可持久化线段树，希尔伯特R树，优先R树</p>
 <h4 id="平衡二叉树（AVL树）"><a href="#平衡二叉树（AVL树）" class="headerlink" title="平衡二叉树（AVL树）"></a>平衡二叉树（AVL树）</h4><p>&emsp;&emsp;在计算机科学中，AVL树是最早被发明的自平衡二叉查找树。在AVL树中，任一节点对应的两棵子树的最大高度差为1，因此它也被称为高度平衡树。查找、插入和删除在平均和最坏情况下的时间复杂度都是$$ O(logn) $$。增加和删除元素的操作则可能需要借由一次或多次树旋转，以实现树的重新平衡。<br>&emsp;&emsp;节点的平衡因子是它的左子树的高度减去它的右子树的高度（有时相反）。带有平衡因子1、0或 -1的节点被认为是平衡的。带有平衡因子 -2或2的节点被认为是不平衡的，并需要重新平衡这个树。平衡因子可以直接存储在每个节点中，或从可能存储在节点中的子树高度计算出来。</p>
 <p>&emsp;&emsp;二叉搜索树一定程度上可以提高搜索效率，但是当原序列有序时，例如序列 A = {1，2，3，4}，构造二叉搜索树如图，依据此序列构造的二叉搜索树为右斜树，同时二叉树退化成单链表，搜索效率降低为 O(n)。<br><a href="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%A0%91%E9%93%BE%E8%A1%A8.jpg" target="_blank" rel="noopener">https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%A0%91%E9%93%BE%E8%A1%A8.jpg</a><br>&emsp;&emsp;在此二叉搜索树中查找元素 4 需要查找 4 次。</p>
 <p>&emsp;&emsp;二叉搜索树的查找效率取决于树的高度，因此保持树的高度最小，即可保证树的查找效率。同样的序列 A，将其改为图 1.2 的方式存储，查找元素 4 时只需比较 2 次，查找效率提升一倍。</p>
@@ -360,6 +360,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络协议</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Framework</a>
               </li>
              
@@ -369,10 +373,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络协议</a>
               </li>
              
               <li class="article-tag-list-item">
