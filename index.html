@@ -156,15 +156,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="Linux介绍"><a href="#Linux介绍" class="headerlink" title="Linux介绍"></a>Linux介绍</h4><p>&emsp;&emsp;Linux就是一个操作系统，Linus Torvalds开发的内核，严格来说是单指操作系统的内核，因操作系统中包含了许多用户图形接口和其他实用工具。如今Linux常用来指基于Linux的完整操作系统，内核则改以Linux内核称之。主要有三部分组成：<br>    1. Linux内核，内核是操作系统的核心，具有很多基本功能，如虚拟内存，多任务，共享库，需求加载，可执行的TCP/IP网络功能；Linux的内核模块分为以下几部分：存储管理、CPU和进程管理、文件系统、设备管理和驱动、网络通信、系统初始化和系统调用等。<br>    2. Linux文件系统，文件系统是文件存放在磁盘等存储设备上的组织方法。Linux系统能支持多种目前流行的文件系统。<br>    3. Shell，shell是系统的用户界面，提供了用户与内核进行交互操作的一种接口。它接受用户输入的命令并把它送入内核去执行，是一个命令解释器，另外，Shell编程语言具有普通编程语言的很多特点，用这种编程语言编写的shell程序与其他重新具有同样的效果。</p>
-<pre><code>优点：
-    1. 稳定：Windows卡住直接卡死了，而Linux不影响其他程序。不会“崩盘”；
-    2. 开源的：更多人参与进来，一起为Linux的发展做出贡献，软件透明度高，信任好；
-    3. 更安全：Linux权限很严格，没有管理员密码，即使有病毒木马也不会影响到核心重要文件。
-缺点：
-    1. 资源数量不如Windows，Windows流行度比Linux高很多；
-    2. 学习成本高
-    3. 图形界面不行，饱受诟病</code></pre><h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><p><code>pwd</code> 显示你当前所在目录<br><code>mkdir</code>创建目录<br><code>rmkdir</code> 只能删除空目录，包含文件的用<code>rm</code><br><code>rm</code>删除文件和目录，<code>rm -r</code>只删除目录<br><code>touch</code>用于创建文件<br><code>cp</code> 复制命令（copy），它需要两个参数：第一个是要复制的文件的位置，第二个是要复制的位置。<br><code>mv</code> 移动命令，还可以重命名，它也需要两个参数，第一个移动的起始位置，第二个移动的目标位置<br><code>locate</code>查找命令,不知道文件的保存位置或文件的实际名称时，想要一个包含单词“hello”的文件，<code>locate -i hello</code>，它会给出包含单词“hello”的Linux系统中所有文件的列表，多个单词之间用星号分割，<code>locate -i * hello * this”</code>包含”hello”和”this”单词，<code>-i</code>是忽略大小写</p>
+        <h4 id="Linux介绍"><a href="#Linux介绍" class="headerlink" title="Linux介绍"></a>Linux介绍</h4><p>&emsp;&emsp;Linux就是一个操作系统，Linus Torvalds开发的内核，严格来说是单指操作系统的内核，因操作系统中包含了许多用户图形接口和其他实用工具。如今Linux常用来指基于Linux的完整操作系统，内核则改以Linux内核称之。主要有三部分组成：<br>&emsp;&emsp;1. Linux内核，内核是操作系统的核心，具有很多基本功能，如虚拟内存，多任务，共享&emsp;&emsp;库，需求加载，可执行的TCP/IP网络功能；Linux的内核模块分为以下几部分：存储管理、CPU和进程管理、文件系统、设备管理和驱动、网络通信、系统初始化和系统调用等。<br>&emsp;&emsp;2. Linux文件系统，文件系统是文件存放在磁盘等存储设备上的组织方法。Linux系统能支持多种目前流行的文件系统。<br>&emsp;&emsp;3. Shell，shell是系统的用户界面，提供了用户与内核进行交互操作的一种接口。它接受用户输入的命令并把它送入内核去执行，是一个命令解释器，另外，Shell编程语言具有普通编程语言的很多特点，用这种编程语言编写的shell程序与其他重新具有同样的效果。</p>
+<p>&emsp;&emsp;优点：<br>&emsp;&emsp;&emsp;&emsp;1. 稳定：Windows卡住直接卡死了，而Linux不影响其他程序。不会“崩盘”；<br>&emsp;&emsp;&emsp;&emsp;2. 开源的：更多人参与进来，一起为Linux的发展做出贡献，软件透明度高，信任好；<br>&emsp;&emsp;&emsp;&emsp;3. 更安全：Linux权限很严格，没有管理员密码，即使有病毒木马也不会影响到核心重要文件。<br>&emsp;&emsp;缺点：<br>&emsp;&emsp;&emsp;&emsp;1. 资源数量不如Windows，Windows流行度比Linux高很多；<br>&emsp;&emsp;&emsp;&emsp;2. 学习成本高<br>&emsp;&emsp;&emsp;&emsp;3. 图形界面不行，饱受诟病</p>
+<h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><p><code>pwd</code> 显示你当前所在目录<br><code>mkdir</code>创建目录<br><code>rmkdir</code> 只能删除空目录，包含文件的用<code>rm</code><br><code>rm</code>删除文件和目录，<code>rm -r</code>只删除目录<br><code>touch</code>用于创建文件<br><code>cp</code> 复制命令（copy），它需要两个参数：第一个是要复制的文件的位置，第二个是要复制的位置。<br><code>mv</code> 移动命令，还可以重命名，它也需要两个参数，第一个移动的起始位置，第二个移动的目标位置<br><code>locate</code>查找命令,不知道文件的保存位置或文件的实际名称时，想要查找a.txt文件，<code>locate a.txt</code>，<br>它的搜索速度要比find快很多，但是不是实时的，在索引数据库中查找，在查找前先运行<code>updatedb</code><br><code>echo</code> <code>echo 这是我新加的数据 &gt;&gt; a.txt</code>这个是在文件后面追加数据，<code>echo 这是我再次新加的数据 &gt; a.txt</code>这个会覆盖原来的文件（慎用）</p>
 
       
 
@@ -881,11 +875,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
               </li>
              
               <li class="article-tag-list-item">
