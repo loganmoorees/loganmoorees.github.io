@@ -136,6 +136,184 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/07/Nginx/">Nginx</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/07/Nginx/" class="archive-article-date">
+  	<time datetime="2019-12-07T11:47:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><h5 id="nginx-conf文件"><a href="#nginx-conf文件" class="headerlink" title="nginx.conf文件"></a>nginx.conf文件</h5><p>   Nginx.conf配置文件主要有六部分组成；</p>
+<pre><code>main：nginx全局配置
+events：用于nginx工作模式的配置
+http：用于进行http协议信息的一些配置
+server：用于进行服务器访问信息的配置
+location：用于进行访问路由的配置
+upstream：用于进行负载均衡的配置</code></pre><p>   conf配置如下：</p>
+<pre><code># main部分
+user  www www;
+worker_processes   auto;    #worker角色的工作进程的个数
+error_log   /www/wwwlogs/nginx_error.log  crit;   #错误日志
+pid        /www/server/nginx/logs/nginx.pid;   #用来指定进程id的存储文件的位置
+worker_rlimit_nofile 51200;   #默认是没有设置，可以限制为操作系统最大限制65535。
+
+# events部分
+events
+    {
+        use epoll;      #
+        worker_connections 51200;   指定最大可以同时接收的连接数量
+        multi_accept on;    配置指定nginx在收到一个新连接通知后尽可能多的接受更多的连接
+    }
+# http配置
+http
+{
+    # 基础配置
+        include       mime.types;   
+        #include luawaf.conf;
+        include proxy.conf;
+        default_type  application/octet-stream;
+        server_names_hash_bucket_size 512;
+        client_header_buffer_size 32k;
+        large_client_header_buffers 4 32k;
+        client_max_body_size 50m;
+
+        sendfile   on;   #配置on让sendfile发挥作用，将文件的回写过程交给数据缓冲去去完成，而不是放在应用中完成，这样的话在性能提升有有好处
+        tcp_nopush on;  #让nginx在一个数据包中发送所有的头文件，而不是一个一个单独发
+
+        keepalive_timeout 60;   #传输超时时间60s
+
+        tcp_nodelay on;   #让nginx不要缓存数据，而是一段一段发送
+
+        fastcgi_connect_timeout 300;    
+        fastcgi_send_timeout 300;
+        fastcgi_read_timeout 300;
+        fastcgi_buffer_size 64k;
+        fastcgi_buffers 4 64k;
+        fastcgi_busy_buffers_size 128k;
+        fastcgi_temp_file_write_size 256k;
+        fastcgi_intercept_errors on;
+
+        # gzip压缩功能设置
+        gzip on;
+        gzip_min_length  1k;
+        gzip_buffers     4 16k;
+        gzip_http_version 1.1;
+        gzip_comp_level 2;
+        gzip_types     text/plain application/javascript application/x-javascript text/javascript text/css application/xml;
+        gzip_vary on;
+        gzip_proxied   expired no-cache no-store private auth;
+        gzip_disable   &quot;MSIE [1-6]\.&quot;;
+
+        limit_conn_zone $binary_remote_addr zone=perip:10m;
+        limit_conn_zone $server_name zone=perserver:10m;
+
+        server_tokens off;
+        access_log off;
+# upstream配置(负载均衡)
+upstream  backend  { 
+              #ip_hash;    #策略
+              server   192.168.10.100:8080 max_fails=2 fail_timeout=30s ;  
+              server   192.168.10.101:8080 max_fails=2 fail_timeout=30s ;  
+    }
+
+# server配置
+server {
+    listen       80;          #端口
+    server_name  localhost;   #名称
+
+    #charset  utf-8;         #编码格式
+    #access_log  /var/log/nginx/host.access.log  main;
+
+    #location配置（转发和反向代理）
+    location / {
+        root   /home/hsh/data/www;
+        index  index.html index.htm;
+    }
+
+    location /hsh_web/ {
+        proxy_pass http://localhost:8080/;    #代理地址
+        #以下是一些反向代理的配置可删除
+        proxy_redirect             off;
+        #后端的Web服务器可以通过X-Forwarded-For获取用户真实IP
+        proxy_set_header           Host $host;
+        proxy_set_header           X-Real-IP $remote_addr;
+        proxy_set_header           X-Forwarded-For $proxy_add_x_forwarded_for;
+        client_max_body_size       100m; #允许客户端请求的最大单文件字节数
+        client_body_buffer_size    128k; #缓冲区代理缓冲用户端请求的最大字节数
+        proxy_connect_timeout      300; #nginx跟后端服务器连接超时时间(代理连接超时)
+        proxy_send_timeout         300; #后端服务器数据回传时间(代理发送超时)
+        proxy_read_timeout         300; #连接成功后，后端服务器响应时间(代理接收超时)
+        proxy_buffer_size          4k; #设置代理服务器（nginx）保存用户头信息的缓冲区大小
+        proxy_buffers              4 32k; #proxy_buffers缓冲区，网页平均在32k以下的话，这样设置
+        proxy_busy_buffers_size    64k; #高负荷下缓冲大小（proxy_buffers*2）
+        proxy_temp_file_write_size 64k; #设定缓存文件夹大小，大于这个值，将从upstream服务器传
+    }
+}</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/07/Nginx/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Lambda表达式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -946,19 +1124,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
               </li>
              
               <li class="article-tag-list-item">
