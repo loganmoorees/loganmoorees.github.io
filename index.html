@@ -169,13 +169,8 @@
 <li>从性能来说：如果锁的竞争不激烈，两者性能差不多，但是如果竞争激烈的情况，Lock性能优于Synchronized</li>
 <li>从锁的状态来说： Synchronized不可判断锁的状态，而Lock可以获取到锁的状态</li>
 </ol>
-<h4 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a>volatile关键字</h4><p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/volatile.png" alt></p>
-<p>最早在C和C++中存在，Java5之后启用的关键字，说起volatile首先说到Java内存模型，在程序执行过程中都是由CPU执行的，在执行的过程中肯定有读取和写入，CPU小速度快，内存大速度较慢，因此CPU与内存之间就有了高速缓存，也称为工作内存，在执行过程中，<br>会将主存的数据复制到缓存中去，运算完毕之后，又将缓存的数据刷新到主存中去，所以在多线程环境中，每个线程都有自己的缓存，假设两个线程同时执行i++操作，结果就会出现不可预测的情况。<br>在并发编程有三个概念：</p>
-<ol>
-<li>原子性：不可能结果出现又等于1又等于2的情况，要么是1要么是2</li>
-<li>可见性：在多线程，一个线程修改了共同的变量，另一个线程马上能够知道</li>
-<li>有序性：CPU在执行的过程中，会对指令重排序，进行优化，有可能第四行代码先执行，第三行代码后执行<br>volatile关键字的作用是：保证内存可见性，禁止指令重排序，不保证原子性</li>
-</ol>
+<h4 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a>volatile关键字</h4><p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/volatile.png" alt="Java内存模型"></p>
+<p>最早在C和C++中存在，Java5之后启用的关键字，说起volatile首先说到Java内存模型，在程序执行过程中都是由CPU执行的，在执行的过程中肯定有读取和写入，CPU小速度快，内存大速度较慢，因此CPU与内存之间就有了高速缓存，也称为工作内存，在执行过程中，<br>会将主存的数据复制到缓存中去，运算完毕之后，又将缓存的数据刷新到主存中去，所以在多线程环境中，每个线程都有自己的缓存，假设两个线程同时执行i++操作，结果就会出现不可预测的情况。<br>在并发编程有三个概念：<br> 1.原子性：不可能结果出现又等于1又等于2的情况，要么是1要么是2<br> 2.可见性：在多线程，一个线程修改了共同的变量，另一个线程马上能够知道<br> 3.有序性：CPU在执行的过程中，会对指令重排序，进行优化，有可能第四行代码先执行，第三行代码后执行<br>volatile关键字的作用是：保证内存可见性，禁止指令重排序，不保证原子性</p>
 </li>
 </ol>
 <p>为什么不保证原子性：<br>假设o = 1; 线程1做了o++操作，线程2也做o++操作，线程1拿到o = 1后阻塞了，线程2此时执行了o++后， o为2，刷新到主存中去，线程1读取到的是o = 1；做o ++操作为2，继续刷新到主存，此时刷新了两次主存，所以不保证原子性<br>Java.util.concurrent.atomic包下对各种基本类型做了封装，采用CAS机制保证原子性操作类。</p>
@@ -1041,15 +1036,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Framework</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
