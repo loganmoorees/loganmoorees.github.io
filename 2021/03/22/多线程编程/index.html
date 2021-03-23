@@ -6,23 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>SpringCloud | Logan Moorees</title>
+  <title>多线程编程 | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;emsp;&amp;emsp;Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。">
-<meta name="keywords" content="Framework,微服务,SOA">
+  <meta name="description" content="什么是并发。与并行的区别&amp;nbsp;&amp;nbsp;在Web程序中，有多人同时访问的情况下，并发强调的是同时执行，而并行强调的是多任务交替执行，每个任务互不干扰。 线程是什么，和进程协程的区别&amp;nbsp;&amp;nbsp;线程是资源分配的最小单位，也是CPU调度的最小单位，包含在进程之中，是进程实际运作的单位，进程需要依赖线程，一个进程中至少有一个线程。&amp;nbsp;&amp;nbsp;协程又叫做微线程，协程拥有自己">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringCloud">
-<meta property="og:url" content="http://yoursite.com/2019/08/29/SpringCloud/index.html">
+<meta property="og:title" content="多线程编程">
+<meta property="og:url" content="http://yoursite.com/2021/03/22/多线程编程/index.html">
 <meta property="og:site_name" content="Logan Moorees">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。">
+<meta property="og:description" content="什么是并发。与并行的区别&amp;nbsp;&amp;nbsp;在Web程序中，有多人同时访问的情况下，并发强调的是同时执行，而并行强调的是多任务交替执行，每个任务互不干扰。 线程是什么，和进程协程的区别&amp;nbsp;&amp;nbsp;线程是资源分配的最小单位，也是CPU调度的最小单位，包含在进程之中，是进程实际运作的单位，进程需要依赖线程，一个进程中至少有一个线程。&amp;nbsp;&amp;nbsp;协程又叫做微线程，协程拥有自己">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/eureka">
-<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/zuul.jpg">
-<meta property="og:updated_time" content="2019-08-29T09:06:55.000Z">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/volatile.png">
+<meta property="og:updated_time" content="2021-03-23T03:26:19.272Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SpringCloud">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。">
-<meta name="twitter:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/eureka">
+<meta name="twitter:title" content="多线程编程">
+<meta name="twitter:description" content="什么是并发。与并行的区别&amp;nbsp;&amp;nbsp;在Web程序中，有多人同时访问的情况下，并发强调的是同时执行，而并行强调的是多任务交替执行，每个任务互不干扰。 线程是什么，和进程协程的区别&amp;nbsp;&amp;nbsp;线程是资源分配的最小单位，也是CPU调度的最小单位，包含在进程之中，是进程实际运作的单位，进程需要依赖线程，一个进程中至少有一个线程。&amp;nbsp;&amp;nbsp;协程又叫做微线程，协程拥有自己">
+<meta name="twitter:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/volatile.png">
   
     <link rel="alternative" href="/atom.xml" title="Logan Moorees" type="application/atom+xml">
   
@@ -142,40 +140,52 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-SpringCloud" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="w-多线程编程" class="article article-type-w " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      SpringCloud
+      多线程编程
     </h1>
   
 
         
-        <a href="/2019/08/29/SpringCloud/" class="archive-article-date">
-  	<time datetime="2019-08-29T08:51:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
+        <a href="/2021/03/22/多线程编程/" class="archive-article-date">
+  	<time datetime="2021-03-22T01:13:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&emsp;&emsp;Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。</p>
-<a id="more"></a>
-
-<h5 id="Eureka（服务注册与发现）："><a href="#Eureka（服务注册与发现）：" class="headerlink" title="Eureka（服务注册与发现）："></a>Eureka（服务注册与发现）：</h5><p>&emsp;&emsp;Eureka是Netflix子模块之一，也是核心模块之一， 是一个基REST(Representational State Transfer)的服务，主要用于AWS云，用于定位服务，以实现中间层服务器的负载平衡和故障转移。我们将此服务称为Eureka Server。Eureka还附带了一个基于Java的客户端组件Eureka Client，它使与服务的交互变得更加容易。客户端还有一个内置的负载均衡器，可以进行基本的循环负载均衡。在Netflix，一个更复杂的负载均衡器包含Eureka基于流量，资源使用，错误条件等多种因素提供加权负载平衡，以提供卓越的弹性。（来自GitHub Eureka Wiki）<br>理解：首先Eureka是为了解决AWS庞大云集群而诞生的，当服务多了，服务错综复杂，难以管理，Eureka提供了服务管理类似Dubbo的注册中心的作用。每个服务都是一个实例，每个实例都需要一个统一的名称或者服务ID。其他服务调用接口时候，可以看到多个该服务实例信息，根据负载均衡策略或者提供某个服务调用信息后，调用者直接调用该实例。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/eureka" alt></p>
-<h5 id="emsp-emsp-Eureka官方Wiki架构图："><a href="#emsp-emsp-Eureka官方Wiki架构图：" class="headerlink" title="&emsp;&emsp;Eureka官方Wiki架构图："></a>&emsp;&emsp;Eureka官方Wiki架构图：</h5><h5 id="emsp-emsp-Eureka-Server：表示注册中心集群"><a href="#emsp-emsp-Eureka-Server：表示注册中心集群" class="headerlink" title="&emsp;&emsp;Eureka Server：表示注册中心集群"></a>&emsp;&emsp;Eureka Server：表示注册中心集群</h5><h5 id="emsp-emsp-us-east-xxx：表示集群所在的区域"><a href="#emsp-emsp-us-east-xxx：表示集群所在的区域" class="headerlink" title="&emsp;&emsp;us-east-xxx：表示集群所在的区域"></a>&emsp;&emsp;us-east-xxx：表示集群所在的区域</h5><h5 id="emsp-emsp-Application-Service：表示服务提供者"><a href="#emsp-emsp-Application-Service：表示服务提供者" class="headerlink" title="&emsp;&emsp;Application Service：表示服务提供者"></a>&emsp;&emsp;Application Service：表示服务提供者</h5><h5 id="emsp-emsp-Application-Client：表示服务消费者"><a href="#emsp-emsp-Application-Client：表示服务消费者" class="headerlink" title="&emsp;&emsp;Application Client：表示服务消费者"></a>&emsp;&emsp;Application Client：表示服务消费者</h5><h5 id="emsp-emsp-Eureka-Client：表示Eureka客户端"><a href="#emsp-emsp-Eureka-Client：表示Eureka客户端" class="headerlink" title="&emsp;&emsp;Eureka Client：表示Eureka客户端"></a>&emsp;&emsp;Eureka Client：表示Eureka客户端</h5><p>&emsp;&emsp;每个都us-east区域有个Server和多个提供者和调用者。提供者启动后向Eureka Server注册中心注册服务，包括IP、Port、服务名等信息。消费者启动后从Eureka Server拉取注册列表。消费者发起远程调用的时候优先调用本区域内的Application Service。如果本区内没有可用的Application Service，才会发起对其他区内的Service调用。不同区域的服务调用过程：区域内的Application Service启动后，向本区内的Eureka Server注册服务信息。并跟本区内的Eureka Server维持心跳续约。不同区域内的Eureka Server会将服务信息互相同步。</p>
-<p>&emsp;&emsp;Application Service内的Eureka Client后台启动一个定时任务，跟Eureka Server保持一个心跳续约任务，每隔一段时间(默认30S)向Eureka Server发送一次renew请求，进行续约，告诉Eureka Server我还活着，防止被Eureka Server的Evict任务剔除。</p>
-<h4 id="emsp-emsp-服务下线："><a href="#emsp-emsp-服务下线：" class="headerlink" title="&emsp;&emsp;服务下线："></a>&emsp;&emsp;服务下线：</h4><p>&emsp;&emsp;Application Service应用停止后，向Eureka Server发送一个cancel请求，告诉注册中心我已经退出了，Eureka Server接收到之后会将其移出注册列表，后面再有获取注册服务列表的时候就获取不到了，防止消费端消费不可用的服务。</p>
-<h4 id="emsp-emsp-自我保护机制："><a href="#emsp-emsp-自我保护机制：" class="headerlink" title="&emsp;&emsp;自我保护机制："></a>&emsp;&emsp;自我保护机制：</h4><p>&emsp;&emsp;默认情况下，当eureka server在一定时间内没有收到实例的心跳，便会把该实例从注册表中删除（默认是90秒），但是，如果短时间内丢失大量的实例心跳，便会触发eureka server的自我保护机制。<br>&emsp;&emsp;该保护机制的目的是避免网络连接故障，在发生网络故障时，微服务和注册中心之间无法正常通信，但服务本身是健康的，不应该注销该服务，如果eureka因网络故障而把微服务误删了，那即使网络恢复了，该微服务也不会重新注册到eureka server了，因为只有在微服务启动的时候才会发起注册请求，后面只会发送心跳和服务列表请求，这样的话，该实例虽然是运行着，但永远不会被其它服务所感知。所以，eureka server在短时间内丢失过多的客户端心跳时，会进入自我保护模式，该模式下，eureka会保护注册表中的信息，不在注销任何微服务，当网络故障恢复后，eureka会自动退出保护模式。自我保护模式可以让集群更加健壮。</p>
-<h5 id="emsp-emsp-和Zookeep的比较："><a href="#emsp-emsp-和Zookeep的比较：" class="headerlink" title="&emsp;&emsp;和Zookeep的比较："></a>&emsp;&emsp;和Zookeep的比较：</h5><p>&emsp;&emsp;根据CAP理论，Zookeep保证的是CP，而Eureka遵守的是AP原则，ZooKeeper基于CP，不保证高可用，如果zookeeper正在选主，或者Zookeeper集群中半数以上机器不可用，那么将无法获得数据。Eureka基于AP，能保证高可用，即使所有机器都挂了，也能拿到本地缓存的数据。作为注册中心，其实配置是不经常变动的，只有发版和机器出故障时会变。对于不经常变动的配置来说，CP是不合适的，而AP在遇到问题时可以用牺牲一致性来保证可用性，既返回旧数据，缓存数据。因为在Server中，Server端是不经常改动的，SpringCloud设计过程中，也结合了Dubbo的案例，在集群中，分区容错性比强一致性更重要。避免了整个服务的瘫痪。</p>
-<h5 id="Feign（负载均衡）"><a href="#Feign（负载均衡）" class="headerlink" title="Feign（负载均衡）"></a>Feign（负载均衡）</h5><p>&emsp;&emsp;Feign是一个声明式WebService客户端，它主要作用是将服务提供者和消费者连接起来的一个工具，从而服务与消费功能更加明确。</p>
-<h5 id="Hystrix（断路器：服务熔断降级监控）："><a href="#Hystrix（断路器：服务熔断降级监控）：" class="headerlink" title="Hystrix（断路器：服务熔断降级监控）："></a>Hystrix（断路器：服务熔断降级监控）：</h5><p>&emsp;&emsp; <strong>在分布式环境中，许多服务依赖项中的一些不可避免地会失败。Hystrix是一个库，可通过添加延迟容错和容错逻辑来帮助您控制这些分布式服务之间的交互。Hystrix通过隔离服务之间的访问点，阻止它们之间的级联故障以及提供后备选项来实现这一目标，所有这些都可以提高系统的整体弹性。（来自Wiki）&emsp;&emsp;在分布式环境中，许多服务依赖项中的一些不可避免地会失败。Hystrix是一个库，可通过添加延迟容错和容错逻辑来帮助您控制这些分布式服务之间的交互。Hystrix通过隔离服务之间的访问点，阻止它们之间的级联故障以及提供后备选项来实现这一目标，所有这些都可以提高系统的整体弹性。（来自Wiki）</strong></p>
-<p>&emsp;&emsp;理解： 首先是降级，在每年年底12306都是最繁忙的时候，那么再这个情况会发现有一些神奇的情况：当到了指定的时间，大家开始抢票的时候，如果你不抢，而后查询一些冷门的车次，票有可能查询不出来。因为这个时候会将所有的系统资源给抢票调度了，而其他的服务由于其暂时不受到过多的关注，这个时候可以考虑将服务降级（服务暂停）,整体资源快不够了，忍痛将某些服务先关掉，渡过难关再开回来。<br>&emsp;&emsp;熔断，如果A服务调用B服务，B服务依赖C服务，但是C服务超时会出现什么情况，整个系统就挂了，也就是feign去调别人的接口，出现问题了，会等待，当更多的服务请求到这些资源时，发生连锁效应，雪崩，有了断路器。一定时间内 达到一定的次数无法调用 并且多次检测没有恢复的迹象 断路器完全打开，那么下次请求就不会请求到该服务。短时间内 有恢复迹象 断路器会将部分请求发给该服务 当能正常调用时 断路器关闭。有了断路器，本服务就有个备选方案，当请求到其他服务时候，那边超时了，就使用备选方案，避免了连锁雪崩。<br>&emsp;&emsp;监控，Hystrix提供了准实时的调用监控，Hystr会持续的记录所有通过Hystrix发起的请求执行信息，并以统计报表和图形的方式展现出来，包括每秒执行了多少成功和失败等等，有了监控，更增加了服务的壮健性。</p>
-<h5 id="Zuul-动态路由，监控，弹性和安全-："><a href="#Zuul-动态路由，监控，弹性和安全-：" class="headerlink" title="Zuul(动态路由，监控，弹性和安全)："></a>Zuul(动态路由，监控，弹性和安全)：</h5><p>&emsp;&emsp;<strong>Zuul是从设备和网站到Netflix流应用程序后端的所有请求的前门。作为边缘服务应用程序，Zuul旨在实现动态路由，监控，弹性和安全性。（来自Wiki）</strong><br>&emsp;&emsp;理解：Zuul包含了对请求的路由和过滤两个最主要的功能，其中路由的功能负责将外部请求转发到具体服务实例上，是实现外部请求访问统一入口的基础，而过滤器负责对请求的处理过程进行干预，是实现请求校验，服务聚合等功能的基础。Zuul自身就是一个服务，通过注册进Eureka中，并获得其他服务信息。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/zuul.jpg" alt></p>
-<h4 id="emsp-emsp-为什么需要Zuul："><a href="#emsp-emsp-为什么需要Zuul：" class="headerlink" title="&emsp;&emsp;为什么需要Zuul："></a>&emsp;&emsp;为什么需要Zuul：</h4><p>&emsp;&emsp;假设现在服务要迁移，原来的旧代码不动，通过url映射就可以原封不动的进行迁移。<br>由于zuul充当着所有请求的前门，在zuul中可以解决所有请求跨域的问题，和token解析的问题，zuul能够解决所有服务之间的跨域，假设有个伪造的错误toekn，zuul解析token出现问题根本不用请求服务，直接返回错误给前端。<br>限流，假设接口要暴露出来，防止用户恶意攻击，根据用户IP和接口进行限流。</p>
+        <h4 id="什么是并发。与并行的区别"><a href="#什么是并发。与并行的区别" class="headerlink" title="什么是并发。与并行的区别"></a>什么是并发。与并行的区别</h4><p>&nbsp;&nbsp;在Web程序中，有多人同时访问的情况下，并发强调的是同时执行，而并行强调的是多任务交替执行，每个任务互不干扰。</p>
+<h4 id="线程是什么，和进程协程的区别"><a href="#线程是什么，和进程协程的区别" class="headerlink" title="线程是什么，和进程协程的区别"></a>线程是什么，和进程协程的区别</h4><p>&nbsp;&nbsp;线程是资源分配的最小单位，也是CPU调度的最小单位，包含在进程之中，是进程实际运作的单位，进程需要依赖线程，一个进程中至少有一个线程。<br>&nbsp;&nbsp;协程又叫做微线程，协程拥有自己的寄存器上下文和栈。协程调度切换时，将寄存器上下文和栈保存到其他地方，在切回来的时候，恢复先前保存的寄存器上下文和栈，<br>每次过程重入时，就相当于进入上一次调用的状态，换种说法：进入上一次离开时所处逻辑流的位置。<br>&nbsp;&nbsp;优点：无需线程上下文切换的开销,无需原子操作锁定及同步的开销,方便切换控制流，简化编程模型<br>&nbsp;&nbsp;缺点：无法利用多核资源：协程的本质是个单线程,它不能同时将 单个CPU 的多个核用上,协程需要和进程配合才能运行在多CPU上，进行阻塞（Blocking）操作（如IO时）会阻塞掉整个程序</p>
+<h4 id="什么是线程安全"><a href="#什么是线程安全" class="headerlink" title="什么是线程安全"></a>什么是线程安全</h4><p>在多线程环境中，不管多少个线程同时执行，结果跟预期的正确结果一致，跟单线程执行的结果一致，则是线程安全的，如果跟单线程执行的结果不一致，有可能发生偏差，称之为线程不安全的。</p>
+<h4 id="这么保证线程安全"><a href="#这么保证线程安全" class="headerlink" title="这么保证线程安全"></a>这么保证线程安全</h4><p>使用线程安全的类，如java.util.concurrent.atomic包中的类<br>加锁，使用同步锁或者lock锁</p>
+<h4 id="Synchronized和Lock的区别"><a href="#Synchronized和Lock的区别" class="headerlink" title="Synchronized和Lock的区别"></a>Synchronized和Lock的区别</h4><ol>
+<li><p>在层次上： Synchronized是Java关键字，而Lock是位于java.uitl.concurrent.locks包下的接口。</p>
+</li>
+<li><p>从锁的获取来说： 使用Synchronized获取到了锁，其他的线程都需要等待，而Lock锁的获取有多种方式：<br> a. lock.lock();获取锁，如被锁定则等待，拿不到lock就不罢休，不然线程一直block，比较无赖的做法。<br> b. lock.tryLock();如未被锁定才获取锁，马上返回，拿到lock就返回true，不然返回false，比lock.lock()更为潇洒，拿不到我不拿了。<br> c. lock.tryLock(long timeout, TimeUnit unit);获取锁，如果已经被锁定，则最多等待timeout时间后返回获取锁的状态，比lock.trylock();更聪明，拿不到lock我稍微等待一下，等不到我就不拿了。<br> d. lock.lockInterruptibly();如当前线程未被interrup()[中断,如果线程在等待锁，对线程对象调用interrupt()只是会设置线程的中断标志位]才获取锁,相较lock();和tryLock();而言，是一种优先响应中断的方法，只要代码中抛出了InterruptedException，请求锁<br> 不论当前线程是否拥有锁，都会运行run()方法中的部分代码块。运行的哪部分代码块，因为lockInterruptibly();抛出的异常，返回给上层try catch进行处理</p>
+<ol start="3">
+<li>从锁的释放来说，Synchronized等到代码执行结束自动释放锁，即使线程执行发生异常也会释放，而Lock需要手动释放，否则容易造成死锁</li>
+<li>从性能来说：如果锁的竞争不激烈，两者性能差不多，但是如果竞争激烈的情况，Lock性能优于Synchronized</li>
+<li>从锁的状态来说： Synchronized不可判断锁的状态，而Lock可以获取到锁的状态</li>
+</ol>
+<h4 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a>volatile关键字</h4><p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/volatile.png" alt></p>
+<p>最早在C和C++中存在，Java5之后启用的关键字，说起volatile首先说到Java内存模型，在程序执行过程中都是由CPU执行的，在执行的过程中肯定有读取和写入，CPU小速度快，内存大速度较慢，因此CPU与内存之间就有了高速缓存，也称为工作内存，在执行过程中，<br>会将主存的数据复制到缓存中去，运算完毕之后，又将缓存的数据刷新到主存中去，所以在多线程环境中，每个线程都有自己的缓存，假设两个线程同时执行i++操作，结果就会出现不可预测的情况。<br>在并发编程有三个概念：</p>
+<ol>
+<li>原子性：不可能结果出现又等于1又等于2的情况，要么是1要么是2</li>
+<li>可见性：在多线程，一个线程修改了共同的变量，另一个线程马上能够知道</li>
+<li>有序性：CPU在执行的过程中，会对指令重排序，进行优化，有可能第四行代码先执行，第三行代码后执行<br>volatile关键字的作用是：保证内存可见性，禁止指令重排序，不保证原子性</li>
+</ol>
+</li>
+</ol>
+<p>为什么不保证原子性：<br>假设o = 1; 线程1做了o++操作，线程2也做o++操作，线程1拿到o = 1后阻塞了，线程2此时执行了o++后， o为2，刷新到主存中去，线程1读取到的是o = 1；做o ++操作为2，继续刷新到主存，此时刷新了两次主存，所以不保证原子性<br>Java.util.concurrent.atomic包下对各种基本类型做了封装，采用CAS机制保证原子性操作类。</p>
+<h4 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h4><p>CAS（Compare And Swap）：比较和替换，CAS机制中使用了三个基本操作数，内存地址V，旧的预期地址A，要修改的值B，更新一个变量的时候，只有当变量的预期值A和内存地址V当中的实际值相同时，才会将内存地址V对应的值修改为B。<br>例如：<br>    V是10，线程1想增加1，旧的预期值A是10，则要修改的预期值是11。<br>    线程1提交之前，线程2抢先一步了，把内存中V的值10更新成了11<br>    等线程1提交更新，首先A和实际的V进行比较，发现A不等于V，提交失败。<br>    线程1重新获取内存值V，V = 11，并重新计算修改后的新值，A = 11，B = 12，这个重新尝试的过程称之为自旋</p>
+<h4 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h4><p>ThreadLocal<br>    ThreadLocal线程本地变量，为私有变量在每个线程中都创建了一个副本，每个线程都可以独立的改变自己内部的变量副本，而不会影响到其他线程所对应的副本，从而实现各个线程之间的互不干扰。</p>
+<p>原理：<br>ThreadLocal核心就是ThreadLocalMap，是ThreadLocal的静态内部类，跟HashMap类似，每个线程中都有个独立的ThreadLocalMap副本，所以只能被当前线程操作，将ThreadLocal对象作为key，将存储的类型作为Value直接存储到ThreadLocalMap中。<br>注意点：<br>因为ThreadLocalMap的key是弱引用，而Value是强引用。这就导致了一个问题，ThreadLocal在没有外部对象强引用时，发生GC时弱引用Key会被回收，而Value不会回收，<br>如果创建ThreadLocal的线程一直持续运行，那么这个Entry对象中的value就有可能一直得不到回收，发生内存泄露。使用完成后必须remove，它会将整个Entry置为Null，删除这个Entry和Map的联系，使得GC能够回收。</p>
 
       
 
@@ -184,25 +194,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Framework</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">微服务</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SOA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -216,18 +207,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/08/30/泛型更深层次的挖掘/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          泛型更深层次的挖掘
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/08/29/数据结构（一）：线性结构/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">数据结构（一）：线性结构</div>
+    <a href="/2021/03/17/Java基础/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java基础</div>
       <i class="icon-circle-right"></i>
     </a>
   
