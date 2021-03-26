@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/8 | Logan Moorees</title>
+  <title>Redis | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Logan Moorees">
-<meta property="og:url" content="http://yoursite.com/archives/2019/08/index.html">
+  <meta name="description" content="Redis是什么：由C语言编写的一个开源[遵从BSD协议]的高性能键值对内存数据库，可以用作数据库，缓存，消息中间件等等的一个NoSql[not only sql 不仅仅是sql，非关系型]数据库，Redis作为一个内存数据库：1.性能优秀，数据在内存中，独写速度非常快，最高可达10W的QPS2.Redis是单线程的，线程安全，采用IO多路复用机制，NIO3.有丰富的数据类型，支持字符串（Stri">
+<meta name="keywords" content="数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis">
+<meta property="og:url" content="http://yoursite.com/2021/03/24/Redis/index.html">
 <meta property="og:site_name" content="Logan Moorees">
+<meta property="og:description" content="Redis是什么：由C语言编写的一个开源[遵从BSD协议]的高性能键值对内存数据库，可以用作数据库，缓存，消息中间件等等的一个NoSql[not only sql 不仅仅是sql，非关系型]数据库，Redis作为一个内存数据库：1.性能优秀，数据在内存中，独写速度非常快，最高可达10W的QPS2.Redis是单线程的，线程安全，采用IO多路复用机制，NIO3.有丰富的数据类型，支持字符串（Stri">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2021-03-25T15:18:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Logan Moorees">
+<meta name="twitter:title" content="Redis">
+<meta name="twitter:description" content="Redis是什么：由C语言编写的一个开源[遵从BSD协议]的高性能键值对内存数据库，可以用作数据库，缓存，消息中间件等等的一个NoSql[not only sql 不仅仅是sql，非关系型]数据库，Redis作为一个内存数据库：1.性能优秀，数据在内存中，独写速度非常快，最高可达10W的QPS2.Redis是单线程的，线程安全，采用IO多路复用机制，NIO3.有丰富的数据类型，支持字符串（Stri">
   
     <link rel="alternative" href="/atom.xml" title="Logan Moorees" type="application/atom+xml">
   
@@ -134,220 +139,112 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Redis" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Redis
+    </h1>
+  
+
+        
+        <a href="/2021/03/24/Redis/" class="archive-article-date">
+  	<time datetime="2021-03-24T08:30:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-24</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="Redis是什么："><a href="#Redis是什么：" class="headerlink" title="Redis是什么："></a>Redis是什么：</h4><p>由C语言编写的一个开源[遵从BSD协议]的高性能键值对内存数据库，可以用作数据库，缓存，消息中间件等等的一个NoSql[not only sql 不仅仅是sql，非关系型]数据库，<br>Redis作为一个内存数据库：<br>1.性能优秀，数据在内存中，独写速度非常快，最高可达10W的QPS<br>2.Redis是单线程的，线程安全，采用IO多路复用机制，NIO<br>3.有丰富的数据类型，支持字符串（String），散列（Hash），列表（List），集合（Set），有序集合（Sorted Set[ZSet]）<br>4.支持数据持久化，可以将数据保存到磁盘上，避免内存不安全因素<br>5.主从复制，哨兵，高可用<br>6.可以用作分布式锁<br>7.可以用作消息中间件使用，支持发布订阅</p>
+<h4 id="String："><a href="#String：" class="headerlink" title="String："></a>String：</h4><p>Redis的String类型使用自己的SDS[string dynamic string，简单动态字符串]，只有在一些字符串不可能出现变化时，使用C的字符串<br>SDS的定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span> &#123;</span>    </span><br><span class="line">  <span class="comment">// 用于记录buf数组中使用的字节的数目</span></span><br><span class="line">  <span class="comment">// 和SDS存储的字符串的长度相等  </span></span><br><span class="line">	<span class="keyword">int</span> len;    </span><br><span class="line">  <span class="comment">// 用于记录buf数组中没有使用的字节的数目   </span></span><br><span class="line">	<span class="keyword">int</span> <span class="built_in">free</span>;    </span><br><span class="line">  <span class="comment">// 字节数组，用于储存字符串</span></span><br><span class="line">	<span class="keyword">char</span> buf[];   <span class="comment">//buf的大小等于len+free+1，其中多余的1个字节是用来存储’\0’的。</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>结构示例：<br>[<a href="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Redis%20SDS.png]" target="_blank" rel="noopener">https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Redis%20SDS.png]</a></p>
+<p>不使用C的字符串的好处：<br>    1.获取字符串长度复杂度降低，C中获取字符串长度每次都是遍历的char数组，时间复杂度O(N)，而SDS有对应的属性可以直接获取，时间复杂度O(1)<br>    2.杜绝缓冲区溢出:<br>        a.缓冲区的功能是用一块内存暂存命令数据，避免出现因为数据和命令的处理速度慢于发送速度而导致的数据丢失和性能问题。但缓冲区的内存空间有限，如果发生溢出，就会丢失数据。<br>        b.Redis缓冲区有两个应用场景：在客户端和服务器端之间进行通信时，用来暂存客户端发送的命令数据，或者是服务器端返回给客户端的数据结果和主从节点间进行数据同步时，用来暂存主节点接收的写命令和数据。<br>        c.C字符串缓冲区溢出可追溯到C库的原因<br>    3.二进制安全，C字符串除了末尾之外不能出现空字符，否则会被程序认为是字符串的结尾。这就使得C字符串只能存储文本数据，<br>    4.减少修改字符串时带来的内存重分配次数</p>
+<p>常用命令：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">key</span> <span class="keyword">value</span>           //设置指定的<span class="keyword">key</span>值</span><br><span class="line"></span><br><span class="line"><span class="keyword">get</span> <span class="keyword">key</span>                 //获取指定的<span class="keyword">key</span>值</span><br><span class="line"></span><br><span class="line">getrange <span class="keyword">key</span> <span class="keyword">start</span> <span class="keyword">end</span>  //获取范围内字符串</span><br><span class="line"></span><br><span class="line">getset <span class="keyword">key</span> <span class="keyword">value</span>        //设置<span class="keyword">key</span>并返回旧值</span><br><span class="line"></span><br><span class="line">setnx <span class="keyword">key</span> <span class="keyword">value</span>         //用于给指定的<span class="keyword">key</span>设置<span class="keyword">value</span>,如果<span class="keyword">key</span>已经存在，则返回<span class="number">0</span></span><br><span class="line"></span><br><span class="line">setex <span class="keyword">key</span> <span class="keyword">value</span>         //用于给指定的<span class="keyword">key</span>设置<span class="keyword">value</span>, 并且需要指定该<span class="keyword">key</span>的有效时间, <span class="number">10</span>秒后则返回为空    </span><br><span class="line"></span><br><span class="line">setrange <span class="keyword">key</span> [<span class="keyword">start</span>] <span class="keyword">value</span> //从指定位置对<span class="keyword">value</span>进行覆盖</span><br><span class="line"></span><br><span class="line">mset key1, key2 value1 value2  //批量设置<span class="keyword">key</span>对应的<span class="keyword">value</span>值</span><br><span class="line"></span><br><span class="line">mget key1 key2          //批量获取<span class="keyword">key</span>对应的<span class="keyword">value</span></span><br><span class="line"></span><br><span class="line">incr <span class="keyword">key</span>                //将指定<span class="keyword">key</span>中存储的数字值增一, 必须是数字类型, 否则会返回错误信息</span><br><span class="line">      </span><br><span class="line">incrby <span class="keyword">key</span> <span class="built_in">number</span>       //将指定<span class="keyword">key</span>中存储的数字指定增加多少, 以下指定增长<span class="number">10</span></span><br><span class="line"></span><br><span class="line">decr <span class="keyword">key</span> [<span class="built_in">number</span>]       //将指定<span class="keyword">key</span>中存储的数字指定减少多少,不带<span class="built_in">number</span>默认减一</span><br><span class="line"></span><br><span class="line">append <span class="keyword">key</span> <span class="keyword">value</span>        //对值追加字符串</span><br><span class="line"></span><br><span class="line">strlen <span class="keyword">key</span>              // 返回字符串指定长度</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/31/Shiro/" class="archive-article-date">
-  	<time datetime="2019-08-31T09:49:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/31/Shiro/">安全框架</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Framework</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/31/JVM/" class="archive-article-date">
-  	<time datetime="2019-08-31T06:29:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-31</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2021/03/26/MQ中间件/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          MQ中间件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/03/22/多线程编程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">多线程编程</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/31/JVM/">JVM</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/30/泛型更深层次的挖掘/" class="archive-article-date">
-  	<time datetime="2019-08-30T15:45:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/30/泛型更深层次的挖掘/">泛型更深层次的挖掘</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/29/SpringCloud/" class="archive-article-date">
-  	<time datetime="2019-08-29T08:51:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/29/SpringCloud/">SpringCloud</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Framework</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">微服务</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SOA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/29/数据结构（一）：线性结构/" class="archive-article-date">
-  	<time datetime="2019-08-29T08:20:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/29/数据结构（一）：线性结构/">数据结构（一）：线性结构</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -370,8 +267,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
