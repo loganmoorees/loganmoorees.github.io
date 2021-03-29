@@ -22,7 +22,8 @@
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E4%BA%8C%E5%8F%89%E6%A0%912%20.png">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%B9%B3%E8%A1%A1%E5%9B%A0%E5%AD%90.jpg">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%A4%B1%E8%A1%A1%E5%AD%90%E6%A0%91.jpg">
-<meta property="og:updated_time" content="2019-09-06T09:11:39.000Z">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E7%BA%A2%E9%BB%91%E6%A0%91.png">
+<meta property="og:updated_time" content="2021-03-28T13:47:04.501Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构（二）：树形结构">
 <meta name="twitter:description" content="树形结构&amp;emsp;&amp;emsp;树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&amp;gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：  每个节点有零个或多个子节点 没有父节点的节点称">
@@ -214,6 +215,8 @@ B树：B+树，B&amp;#42;树，Bx树，UB树，2-3树，2-3-4树，(a,b)-树，D
 <h4 id="建立树的过程中，我们如何知道左右子树的高度差呢？在这里我们采用了平衡因子进行记录。"><a href="#建立树的过程中，我们如何知道左右子树的高度差呢？在这里我们采用了平衡因子进行记录。" class="headerlink" title="建立树的过程中，我们如何知道左右子树的高度差呢？在这里我们采用了平衡因子进行记录。"></a>建立树的过程中，我们如何知道左右子树的高度差呢？在这里我们采用了平衡因子进行记录。</h4><p>&emsp;&emsp; 平衡因子：左子树的高度减去右子树的高度。由平衡二叉树的定义可知，平衡因子的取值只可能为0,1,-1.分别对应着左右子树等高，左子树比较高，右子树比较高。如下图<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%B9%B3%E8%A1%A1%E5%9B%A0%E5%AD%90.jpg" alt></p>
 <h4 id="AVL树插入时候的失衡与调整"><a href="#AVL树插入时候的失衡与调整" class="headerlink" title="AVL树插入时候的失衡与调整"></a>AVL树插入时候的失衡与调整</h4><p>&emsp;&emsp;平衡二叉树的失衡调整主要是通过旋转最小失衡子树来实现的。<br>最小失衡子树：在新插入的结点向上查找，以第一个平衡因子的绝对值超过1的结点为根的子树称为最小不平衡子树。也就是说，一棵失衡的树，是有可能有多棵子树同时失衡的，如下。而这个时候，我们只要调整最小的不平衡子树，就能够将不平衡的树调整为平衡的树。</p>
 <p>&emsp;&emsp;在图7中。2结点（左子树树高-右子树树高）的绝对值=2。同理，3结点的平衡因子也为2.此时同时存在了两棵不平衡子树，而以3为根的树是最小的不平衡子树。我们只要将其以3为中心，将最小不平衡树向左旋转，即可得到平衡二叉树，如图8。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%A4%B1%E8%A1%A1%E5%AD%90%E6%A0%91.jpg" alt></p>
+<h4 id="红黑树（binary-search-tree）"><a href="#红黑树（binary-search-tree）" class="headerlink" title="红黑树（binary search tree）"></a>红黑树（binary search tree）</h4><p>红黑树是一种典型的自平衡的二叉查找树：时间复杂度O（n）,二叉查找树，左子树小于根节点，右子树大于根节点。补足了二叉查找树的缺点，二叉查找树会退化成链表.<br>红黑树的特征：<br>1.节点都是红色或者黑色的。<br>2.根节点是黑色的。<br>3.每个叶子节点都是黑色或者空节点<br>4.每个红色节点的两个子节点都是黑色的（从每个叶子到根的所有路径上不能出现连续的红色节点）<br>5.从任意节点到其每个叶子的所有路径都包含相同数目的黑色节点<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E7%BA%A2%E9%BB%91%E6%A0%91.png" alt><br>但是插入或者删除节点时候，红黑树的规则可能被打破，这时候需要做出一些调整，从而维持这个原则，调整分为变色和自旋。自旋分为左旋转和右旋转。</p>
+<p>和AVL树的区别：<br>AVL树是严格的平衡二叉树，要求每个节点的左右子树高度差不超过1，而红黑树则要宽松一些，要求任何一条路径的长度不超过其他路径长度的2倍。正因为这个区别，AVL树查找效率更高，但平衡的调整也更高，频繁查找时，选用AVL树更合适，频繁插入时，红黑树更合适。</p>
 
       
 
@@ -383,15 +386,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络协议</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -407,11 +402,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络协议</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
             
             <div class="clearfix"></div>
