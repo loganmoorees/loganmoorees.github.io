@@ -6,16 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>分类 | Logan Moorees</title>
+  <title>mysql | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://yoursite.com/categories/index.html">
+  <meta name="description" content="Mysql结构： Mysql存储引擎：InnoDB存储引擎InnoDB给MySQL的表提供了事务处理、回滚、崩溃修复能力和多版本并发控制的事务安全。在MySQL从3.23.34a开始包含InnnoDB。它是MySQL上第一个提供外键约束的表引擎。而且InnoDB对事务处理的能力，也是其他存储引擎不能比拟的。靠后版本的MySQL的默认存储引擎就是InnoDB。 InnoDB存储引擎总支持AUTO_I">
+<meta name="keywords" content="数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql">
+<meta property="og:url" content="http://yoursite.com/2021/03/29/mysql/index.html">
 <meta property="og:site_name" content="Logan Moorees">
+<meta property="og:description" content="Mysql结构： Mysql存储引擎：InnoDB存储引擎InnoDB给MySQL的表提供了事务处理、回滚、崩溃修复能力和多版本并发控制的事务安全。在MySQL从3.23.34a开始包含InnnoDB。它是MySQL上第一个提供外键约束的表引擎。而且InnoDB对事务处理的能力，也是其他存储引擎不能比拟的。靠后版本的MySQL的默认存储引擎就是InnoDB。 InnoDB存储引擎总支持AUTO_I">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-29T06:05:32.000Z">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Mysql%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/InnoDB%E7%B4%A2%E5%BC%95.png">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/MyISAM.jpg">
+<meta property="og:updated_time" content="2021-03-29T15:10:01.205Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分类">
+<meta name="twitter:title" content="mysql">
+<meta name="twitter:description" content="Mysql结构： Mysql存储引擎：InnoDB存储引擎InnoDB给MySQL的表提供了事务处理、回滚、崩溃修复能力和多版本并发控制的事务安全。在MySQL从3.23.34a开始包含InnnoDB。它是MySQL上第一个提供外键约束的表引擎。而且InnoDB对事务处理的能力，也是其他存储引擎不能比拟的。靠后版本的MySQL的默认存储引擎就是InnoDB。 InnoDB存储引擎总支持AUTO_I">
+<meta name="twitter:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Mysql%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84.png">
   
     <link rel="alternative" href="/atom.xml" title="Logan Moorees" type="application/atom+xml">
   
@@ -135,27 +143,66 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-mysql" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      分类
+      mysql
     </h1>
   
 
         
-        <a href="/categories/index.html" class="archive-article-date">
-  	<time datetime="2019-08-29T05:59:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
+        <a href="/2021/03/29/mysql/" class="archive-article-date">
+  	<time datetime="2021-03-29T14:34:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h4 id="Mysql结构："><a href="#Mysql结构：" class="headerlink" title="Mysql结构："></a>Mysql结构：</h4><p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Mysql%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84.png" alt></p>
+<h4 id="Mysql存储引擎："><a href="#Mysql存储引擎：" class="headerlink" title="Mysql存储引擎："></a>Mysql存储引擎：</h4><h5 id="InnoDB存储引擎"><a href="#InnoDB存储引擎" class="headerlink" title="InnoDB存储引擎"></a>InnoDB存储引擎</h5><p>InnoDB给MySQL的表提供了事务处理、回滚、崩溃修复能力和多版本并发控制的事务安全。在MySQL从3.23.34a开始包含InnnoDB。它是MySQL上第一个提供外键约束的表引擎。而且InnoDB对事务处理的能力，也是其他存储引擎不能比拟的。靠后版本的MySQL的默认存储引擎就是InnoDB。</p>
+<p>InnoDB存储引擎总支持AUTO_INCREMENT。自动增长列的值不能为空，并且值必须唯一。MySQL中规定自增列必须为主键。在插入值的时候，如果自动增长列不输入值，则插入的值为自动增长后的值；如果输入的值为0或空（NULL），则插入的值也是自动增长后的值；如果插入某个确定的值，且该值在前面没有出现过，就可以直接插入。</p>
+<p>InnoDB还支持外键（FOREIGN KEY）。外键所在的表叫做子表，外键所依赖（REFERENCES）的表叫做父表。父表中被字表外键关联的字段必须为主键。当删除、更新父表中的某条信息时，子表也必须有相应的改变，这是数据库的参照完整性规则。</p>
+<p>支持行锁: 操作时锁一行适合高并发</p>
+<p>InnoDB中，创建的表的表结构存储在.frm文件中（我觉得是frame的缩写吧）。数据和索引存储在innodb_data_home_dir和innodb_data_file_path定义的表空间中。</p>
+<p>InnoDB的优势在于提供了良好的事务处理、崩溃修复能力和并发控制。缺点是读写效率较差，占用的数据空间相对较大。<br>对于索引而言，InnoDB表数据文件本身就是索引文件。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/InnoDB%E7%B4%A2%E5%BC%95.png" alt="innodb索引"></p>
+<h5 id="MyISAM存储引擎"><a href="#MyISAM存储引擎" class="headerlink" title="MyISAM存储引擎"></a>MyISAM存储引擎</h5><p>MyISAM是MySQL中常见的存储引擎，曾经是MySQL的默认存储引擎。MyISAM是基于ISAM引擎发展起来的，增加了许多有用的扩展。</p>
+<p>MyISAM是表锁，即使操作一行也会锁整个表</p>
+<p>MyISAM的表存储成3个文件。文件的名字与表名相同。拓展名为frm、MYD、MYI。其实，frm文件存储表的结构；MYD文件存储数据，是MYData的缩写；MYI文件存储索引，是MYIndex的缩写。</p>
+<p>基于MyISAM存储引擎的表支持3种不同的存储格式。包括静态型、动态型和压缩型。其中，静态型是MyISAM的默认存储格式，它的字段是固定长度的；动态型包含变长字段，记录的长度不是固定的；压缩型需要用到myisampack工具，占用的磁盘空间较小。</p>
+<p>MyISAM的优势在于占用空间小，处理速度快。缺点是不支持事务的完整性和并发性。<br>MyISAM索引文件和数据是分离的，索引仅仅保存data域的地址，再进行读取相应的记录。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/MyISAM.jpg" alt="myisam索引"></p>
+<h4 id="Memory存储引擎"><a href="#Memory存储引擎" class="headerlink" title="Memory存储引擎"></a>Memory存储引擎</h4><p>memory存储引擎是MySQL中的一类特殊的存储引擎。其使用存储在内存中的内容来创建表，而且所有数据也放在内存中。这些特性都与InnoDB，MyISAM存储引擎不同。</p>
+<p>OK，这里我们讲解一些memory存储引擎的文件存储形式，索引类型，存储周期和优缺点。</p>
+<p>每个基于memory存储引擎的表实际对应一个磁盘文件，该文件的文件名与表名相同，类型为frm类型。该文件只存储表的结构，而其数据文件，都是存储在内存中的，这样有利于对数据的快速的处理，提高整个表的处理效率。</p>
+<p>值得注意的是：服务器需要有足够的内存来维持memory存储引擎的表的使用。如果不需要了，可以释放这些内存，甚至可以删除不需要的表。</p>
+<p>Memory存储引擎默认使用哈希(HASH)索引，其速度比使用B型树(BTREE)索引快。如果我们需要使用B型树索引，可以在创建索引时选择使用。</p>
+<p>Memory存储引擎通常很少用到，至少我是没有用到过。因为Memory表的所有数据都是存储在内存上的，如果内存出现异常会影响到数据的完整性。</p>
+<p>如果重启机器或者关机，表中的所有数据都将消失，因此，基于Memory存储引擎的表的生命周期都比较短，一般都是一次性的。</p>
+<p>Memory表的大小是受到限制的，表的大小主要取决于2个参数，分别是max_rows和max_heap_table_size。其中，max_rows可以在创建表时指定，max_heap_table_size的大小默认为16MB，可以按需要进行扩大。</p>
+<p>因此，其基于内存中的特性，这类表的处理速度会非常快，但是，其数据易丢失，生命周期短。基于其这个缺陷，选择Memory存储引擎时需要特别小心。<br>        随着NoSQL数据库兴起，Memory存储引擎现在基本很少用到。</p>
+<h4 id="Mysql事务："><a href="#Mysql事务：" class="headerlink" title="Mysql事务："></a>Mysql事务：</h4><h5 id="事务的四个特征："><a href="#事务的四个特征：" class="headerlink" title="事务的四个特征："></a>事务的四个特征：</h5><p>a.    原子性（Atomicity）：要么同时成功要么同时失败<br>b.    一致性（Consistency）：事务开始和事务结束数据必须保持一致<br>c.    隔离性（Isolation）：事务A和事务B之间互不影响<br>d.    持久性（Durability）：事务处理完成之后，对数据的修改就是永久的</p>
+<h5 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h5><p>脏读：读到别人未提交的数据<br>        幻读（虚读）：读到别人新插入，或者删除的数据，前后数据不一致的问题（针对多条数据）<br>        不可重复读：读到别人修改的数据（侧重于单条数据）</p>
+<pre><code>Mysql事务隔离级别有四种（从低到高）：
+    读未提交（read-uncommitted）    会发生脏读，会发生不可重复读，幻读
+    不可重复读（read-committed）    不会脏读，会发生不可重复读，幻读
+    可重复读（repeatable-read）        不会脏读，不可重复读，会发生幻读
+    串行化（serializable）                不会发生脏读不可重复读以及幻读
+事务隔离级别越高，数据库效率越低。解决幻读需要锁表，解决不可重复读需要行锁。默认是可重复读（会发生幻读，但是基本上没什么影响）。
+
+单服务直接使用Spring注解即可解决事务问题。多个服务之间推荐使用MQ来解决。其他方式还有TCC补偿机制，两段式提交XA等等</code></pre><h4 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h4><p>索引是一个很常见的数据库辅助查询，提高查询效率的东西。<br>    本身分为<br>a.    主键索引（主键默认使用主键索引）<br>b.    联合索引（多个字段联合的索引）<br>c.    单列索引（某一个字段的索引）<br>d.    MyISAM引擎还有全文索引（like查询的）<br>e.    聚簇索引和非聚簇索引<br>    a)    每个表只能有一个聚簇索引，聚簇索引的叶节点就是数据节点<br>    b)    非聚簇索引的叶节点仍然是索引节点，并保留一个链接指向对应数据块</p>
+<h5 id="有索引不会使用的情况："><a href="#有索引不会使用的情况：" class="headerlink" title="有索引不会使用的情况："></a>有索引不会使用的情况：</h5><ol>
+<li>有or条件的，即使部分有索引也不会用上</li>
+<li>like模糊查询 % 号在前</li>
+<li>where带有数学运算</li>
+<li>where带有函数</li>
+<li>还有数据量太少直接全表扫描不会使用索引</li>
+</ol>
+<p>数据唯一性差的不适合使用索引，比如性别，二叉树多是平级，无异于全表扫描<br>        频繁更新的数据不适合使用索引，导致索引频繁修改，加大数据库的压力，</p>
+
       
 
       
@@ -163,6 +210,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -174,6 +232,16 @@
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/2021/03/26/NIO/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">NIO</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -192,6 +260,16 @@
 </aside>
 
 
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
           </div>
@@ -214,7 +292,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
