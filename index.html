@@ -186,7 +186,12 @@
     串行化（serializable）                不会发生脏读不可重复读以及幻读
 事务隔离级别越高，数据库效率越低。解决幻读需要锁表，解决不可重复读需要行锁。默认是可重复读（会发生幻读，但是基本上没什么影响）。
 
-单服务直接使用Spring注解即可解决事务问题。多个服务之间推荐使用MQ来解决。其他方式还有TCC补偿机制，两段式提交XA等等</code></pre><h4 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h4><p>索引是一个很常见的数据库辅助查询，提高查询效率的东西。<br>    本身分为<br>a.    主键索引（主键默认使用主键索引）<br>b.    联合索引（多个字段联合的索引）<br>c.    单列索引（某一个字段的索引）<br>d.    MyISAM引擎还有全文索引（like查询的）<br>e.    聚簇索引和非聚簇索引<br>    a)    每个表只能有一个聚簇索引，聚簇索引的叶节点就是数据节点<br>    b)    非聚簇索引的叶节点仍然是索引节点，并保留一个链接指向对应数据块</p>
+单服务直接使用Spring注解即可解决事务问题。多个服务之间推荐使用MQ来解决。其他方式还有TCC补偿机制，两段式提交XA等等</code></pre><h4 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h4><p>索引是一个很常见的数据库辅助查询，提高查询效率的东西。<br>    索引种类本身分为<br>a.    主键索引（主键默认使用主键索引）<br>b.    联合索引（多个字段联合的索引）<br>c.    单列索引（某一个字段的索引）<br>d.    MyISAM引擎还有全文索引（like查询的）<br>e.    聚簇索引和非聚簇索引，聚簇索引查询效率会更快<br>    a)    每个表只能有一个聚簇索引，聚簇索引的叶节点就是数据节点<br>    b)    非聚簇索引的叶节点仍然是索引节点，并保留一个链接指向对应数据块</p>
+<p>   聚簇索引:<br>   <img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Mysql%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95.png" alt><br>   数据和索引在一起存储的索引方式叫做聚簇索引，一张表只能有一个聚簇索引。它的叶子节点保存的是数据本身</p>
+<p>   <img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Mysql%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95.jpg" alt><br>   非聚簇索引有二级索引，需要通过二级索引去查找数据，二级索引存储主键索引，需要回表去再查询一次。</p>
+<p>   覆盖索引：<br>   覆盖索引：覆盖索引（covering index）指一个查询语句的执行只用从索引中就能够取得，不必从数据表中读取。也可以称之为实现了索引覆盖。<br>   当一条查询语句符合覆盖索引条件时，MySQL只需要通过索引就可以返回查询所需要的数据，这样避免了查到索引后再返回表操作，减少I/O提高效率。<br>   如，表covering_index_sample中有一个普通索引 idx_key1_key2(key1,key2)。<br>   当我们通过SQL语句：select key2 from covering_index_sample where key1 = ‘keytest’;的时候，就可以通过覆盖索引查询，无需回表。</p>
+<p>   联合索引：多个where条件联合的索引，遵循最左匹配原则，应把识别度高的放在最前面<br>   where子句中使用最频繁的一列放在最左边，因为MySQL索引查询会遵循最左前缀匹配的原则，即最左优先，<br>   在检索数据时从联合索引的最左边开始匹配。所以当我们创建一个联合索引的时候，如(key1,key2,key3)，<br>   相当于创建了（key1）、(key1,key2)和(key1,key2,key3)三个索引，这就是最左匹配原则</p>
+<p>   按数据结构来分的话分为Hash和B+Tree<br>   因为Hash索引底层是哈希表，哈希表是一种以key-value存储数据的结构，所以多个数据在存储关系上是完全没有任何顺序关系的，所以，<br>   对于区间查询是无法直接通过索引查询的，就需要全表扫描。所以，哈希索引只适用于等值查询的场景。而B+ Tree是一种多路平衡查询树，<br>   所以他的节点是天然有序的（左子节点小于父节点、父节点小于右子节点），所以对于范围查询的时候不需要做全表扫描。<br>   Hash索引不支持联合索引的最左匹配原则，如果大量键值重复的情况下，由于Hash碰撞Hash索引的效率会很低<br>a. </p>
 <h5 id="有索引不会使用的情况："><a href="#有索引不会使用的情况：" class="headerlink" title="有索引不会使用的情况："></a>有索引不会使用的情况：</h5><ol>
 <li>有or条件的，即使部分有索引也不会用上</li>
 <li>like模糊查询 % 号在前</li>
@@ -354,7 +359,12 @@
 2.根据业务功能定义路由字符串
 3.从系统的代码逻辑中获取对应的功能字符串,将消息任务扔到对应的队列中业务场景:error 通知;EXCEPTION;错误通知的功能;传统意义的错误通知;客户通知;利用key路由,可以将程序中的错误封装成消息传入到消息队列中,开发者可以自定义消费者,实时接收错误;
 
-路由模式：（topic主题模式）</code></pre><p>怎么保证不被重复消费：<br>加个消息应用状态表。执行之前去数据库查一遍。重复的丢弃就行，不重复就执行</p>
+路由模式：（topic主题模式）
+1. 星号井号代表通配符
+2. 星号代表多个单词,井号代表一个单词
+3. 路由功能添加模糊匹配
+4.消息产生者产生消息,把消息交给交换机</code></pre><p>交换机根据key的规则模糊匹配到对应的队列,由队列的监听消费者接收消息消费</p>
+<p>怎么保证不被重复消费：<br>加个消息应用状态表。执行之前去数据库查一遍。重复的丢弃就行，不重复就执行</p>
 <p>怎么保证传输的可靠性：<br>生产者丢失数据： 生产者将数据发送到RabbitMQ的时候，可能数据就在半路给搞丢了，因为网络啥的问题，都有可能。此时可以选择用RabbitMQ提供的事务功能。<br>                就是生产者发送数据之前开启RabbitMQ事务（channel.txSelect），然后发送消息，如果消息没有成功被RabbitMQ接收到，那么生产者会收到异常报错，<br>                此时就可以回滚事务（channel.txRollback），然后重试发送消息；如果收到了消息，那么可以提交事务（channel.txCommit）。但是问题是，RabbitMQ事务机制一搞，<br>                基本上吞吐量会下来，因为太耗性能。一般来说，如果你要确保说写RabbitMQ的消息别丢，可以开启confirm模式，在生产者那里设置开启confirm模式之后，<br>                你每次写的消息都会分配一个唯一的id，然后如果写入了RabbitMQ中，RabbitMQ会给你回传一个ack消息，告诉你说这个消息ok了。如果RabbitMQ没能处理这个消息，<br>                会回调你一个nack接口，告诉你这个消息接收失败，你可以重试。而且你可以结合这个机制自己在内存里维护每个消息id的状态，如果超过一定时间还没接收到这个消息的回调，那么你可以重发<br>RabbitMQ丢失了数据：RabbitMQ弄丢了数据，也就是Rabbit自己挂了，开启RabbitMQ的持久化。恢复之后会自动读取之前存储的数据。消息持久化。<br>消费者端丢失数据：你消费的时候，刚消费到，还没处理，结果进程挂了，比如重启了，那么就尴尬了，RabbitMQ认为你都消费了，<br>                这数据就丢了。关闭RabbitMQ自动ack，可以通过一个api来调用就行，然后每次你自己代码里确保处理完的时候，在程序里ack一把。这样的话，<br>                如果你还没处理完，不就没有ack？那RabbitMQ就认为你还没处理完，这个时候RabbitMQ会把这个消费分配给别的consumer去处理，消息是不会丢的。<br>怎么确定对方收到消息：Ack（acknowledgement）消息回执布尔类型的，true为自动，false为手动。默认是自动。分发给消费者之后会从内存中删除，自动情况下如果有未完成的消费者，会丢失信息。手动情况下，<br>                    一个消费者挂了，就会交付到其他消费者，rabbitmq支持消息应答，消费者发送一个消息，告诉rabbitmq这个消息我已经处理完成，然后可以删除内存的消息。</p>
 <p>通讯：都是采用的TCP加NIO</p>
 
@@ -1051,11 +1061,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1063,7 +1073,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1071,11 +1081,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1084,10 +1098,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SOA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
             
             <div class="clearfix"></div>
