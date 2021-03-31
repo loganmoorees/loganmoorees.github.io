@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Logan Moorees">
 <meta property="og:description" content="Redis是什么：由C语言编写的一个开源[遵从BSD协议]的高性能键值对内存数据库，可以用作数据库，缓存，消息中间件等等的一个NoSql[not only sql 不仅仅是sql，非关系型]数据库，Redis作为一个内存数据库：1.性能优秀，数据在内存中，独写速度非常快，最高可达10W的QPS2.Redis是单线程的，线程安全，采用IO多路复用机制，NIO3.有丰富的数据类型，支持字符串（Stri">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-03-25T15:18:21.000Z">
+<meta property="og:updated_time" content="2021-03-31T07:58:55.401Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis">
 <meta name="twitter:description" content="Redis是什么：由C语言编写的一个开源[遵从BSD协议]的高性能键值对内存数据库，可以用作数据库，缓存，消息中间件等等的一个NoSql[not only sql 不仅仅是sql，非关系型]数据库，Redis作为一个内存数据库：1.性能优秀，数据在内存中，独写速度非常快，最高可达10W的QPS2.Redis是单线程的，线程安全，采用IO多路复用机制，NIO3.有丰富的数据类型，支持字符串（Stri">
@@ -168,7 +168,9 @@
 <p>常用命令：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">key</span> <span class="keyword">value</span>           //设置指定的<span class="keyword">key</span>值</span><br><span class="line"></span><br><span class="line"><span class="keyword">get</span> <span class="keyword">key</span>                 //获取指定的<span class="keyword">key</span>值</span><br><span class="line"></span><br><span class="line">getrange <span class="keyword">key</span> <span class="keyword">start</span> <span class="keyword">end</span>  //获取范围内字符串</span><br><span class="line"></span><br><span class="line">getset <span class="keyword">key</span> <span class="keyword">value</span>        //设置<span class="keyword">key</span>并返回旧值</span><br><span class="line"></span><br><span class="line">setnx <span class="keyword">key</span> <span class="keyword">value</span>         //用于给指定的<span class="keyword">key</span>设置<span class="keyword">value</span>,如果<span class="keyword">key</span>已经存在，则返回<span class="number">0</span></span><br><span class="line"></span><br><span class="line">setex <span class="keyword">key</span> <span class="keyword">value</span>         //用于给指定的<span class="keyword">key</span>设置<span class="keyword">value</span>, 并且需要指定该<span class="keyword">key</span>的有效时间, <span class="number">10</span>秒后则返回为空    </span><br><span class="line"></span><br><span class="line">setrange <span class="keyword">key</span> [<span class="keyword">start</span>] <span class="keyword">value</span> //从指定位置对<span class="keyword">value</span>进行覆盖</span><br><span class="line"></span><br><span class="line">mset key1, key2 value1 value2  //批量设置<span class="keyword">key</span>对应的<span class="keyword">value</span>值</span><br><span class="line"></span><br><span class="line">mget key1 key2          //批量获取<span class="keyword">key</span>对应的<span class="keyword">value</span></span><br><span class="line"></span><br><span class="line">incr <span class="keyword">key</span>                //将指定<span class="keyword">key</span>中存储的数字值增一, 必须是数字类型, 否则会返回错误信息</span><br><span class="line">      </span><br><span class="line">incrby <span class="keyword">key</span> <span class="built_in">number</span>       //将指定<span class="keyword">key</span>中存储的数字指定增加多少, 以下指定增长<span class="number">10</span></span><br><span class="line"></span><br><span class="line">decr <span class="keyword">key</span> [<span class="built_in">number</span>]       //将指定<span class="keyword">key</span>中存储的数字指定减少多少,不带<span class="built_in">number</span>默认减一</span><br><span class="line"></span><br><span class="line">append <span class="keyword">key</span> <span class="keyword">value</span>        //对值追加字符串</span><br><span class="line"></span><br><span class="line">strlen <span class="keyword">key</span>              // 返回字符串指定长度</span><br></pre></td></tr></table></figure>
 
-
+<h4 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h4><h6 id="数据分片"><a href="#数据分片" class="headerlink" title="数据分片"></a>数据分片</h6><p>数据分片（sharding）分布式数据存储时，经常要考虑数据分片，避免将大量的数据放在单表或单库中，造成查询等操作的耗时过长。<br>比如，存储订单数据时使用三个mysql库（编号0,1,2），当一条订单数据过来时，对订单id求hash后与机器数量取模，hash(orderId) % 3，<br>假如得到的结果是2，则这条数据会存储到编号为2的mysql中。分表分库存储时，根据数据库的主键或唯一键做hash，然后跟数据库机器的数量取模，<br>从而决定该条数据放在哪个库中。根据机器数量取模就会存在一个问题，当机器不够用需要扩容或机器宕机，机器的数量就会发生变化，造成数据的命中率下降，<br>所以之前的数据就需要重新hash做一次sharding。这种操作会导致服务在一定的时间不可用，而且每次扩缩容都会存在这个问题。</p>
+<h6 id="一致性Hash"><a href="#一致性Hash" class="headerlink" title="一致性Hash"></a>一致性Hash</h6><p>一致性hash由对象、资源、算法和机器组成。它要做的是：对象通过算法判断连哪台机器。在如上系统中：设备id（userID）为对象；其对应的状态数据(cache)为资源；服务器为机器。<br>在一致性hash算法中，这些资源围成了一个闭环，每台机器又保存着一个资源段，每个资源段对应一批对象/设备；这样如果某台机器挂了，那它对应的资源转移到离它较近的机器x，<br>这台dead server对应的设备连接到机器x就行。现在假设这四个资源段对应的设备，<br>活跃情况相差较大。比如说资源段1、2对应的设备特别活跃，而资源段3和4几乎没活动。这样机器1-2需要保存大量的状态数据，而3-4则有大量的空置，<br>显然是不合理的。改进版的一致性hash算法是这样操作的：它不再是每台机器去保存一个连续的资源段，而是让每台机器都保存多个区域的部分资源段。<br>如机器1保存每个资源段的1/4，机器2保存每个资源段的1/4，机器3、4同样如此。这样即使个别号段有热点，也会均摊到不同的机器。</p>
+<h4 id="List"><a href="#List" class="headerlink" title="List"></a>List</h4><h4 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h4><h4 id="SortSet"><a href="#SortSet" class="headerlink" title="SortSet"></a>SortSet</h4>
       
 
       
@@ -329,10 +331,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
@@ -342,6 +340,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -357,7 +359,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -366,6 +368,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SOA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
             
             <div class="clearfix"></div>

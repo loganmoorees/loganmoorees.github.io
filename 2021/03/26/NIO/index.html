@@ -8,18 +8,21 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>NIO | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="BIO在JDK1.4出来之前，我们建立网络连接的时候采用BIO模式，需要先在服务端启动一个ServerSocket，然后在客户端启动Socket来对服务端进行通信，默认情况下服务端需要对每个请求建立一堆线程等待请求，没有客户端连接时候会阻塞住，而客户端发送请求后，先咨询服务端是否有对应线程相应，如果没有则会一直等待或者遭到拒绝请求，如果有的话，服务端主线程会收到客户端的连接。并且抛出一个线程，在另">
+  <meta name="description" content="BIO同步阻塞IO在JDK1.4出来之前，我们建立网络连接的时候采用BIO模式，一个线程read或者write时，该线程将会被阻塞，直到IO操作完成，需要先在服务端启动一个ServerSocket，然后在客户端启动Socket来对服务端进行通信，服务端需要对每个请求建立一堆线程等待请求，没有客户端连接时候会阻塞住。    缺点：虽然能够满足IO操作，但是一个线程对应一个客户端，线程多系统调用也多，">
 <meta name="keywords" content="网络协议">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NIO">
 <meta property="og:url" content="http://yoursite.com/2021/03/26/NIO/index.html">
 <meta property="og:site_name" content="Logan Moorees">
-<meta property="og:description" content="BIO在JDK1.4出来之前，我们建立网络连接的时候采用BIO模式，需要先在服务端启动一个ServerSocket，然后在客户端启动Socket来对服务端进行通信，默认情况下服务端需要对每个请求建立一堆线程等待请求，没有客户端连接时候会阻塞住，而客户端发送请求后，先咨询服务端是否有对应线程相应，如果没有则会一直等待或者遭到拒绝请求，如果有的话，服务端主线程会收到客户端的连接。并且抛出一个线程，在另">
+<meta property="og:description" content="BIO同步阻塞IO在JDK1.4出来之前，我们建立网络连接的时候采用BIO模式，一个线程read或者write时，该线程将会被阻塞，直到IO操作完成，需要先在服务端启动一个ServerSocket，然后在客户端启动Socket来对服务端进行通信，服务端需要对每个请求建立一堆线程等待请求，没有客户端连接时候会阻塞住。    缺点：虽然能够满足IO操作，但是一个线程对应一个客户端，线程多系统调用也多，">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-03-28T14:05:18.000Z">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/BIO.jpg">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/NIO.png">
+<meta property="og:updated_time" content="2021-03-30T15:43:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NIO">
-<meta name="twitter:description" content="BIO在JDK1.4出来之前，我们建立网络连接的时候采用BIO模式，需要先在服务端启动一个ServerSocket，然后在客户端启动Socket来对服务端进行通信，默认情况下服务端需要对每个请求建立一堆线程等待请求，没有客户端连接时候会阻塞住，而客户端发送请求后，先咨询服务端是否有对应线程相应，如果没有则会一直等待或者遭到拒绝请求，如果有的话，服务端主线程会收到客户端的连接。并且抛出一个线程，在另">
+<meta name="twitter:description" content="BIO同步阻塞IO在JDK1.4出来之前，我们建立网络连接的时候采用BIO模式，一个线程read或者write时，该线程将会被阻塞，直到IO操作完成，需要先在服务端启动一个ServerSocket，然后在客户端启动Socket来对服务端进行通信，服务端需要对每个请求建立一堆线程等待请求，没有客户端连接时候会阻塞住。    缺点：虽然能够满足IO操作，但是一个线程对应一个客户端，线程多系统调用也多，">
+<meta name="twitter:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/BIO.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Logan Moorees" type="application/atom+xml">
   
@@ -159,8 +162,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h4><p>在JDK1.4出来之前，我们建立网络连接的时候采用BIO模式，需要先在服务端启动一个ServerSocket，然后在客户端启动Socket来对服务端进行通信，默认情况下服务端需要对每个请求建立一堆线程等待请求，没有客户端连接时候会阻塞住，而客户端发送请求后，先咨询服务端是否有对应线程相应，如果没有则会一直等待或者遭到拒绝请求，如果有的话，服务端主线程会收到客户端的连接。并且抛出一个线程，在另外线程等待输入并且阻塞住，‘这样的话每一个Client对应服务端的一个线程，就很明显的存在弊端<br>    缺点：虽然能够满足IO操作，但是一个线程对应一个客户端，线程多系统调用也多，线程是要消耗资源的，会占内存，如果说并发量大，会有很多很多的线程，而且多个线程之间的上下文切换很消耗CPU资源。</p>
-<h4 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h4><p>NIO首先就是多路复用，假设1W个客户端连接，得创建1W个线程去处理连接，现在1W个客户端连接，有了select，select相当于一个容器，连接来了交给Select去管理，socket大部分时间是空闲的，需要做IO操作，再去获取服务端的线程进行处理。多路复用，其实就是单个线程去记录跟踪每个IO流的状态来同时管理多个IO流。</p>
+        <h4 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h4><p>同步阻塞IO<br>在JDK1.4出来之前，我们建立网络连接的时候采用BIO模式，一个线程read或者write时，该线程将会被阻塞，直到IO操作完成，需要先在服务端启动一个ServerSocket，然后在客户端启动Socket来对服务端进行通信，服务端需要对每个请求建立一堆线程等待请求，没有客户端连接时候会阻塞住。<br>    缺点：虽然能够满足IO操作，但是一个线程对应一个客户端，线程多系统调用也多，线程是要消耗资源的，会占内存，如果说并发量大，会有很多很多的线程，而且多个线程之间的上下文切换很消耗CPU资源。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/BIO.jpg" alt></p>
+<h4 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h4><p>NewIO，非阻塞IO</p>
+<!-- ![](https://blog-1254224452.cos.ap-shanghai.myqcloud.com/NIO%E6%A8%A1%E5%9E%8B.jpg) -->
+<p>Acceptor<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/NIO.png" alt></p>
+<p>NIO三大核心：Channel，Buffer，Selector</p>
+<h6 id="通道Channel"><a href="#通道Channel" class="headerlink" title="通道Channel"></a>通道Channel</h6><p>NIO的通道类似于流，但有些区别如下：</p>
+<ol>
+<li>流只能读或者写，通道可以同时读写</li>
+</ol>
+<h5 id="缓存Buffer"><a href="#缓存Buffer" class="headerlink" title="缓存Buffer"></a>缓存Buffer</h5><p>缓存区本质上是一个可读可写入数据的内存块。<br>调用buffer.flip()方法进行写入，<br>buffer.clear()或者buffer.compat()读取数据</p>
+<p>Buffer中对应的Position， Mark， Capacity，Limit都是什么：<br>a. capacity：缓冲区容量的大小，就是里面包含的数据大小。<br>b. limit：对buffer缓冲区使用的一个限制，从这个index开始就不能读取数据了。<br>c. position：代表着数组中可以开始读写的index， 不能大于limit。mark：是类似路标的东西，在某个position的时候，设置一下mark，此时就可以设置一个标记后续调用reset()方法可以把position复位到当时设置的那个mark上。去把position或limit调整为小于mark的值时，就丢弃这个mark如果使用的是<br>d. Direct模式创建的Buffer的话，就会减少中间缓冲直接使用DirectorBuffer来进行数据的存储。</p>
+<h5 id="Selector选择器"><a href="#Selector选择器" class="headerlink" title="Selector选择器"></a>Selector选择器</h5><p>多个Channel以事件的方式可以注册到同一个Selector，可以检测多个NIO channel，看看读或者写事件是否就绪。从而达到用一个线程处理多个请求成为可能。多路复用</p>
+<h4 id="NIO存在的问题"><a href="#NIO存在的问题" class="headerlink" title="NIO存在的问题"></a>NIO存在的问题</h4><p>使用NIO不等于高性能，当连接数&lt;1000，并发程度不高或者局域网环境下NIO并没有显著的性能优势。</p>
+<h5 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h5><p>异步非阻塞IO，适合比较重的操作，例如QQ相册，上传一大批文件，然后可以去做别的，等它处理完会有个回调通知。</p>
 
       
 
@@ -322,10 +337,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
@@ -335,6 +346,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -350,7 +365,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -359,6 +374,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SOA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
             
             <div class="clearfix"></div>
