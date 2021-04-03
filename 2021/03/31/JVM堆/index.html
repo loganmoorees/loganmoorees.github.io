@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/12 | Logan Moorees</title>
+  <title>JVM堆 | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Logan Moorees">
-<meta property="og:url" content="http://yoursite.com/archives/2019/12/index.html">
+  <meta name="description" content="Java堆结构 Java堆是JVM内存最大的一块区域，主要存放Java对象的区域，Java虚拟机里面规定了堆可以处于物理上不连续的内存空间中，但在逻辑上它应该被视为连续的。当一个项目启动时，可以通过-Xms设置堆的起始内存，-Xmx设置堆的最大内存。Java堆分为新生代和老年代。新生代占据堆内存的1/3，主要存放那些朝生夕死，存活率比较低的对象，新生代中每次GC都会有大量的对象被回收。其中新生代又">
+<meta name="keywords" content="JVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM堆">
+<meta property="og:url" content="http://yoursite.com/2021/03/31/JVM堆/index.html">
 <meta property="og:site_name" content="Logan Moorees">
+<meta property="og:description" content="Java堆结构 Java堆是JVM内存最大的一块区域，主要存放Java对象的区域，Java虚拟机里面规定了堆可以处于物理上不连续的内存空间中，但在逻辑上它应该被视为连续的。当一个项目启动时，可以通过-Xms设置堆的起始内存，-Xmx设置堆的最大内存。Java堆分为新生代和老年代。新生代占据堆内存的1/3，主要存放那些朝生夕死，存活率比较低的对象，新生代中每次GC都会有大量的对象被回收。其中新生代又">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/JVM%E5%A0%86.jpg">
+<meta property="og:updated_time" content="2021-04-02T18:43:42.054Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Logan Moorees">
+<meta name="twitter:title" content="JVM堆">
+<meta name="twitter:description" content="Java堆结构 Java堆是JVM内存最大的一块区域，主要存放Java对象的区域，Java虚拟机里面规定了堆可以处于物理上不连续的内存空间中，但在逻辑上它应该被视为连续的。当一个项目启动时，可以通过-Xms设置堆的起始内存，-Xmx设置堆的最大内存。Java堆分为新生代和老年代。新生代占据堆内存的1/3，主要存放那些朝生夕死，存活率比较低的对象，新生代中每次GC都会有大量的对象被回收。其中新生代又">
+<meta name="twitter:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/JVM%E5%A0%86.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Logan Moorees" type="application/atom+xml">
   
@@ -134,60 +141,129 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-JVM堆" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/07/Nginx/" class="archive-article-date">
-  	<time datetime="2019-12-07T11:47:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-07</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/07/Nginx/">Nginx</a>
+    <h1 class="article-title" itemprop="name">
+      JVM堆
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/03/31/JVM堆/" class="archive-article-date">
+  	<time datetime="2021-03-31T13:53:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="Java堆结构"><a href="#Java堆结构" class="headerlink" title="Java堆结构"></a>Java堆结构</h4><p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/JVM%E5%A0%86.jpg" alt></p>
+<p>Java堆是JVM内存最大的一块区域，主要存放Java对象的区域，Java虚拟机里面规定了堆可以处于物理上不连续的内存空间中，但在逻辑上它应该被视为连续的。<br>当一个项目启动时，可以通过-Xms设置堆的起始内存，-Xmx设置堆的最大内存。<br>Java堆分为新生代和老年代。<br>新生代占据堆内存的1/3，主要存放那些朝生夕死，存活率比较低的对象，新生代中每次GC都会有大量的对象被回收。<br>其中新生代又分为Eden区，Survivor0(S0)和Survivor1(S1)，它们的大小比例是8:1:1，新生代的GC称为minor GC，当Eden区内存不足时就会触发minor GC<br>老年代<br>一般新生代中的对象，比如大对象，经历了几次新生代GC还活着的对象，就会转到老年代中，老年代中GC不频繁，但是GC效率比新生代慢很多，发生在老年代的GC又被称为Full GC或者major GC</p>
+<p>内存分配策略：</p>
+<ol>
+<li>大多数情况下对象优先在Eden区分配，当Eden区内存不足发生minor GC</li>
+<li>大对象直接进入老年代（需要大量连续内存空间的对象）</li>
+<li>长期存活的对象进入老年代（默认熬过15次minor GC的对象）</li>
+<li>对象年龄动态判定（如果S0，S1中相同年龄所有对象的总和大于等于S0/S1空间的一半，那么所有大于等于该年龄的对象直接进入老年代）</li>
+<li>空间分配担保（当前晋升为老年代的大小如果大于老年代剩余空间，则直接触发Full GC）</li>
+</ol>
+<p>最大年龄动态判断探究：</p>
+<p>虚拟机并不是永远地要求对象的年龄必须达到了MaxTenuringThreshold（最大持续阈值）才能晋升老年代，如果在Survivor空间中相同年龄所有对象大小的总和大于Survivor空间的一半，年龄大于或等于该年龄的对象就可以直接进入老年代，无须等到MaxTenuringThreshold中要求的年龄。</p>
+<p>作出假设：<br>MaxTenuringThreshold为15<br>年龄1的对象占用了33%<br>年龄2的对象占用33%<br>年龄3的对象占用34%</p>
+<p>开始推论：</p>
+<ol>
+<li>按照晋升的标准。首先年龄不满足MaxTenuringThreshold，不会晋升。</li>
+<li>每个年龄的对象都不满足50%，不会晋升。</li>
+</ol>
+<p>得到假设结论：<br>Survivor都占用了100%了，但是对象就不晋升。导致老年代明明有空间，但是对象就停留在年轻代。但这个结论似乎与jvm的表现不符合，只要老年代有空间，最后还会晋升的。</p>
+<p>问题解答：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">uint ageTable::compute_tenuring_threshold(size_t survivor_capacity) &#123;</span><br><span class="line">    <span class="comment">//survivor_capacity是survivor空间的大小</span></span><br><span class="line">  size_t desired_survivor_size = (size_t)((((<span class="keyword">double</span>) survivor_capacity)*TargetSurvivorRatio)/<span class="number">100</span>);</span><br><span class="line">  size_t total = <span class="number">0</span>;</span><br><span class="line">  uint age = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span> (age &lt; table_size) &#123;</span><br><span class="line">    total += sizes[age];<span class="comment">//sizes数组是每个年龄段对象大小</span></span><br><span class="line">    <span class="keyword">if</span> (total &gt; desired_survivor_size) <span class="keyword">break</span>;</span><br><span class="line">    age++;</span><br><span class="line">  &#125;</span><br><span class="line">  uint result = age &lt; MaxTenuringThreshold ? age : MaxTenuringThreshold;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>晋升年龄计算的代码摘出来看看动态年龄的计算：代码中有一个TargetSurvivorRatio的值。<br>-XX:TargetSurvivorRatio<br>目标存活率，默认为50%</p>
+<p>得出结论：总体表征就是，年龄从小到大进行累加，当加入某个年龄段后，累加和超过survivor区域*TargetSurvivorRatio的时候，就从这个年龄段往上的年龄的对象进行晋升。</p>
+<p>再次检测：<br>还是上面的场景。<br>年龄1的占用了33%，年龄2的占用了33%，累加和超过默认的TargetSurvivorRatio（50%），年龄2和年龄3的对象都要晋升。</p>
+<p>动态对象年龄判断，主要是被TargetSurvivorRatio这个参数来控制。而且算的是年龄从小到大的累加和，而不是某个年龄段对象的大小。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2021/04/03/虚拟机栈/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          虚拟机栈
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2021/03/31/Spring/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -210,8 +286,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

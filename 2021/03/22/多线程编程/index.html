@@ -16,7 +16,7 @@
 <meta property="og:description" content="什么是并发。与并行的区别&amp;nbsp;&amp;nbsp;在Web程序中，有多人同时访问的情况下，并发强调的是同时执行，而并行强调的是多任务交替执行，每个任务互不干扰。 线程是什么，和进程协程的区别&amp;nbsp;&amp;nbsp;线程是资源分配的最小单位，也是CPU调度的最小单位，包含在进程之中，是进程实际运作的单位，进程需要依赖线程，一个进程中至少有一个线程。&amp;nbsp;&amp;nbsp;协程又叫做微线程，协程拥有自己">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/volatile.png">
-<meta property="og:updated_time" content="2021-03-28T11:39:40.000Z">
+<meta property="og:updated_time" content="2021-04-01T16:30:21.639Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多线程编程">
 <meta name="twitter:description" content="什么是并发。与并行的区别&amp;nbsp;&amp;nbsp;在Web程序中，有多人同时访问的情况下，并发强调的是同时执行，而并行强调的是多任务交替执行，每个任务互不干扰。 线程是什么，和进程协程的区别&amp;nbsp;&amp;nbsp;线程是资源分配的最小单位，也是CPU调度的最小单位，包含在进程之中，是进程实际运作的单位，进程需要依赖线程，一个进程中至少有一个线程。&amp;nbsp;&amp;nbsp;协程又叫做微线程，协程拥有自己">
@@ -172,7 +172,9 @@
 <h4 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h4><p>CAS（Compare And Swap）：比较和替换，CAS机制中使用了三个基本操作数，内存地址V，旧的预期地址A，要修改的值B，更新一个变量的时候，只有当变量的预期值A和内存地址V当中的实际值相同时，才会将内存地址V对应的值修改为B。<br>例如：<br>    V是10，线程1想增加1，旧的预期值A是10，则要修改的预期值是11。<br>    线程1提交之前，线程2抢先一步了，把内存中V的值10更新成了11<br>    等线程1提交更新，首先A和实际的V进行比较，发现A不等于V，提交失败。<br>    线程1重新获取内存值V，V = 11，并重新计算修改后的新值，A = 11，B = 12，这个重新尝试的过程称之为自旋</p>
 <h4 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h4><p>ThreadLocal<br>    ThreadLocal线程本地变量，为私有变量在每个线程中都创建了一个副本，每个线程都可以独立的改变自己内部的变量副本，而不会影响到其他线程所对应的副本，从而实现各个线程之间的互不干扰。</p>
 <p>原理：<br>ThreadLocal核心就是ThreadLocalMap，是ThreadLocal的静态内部类，跟HashMap类似，每个线程中都有个独立的ThreadLocalMap副本，所以只能被当前线程操作，将ThreadLocal对象作为key，将存储的类型作为Value直接存储到ThreadLocalMap中。<br>注意点：<br>因为ThreadLocalMap的key是弱引用，而Value是强引用。这就导致了一个问题，ThreadLocal在没有外部对象强引用时，发生GC时弱引用Key会被回收，而Value不会回收，<br>如果创建ThreadLocal的线程<br>一直持续运行，那么这个Entry对象中的value就有可能一直得不到回收，发生内存泄露。使用完成后必须remove，它会将整个Entry置为Null，删除这个Entry和Map的联系，使得GC能够回收。</p>
-<h4 id="线程状态有哪些，常用的线程池，线程池状态"><a href="#线程状态有哪些，常用的线程池，线程池状态" class="headerlink" title="线程状态有哪些，常用的线程池，线程池状态"></a>线程状态有哪些，常用的线程池，线程池状态</h4>
+<h4 id="线程状态有哪些，常用的线程池，线程池状态"><a href="#线程状态有哪些，常用的线程池，线程池状态" class="headerlink" title="线程状态有哪些，常用的线程池，线程池状态"></a>线程状态有哪些，常用的线程池，线程池状态</h4><p>Synchronized（同步锁，悲观锁，互斥锁，重量级锁）</p>
+<p>CAS（无锁，自旋锁，乐观锁，轻量级锁）</p>
+
       
 
       
@@ -342,11 +344,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
               </li>
              
               <li class="article-tag-list-item">
