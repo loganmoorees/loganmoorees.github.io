@@ -8,15 +8,20 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>虚拟机栈 | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="JVM">
+  <meta name="description" content="虚拟机栈（Stack）线程私有的，描述的是Java方法执行的内存模型：每个方法在执行的同时会在虚拟机栈中创建一个栈帧（Stack Frame）用于存储局部变量表，操作数栈，动态链接，方法返回地址等等信息。生命周期随着线程启动而产生，随着线程的死亡而死亡。每个方法调用到执行完的过程，都会对应的一个栈帧在虚拟机栈中压栈和出栈的过程。栈先进后出 如果采用固定大小的虚拟机栈，那么每个线程的Java虚拟机栈">
+<meta name="keywords" content="JVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="虚拟机栈">
 <meta property="og:url" content="http://yoursite.com/2021/04/03/虚拟机栈/index.html">
 <meta property="og:site_name" content="Logan Moorees">
+<meta property="og:description" content="虚拟机栈（Stack）线程私有的，描述的是Java方法执行的内存模型：每个方法在执行的同时会在虚拟机栈中创建一个栈帧（Stack Frame）用于存储局部变量表，操作数栈，动态链接，方法返回地址等等信息。生命周期随着线程启动而产生，随着线程的死亡而死亡。每个方法调用到执行完的过程，都会对应的一个栈帧在虚拟机栈中压栈和出栈的过程。栈先进后出 如果采用固定大小的虚拟机栈，那么每个线程的Java虚拟机栈">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-04-03T09:53:29.525Z">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88.png">
+<meta property="og:updated_time" content="2021-04-03T19:14:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟机栈">
+<meta name="twitter:description" content="虚拟机栈（Stack）线程私有的，描述的是Java方法执行的内存模型：每个方法在执行的同时会在虚拟机栈中创建一个栈帧（Stack Frame）用于存储局部变量表，操作数栈，动态链接，方法返回地址等等信息。生命周期随着线程启动而产生，随着线程的死亡而死亡。每个方法调用到执行完的过程，都会对应的一个栈帧在虚拟机栈中压栈和出栈的过程。栈先进后出 如果采用固定大小的虚拟机栈，那么每个线程的Java虚拟机栈">
+<meta name="twitter:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88.png">
   
     <link rel="alternative" href="/atom.xml" title="Logan Moorees" type="application/atom+xml">
   
@@ -156,7 +161,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88.png" alt><br>虚拟机栈（Stack）线程私有的，描述的是Java方法执行的内存模型：每个方法在执行的同时会在虚拟机栈中创建一个栈帧（Stack Frame）用于存储局部变量表，操作数栈，动态链接，方法返回地址等等信息。生命周期随着线程启动而产生，随着线程的死亡而死亡。每个方法调用到执行完的过程，都会对应的一个栈帧在虚拟机栈中压栈和出栈的过程。栈先进后出</p>
+<p>如果采用固定大小的虚拟机栈，那么每个线程的Java虚拟机栈容量可以在线程创建时候确定，也允许通过计算结果来扩容和收缩大小。通过-xss命令设置栈大小：如-Xss 512k，不设置默认1m。</p>
+<p>在Java虚拟机规范中，对这个区域规定了两种异常状况：如果线程请求的栈深度大于虚拟机所允许的深度，将抛出StackOverflowError异常；如果虚拟机栈可以动态扩展（当前大部分的Java虚拟机都可动态扩展，只不过Java虚拟机规范中也允许固定长度的虚拟机栈），如果扩展时无法申请到足够的内存，就会抛出OutOfMemoryError异常。</p>
+<h4 id="局部变量表："><a href="#局部变量表：" class="headerlink" title="局部变量表："></a>局部变量表：</h4><p>是一组变量值存储空间，用于存放方法参数和方法内部定义的局部变量。<br>局部变量表的容量以变量槽（Variable Slot，下称Slot）为最小单位，每个Slot都应该能存放一个boolean、byte、char、short、int、float、reference或returnAddress等等32位以内类型的数据，<br>对于64位的数据类型，虚拟机会以高位对齐的方式为其分配两个连续的Slot空间。Java语言中明确的（reference类型则可能是32位也可能是64位）64位的数据类型只有long和double两种。（由于局部变量表建立在线程的堆栈上，是线<br>程私有的数据，无论读写两个连续的Slot是否为原子操作，都不会引起数据安全问题）</p>
+<h4 id="操作数栈"><a href="#操作数栈" class="headerlink" title="操作数栈"></a>操作数栈</h4><p>后进先出的操作栈，当一个方法刚刚开始执行的时候，这个方法的操作数栈是空的，在方法的执行过程中，会有各种字节码指令往操作数栈中写入和提取内容，也就是出栈/入栈操作。例如，在做算术运算的时候是通过操作数栈来进行的，又或者在调用其他方法的时候是通过操作数栈来进行参数传递的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">byte</span> a = <span class="number">1</span>;</span><br><span class="line">     <span class="keyword">short</span> b = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 字节码指令</span></span><br><span class="line"><span class="number">0</span>: iconst_1   <span class="comment">// 把 a 压入操作数栈栈顶</span></span><br><span class="line"><span class="number">1</span>: istore_1   <span class="comment">// 将栈顶的 a 存入局部变量表索引为1的 Slot</span></span><br><span class="line"><span class="number">2</span>: iconst_1  <span class="comment">// 把 b 压入操作数栈栈顶</span></span><br><span class="line"><span class="number">3</span>: istore_2   <span class="comment">// 将栈顶的 b 存入局部变量表索引为2的 Slot</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h4><p>主要是存了一些指向方法区的指针，比如指向运行常量池的指针等等</p>
+<h4 id="方法返回地址"><a href="#方法返回地址" class="headerlink" title="方法返回地址"></a>方法返回地址</h4><p>当一个方法开始执行后，只有两种方式可以退出这个方法。第一种方式是执行引擎遇到任意一个方法返回的字节码指令，这时候可能会有返回值传递给上层的方法调用者（正常返回出口），另外一种退出方式是，在方法执行过程中遇到了异常，并且这个异常没有在方法体内得到处理（异常返回出口）。<br>无论采用何种退出方式，在方法退出之后，都需要返回到方法被调用的位置，程序才能继续执行，方法返回时可能需要在栈帧中保存一些信息，用来帮助恢复它的上层方法的执行状态。正常出口，调用者的PC计数器可以作为返回地址，栈帧中可能保存这个计数器的值，异常出口，一般不会保存。</p>
+<h4 id="附加信息"><a href="#附加信息" class="headerlink" title="附加信息"></a>附加信息</h4><p>虚拟机规范允许具体的虚拟机实现增加一些规范里没有描述的信息到栈帧中，例如与调试相关的信息，这部分信息完全取决于具体的虚拟机实现。</p>
+
       
 
       
@@ -187,6 +202,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2021/04/04/HashMap/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          HashMap
+        
+      </div>
+    </a>
   
   
     <a href="/2021/03/31/JVM堆/" id="article-nav-older" class="article-nav-link-wrap">
@@ -308,11 +332,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -324,19 +348,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Framework</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -349,6 +365,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络协议</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
             
             <div class="clearfix"></div>
