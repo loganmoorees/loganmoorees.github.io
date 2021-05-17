@@ -17,7 +17,7 @@
 <meta property="og:description" content="Spring宏观上Spring是一个Spring生态圈，比如下面的子项目Spring MVC，WebFlux等等，核心功能其实主要IOC和AOP，OC：（Inversion of Control）控制反转，IOC 不是一种技术，只是一种思想，一个重要的面向对象编程的法则，它能指导我们如何设计出松耦合、更优良的程序。传统应用程序都是由我们在类内部主动创建依赖对象，从而导致类与类之间高耦合，难于测试；">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96.png">
-<meta property="og:updated_time" content="2021-03-31T09:55:46.000Z">
+<meta property="og:updated_time" content="2021-05-10T02:57:00.956Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring">
 <meta name="twitter:description" content="Spring宏观上Spring是一个Spring生态圈，比如下面的子项目Spring MVC，WebFlux等等，核心功能其实主要IOC和AOP，OC：（Inversion of Control）控制反转，IOC 不是一种技术，只是一种思想，一个重要的面向对象编程的法则，它能指导我们如何设计出松耦合、更优良的程序。传统应用程序都是由我们在类内部主动创建依赖对象，从而导致类与类之间高耦合，难于测试；">
@@ -196,9 +196,9 @@
 <li>通过initializeBean初始化对象</li>
 <li></li>
 </ol>
-<p>Spring缓存</p>
-<p>第一级放的是完全初始化完成的可以直接使用的对象，第二级放的是经过后置处理器处理（即代理过）的对象，第三级放的是刚实例化好没有经过后置处理器处理（即没有被代理过）的对象。</p>
-<p>IOC容器如何解决循环依赖的？<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96.png" alt><br>三级缓存解决的循环依赖，设计了三级缓存，构造器的循环依赖，Spring无法解决。但是懒加载可以绕过限制</p>
+<p>Spring生命周期</p>
+<p>IOC容器如何解决循环依赖的？<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96.png" alt><br>Spring通过三级缓存解决了循环依赖，其中一级缓存为单例池（singletonObjects）,二级缓存为早期曝光对象earlySingletonObjects（半成品bean），三级缓存为早期曝光对象工厂（singletonFactories）。<br>当A、B两个类发生循环引用时，在A完成实例化后，就使用实例化后的对象去创建一个对象工厂，并添加到三级缓存中，如果A被AOP代理，<br>那么通过这个工厂获取到的就是A代理后的对象，如果A没有被AOP代理，那么这个工厂获取到的就是A实例化的对象。<br>当A进行属性注入时，会去创建B，同时B又依赖了A，所以创建B的同时又会去调用getBean(a)来获取需要的依赖，此时的getBean(a)会从缓存中获取，第一步，先获取到三级缓存中的工厂；<br>第二步，调用对象工工厂的getObject方法来获取到对应的对象，得到这个对象后将其注入到B中。紧接着B会走完它的生命周期流程，包括初始化、后置处理器等。当B创建完后，会将B再注入到A中，<br>此时A再完成它的整个生命周期。至此，循环依赖结束！</p>
+<p>为什么要使用三级缓存呢？二级缓存能解决循环依赖吗:<br>如果要使用二级缓存解决循环依赖，意味着所有Bean在实例化后就要完成AOP代理，这样违背了Spring设计的原则，<br>Spring在设计之初就是通过AnnotationAwareAspectJAutoProxyCreator这个后置处理器来在Bean生命周期的最后一步来完成AOP代理，而不是在实例化后就立马进行AOP代理。</p>
 <p>Aop原理：<br>核心就是拦截器和JDK代理以及Cglib代理，通过拦截器和动态代理，进行偷梁换柱，织入其他的操作</p>
 <p>AOP是用的哪一种代理，怎么决定的？<br>    默认JDK代理。可以通过proxy-target-class进行修改为cglib代理<br>    如果被代理的目标对象实现了至少一个接口，则会使用JDK动态代理。所有该目标类型实现的接口都将被代理。若该目标对象没有实现任何接口，则创建一个CGLIB代理。</p>
 
@@ -366,23 +366,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">网络协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -394,15 +386,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">微服务</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SOA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
             
             <div class="clearfix"></div>
