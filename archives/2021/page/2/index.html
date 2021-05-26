@@ -6,19 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>SpringBoot项目配置 | Logan Moorees</title>
+  <title>Archives: 2021 | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SpringBoot多数据源配置首先在application.yml中配置数据源信息 1234567891011121314151617spring:  datasource:    db1:      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver      jdbc-url: jdbc:sqlserver://12">
-<meta property="og:type" content="article">
-<meta property="og:title" content="SpringBoot项目配置">
-<meta property="og:url" content="http://yoursite.com/2020/09/24/SpringBoot项目配置/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Logan Moorees">
+<meta property="og:url" content="http://yoursite.com/archives/2021/page/2/index.html">
 <meta property="og:site_name" content="Logan Moorees">
-<meta property="og:description" content="SpringBoot多数据源配置首先在application.yml中配置数据源信息 1234567891011121314151617spring:  datasource:    db1:      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver      jdbc-url: jdbc:sqlserver://12">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-09-24T07:33:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SpringBoot项目配置">
-<meta name="twitter:description" content="SpringBoot多数据源配置首先在application.yml中配置数据源信息 1234567891011121314151617spring:  datasource:    db1:      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver      jdbc-url: jdbc:sqlserver://12">
+<meta name="twitter:title" content="Logan Moorees">
   
     <link rel="alternative" href="/atom.xml" title="Logan Moorees" type="application/atom+xml">
   
@@ -138,120 +134,79 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-SpringBoot项目配置" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      SpringBoot项目配置
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2021" class="archive-year">2021</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-w">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2021/03/22/多线程编程/" class="archive-article-date">
+  	<time datetime="2021-03-22T01:13:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-22</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2021/03/22/多线程编程/">多线程编程</a>
     </h1>
   
 
-        
-        <a href="/2020/09/24/SpringBoot项目配置/" class="archive-article-date">
-  	<time datetime="2020-09-24T06:22:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="SpringBoot多数据源配置"><a href="#SpringBoot多数据源配置" class="headerlink" title="SpringBoot多数据源配置"></a>SpringBoot多数据源配置</h3><p>首先在application.yml中配置数据源信息</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  datasource:</span><br><span class="line">    db1:</span><br><span class="line">      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver</span><br><span class="line">      jdbc-url: jdbc:sqlserver:<span class="comment">//127.0.0.1:1433; databaseName=xxx</span></span><br><span class="line">      username: xxx</span><br><span class="line">      password: xxx</span><br><span class="line">    db2:</span><br><span class="line">      driver-class-name: oracle.jdbc.driver.OracleDriver</span><br><span class="line">      jdbc-url: jdbc:oracle:thin:@<span class="number">127.0</span>.0.1:<span class="number">1521</span>:orcl</span><br><span class="line">      username: xxx</span><br><span class="line">      password: xxx</span><br><span class="line">    db3:</span><br><span class="line">      driver-class-name: oracle.jdbc.driver.OracleDriver</span><br><span class="line">      jdbc-url: jdbc:oracle:thin:@<span class="number">127.0</span>.0.1:<span class="number">1521</span>:orcl</span><br><span class="line">      username: xxx</span><br><span class="line">      password: xxx</span><br></pre></td></tr></table></figure>
+        <div class="article-info info-on-right">
+          
+          
 
-<p>创建对应的一个枚举</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> DataSourceType &#123;</span><br><span class="line">    db1,</span><br><span class="line">    db2,</span><br><span class="line">    db3</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-
-<p>自定义一个注解：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(&#123;ElementType.METHOD, ElementType.TYPE&#125;)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> DataSource &#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">DataSourceType <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> DataSourceType.db1</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在SpringBoot启动类上关闭数据源自动化配置</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span>(exclude = &#123;DataSourceAutoConfiguration.class&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BosAptosApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(BosAptosApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用ThreadLocal创建一个线程安全的类，存放当前线程的数据源类型，动态数据源上下文</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataSourceContextHolder</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 存放当前线程使用的数据源类型</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;DataSourceType&gt; contextHolder = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置数据源</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setDataSource</span><span class="params">(DataSourceType type)</span></span>&#123;</span><br><span class="line">        contextHolder.set(type);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取数据源</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> DataSourceType <span class="title">getDataSource</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> contextHolder.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 清除数据源</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">clearDataSource</span><span class="params">()</span></span>&#123;</span><br><span class="line">        contextHolder.remove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用动态数据源，每执行一次数据库，动态的获取数据源</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicDataSource</span> <span class="keyword">extends</span> <span class="title">AbstractRoutingDataSource</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Object <span class="title">determineCurrentLookupKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> DataSourceContextHolder.getDataSource();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Mybatis多数据源配置</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@MapperScan</span>(basePackages = <span class="string">"com.moore.demo.dao"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MybatisConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span>(<span class="string">"db1DataSource"</span>)</span><br><span class="line">    <span class="meta">@Primary</span></span><br><span class="line">    <span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"spring.datasource.db1"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">db1DataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        DataSource build = DataSourceBuilder.create().build();</span><br><span class="line">        <span class="keyword">return</span> build;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(<span class="string">"db2DataSource"</span>)</span><br><span class="line">    <span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"spring.datasource.db2"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">db2DataSource</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> DataSourceBuilder.create().build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(<span class="string">"db3DataSource"</span>)</span><br><span class="line">    <span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"spring.datasource.db3"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">db3DataSource</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> DataSourceBuilder.create().build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DynamicDataSource <span class="title">dataSource</span><span class="params">(@Qualifier(<span class="string">"db1DataSource"</span>)</span> DataSource db1DataSource,</span></span><br><span class="line"><span class="function">                                        @<span class="title">Qualifier</span><span class="params">(<span class="string">"db2DataSource"</span>)</span> DataSource db2DataSource,</span></span><br><span class="line"><span class="function">                                        @<span class="title">Qualifier</span><span class="params">(<span class="string">"db3DataSource"</span>)</span> DataSource db3DataSource) </span>&#123;</span><br><span class="line">        Map&lt;Object, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(DataSourceType.db1, db1DataSource);</span><br><span class="line">        map.put(DataSourceType.db2, db2DataSource);</span><br><span class="line">        map.put(DataSourceType.db3, db3DataSource);</span><br><span class="line"></span><br><span class="line">        DynamicDataSource dynamicDataSource = <span class="keyword">new</span> DynamicDataSource();</span><br><span class="line">        dynamicDataSource.setTargetDataSources(map);</span><br><span class="line">        dynamicDataSource.setDefaultTargetDataSource(db1DataSource);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dynamicDataSource;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">sqlSessionFactory</span><span class="params">(DynamicDataSource dynamicDataSource)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        SqlSessionFactoryBean factoryBean = <span class="keyword">new</span> SqlSessionFactoryBean();</span><br><span class="line">        factoryBean.setDataSource(dynamicDataSource);</span><br><span class="line">        <span class="comment">// 设置mapper.xml的位置路径</span></span><br><span class="line">        Resource[] resources = <span class="keyword">new</span> PathMatchingResourcePatternResolver().getResources(<span class="string">"classpath*:/mapper/**/*.xml"</span>);</span><br><span class="line">        factoryBean.setMapperLocations(resources);</span><br><span class="line">        <span class="keyword">return</span> factoryBean.getObject();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> PlatformTransactionManager <span class="title">transactionManager</span><span class="params">(DynamicDataSource dynamicDataSource)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DataSourceTransactionManager(dynamicDataSource);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>AOP切面设置数据源, 实现自定义注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataSourceAspect</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"@annotation(ds)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beforeDataSource</span><span class="params">(DataSource ds)</span> </span>&#123;</span><br><span class="line">        DataSourceType value = ds.value();</span><br><span class="line">        DataSourceContextHolder.setDataSource(value);</span><br><span class="line"><span class="comment">//        log.info("当前使用的数据源为：&#123;&#125;", value);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span>(<span class="string">"@annotation(ds)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterDataSource</span><span class="params">(DataSource ds)</span> </span>&#123;</span><br><span class="line">        DataSourceContextHolder.clearDataSource();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上配置完即可在Mapper接口上或者Service实现类的方法中使用此注解动态的获取数据源</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BosSendOrderAptosMapper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@DataSource</span>(DataSourceType.db2)</span><br><span class="line">    <span class="function">List&lt;BosOrderEntity&gt; <span class="title">getBosOrder</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@DataSource</span>(DataSourceType.db1)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setAptosOrder</span><span class="params">(List&lt;BosOrderEntity&gt; list)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@DataSource</span>(DataSourceType.db3)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insertHs</span><span class="params">(List&lt;ExportAptosEntity&gt; list)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="SpringBoot-默认日志Logging配置"><a href="#SpringBoot-默认日志Logging配置" class="headerlink" title="SpringBoot 默认日志Logging配置"></a>SpringBoot 默认日志Logging配置</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  <span class="comment">// Log日志的字体颜色</span></span><br><span class="line">  output:</span><br><span class="line">    ansi:</span><br><span class="line">      enabled: detect</span><br><span class="line">logging:</span><br><span class="line">  file:</span><br><span class="line">    <span class="comment">// log文件地址</span></span><br><span class="line">    path: d:/project/bos-aptos</span><br><span class="line">    <span class="comment">// log文件的单个大小</span></span><br><span class="line">    max-size: <span class="number">20</span>MB</span><br><span class="line">    <span class="comment">// 是否开启自动清理</span></span><br><span class="line">    clean-history-on-start: <span class="keyword">true</span></span><br><span class="line">    <span class="comment">// 最大保留多少天的日志文件</span></span><br><span class="line">    max-history: <span class="number">30</span></span><br><span class="line">    <span class="comment">// 最大保留的日志文件大小</span></span><br><span class="line">    total-size-cap: <span class="number">1024</span>MB</span><br><span class="line">  <span class="comment">// 日志的路径配置</span></span><br><span class="line">  level.*: info</span><br><span class="line">  level:</span><br><span class="line">    root: info</span><br><span class="line">  <span class="comment">// 日志文件格式（默认tar.gz格式）</span></span><br><span class="line">  pattern:</span><br><span class="line">    rolling-file-name: $&#123;LOG_FILE&#125;.%d&#123;yyyy-MM-dd&#125;.%i.log</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
   
-<nav id="article-nav">
-  
-    <a href="/2020/09/24/Hadoop安装/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Hadoop安装
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/12/07/Nginx/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Nginx</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2021/03/17/Java基础/" class="archive-article-date">
+  	<time datetime="2021-03-17T01:32:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-17</time>
+</a>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
+    	 
   
-  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2021/03/17/Java基础/">Java基础</a>
+    </h1>
   
 
+        <div class="article-info info-on-right">
+          
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+  
+    </div></section>
   
 
-  
-
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/archives/2021/">&laquo; Prev</a><a class="page-number" href="/archives/2021/">1</a><span class="page-number current">2</span>
+    </nav>
   
 
 
@@ -275,8 +230,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
