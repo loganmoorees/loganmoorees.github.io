@@ -953,6 +953,48 @@
 <p>怎么保证不被重复消费：<br>加个消息应用状态表。执行之前去数据库查一遍。重复的丢弃就行，不重复就执行</p>
 <p>怎么保证传输的可靠性：<br>生产者丢失数据： 生产者将数据发送到RabbitMQ的时候，可能数据就在半路给搞丢了，因为网络啥的问题，都有可能。此时可以选择用RabbitMQ提供的事务功能。<br>                就是生产者发送数据之前开启RabbitMQ事务（channel.txSelect），然后发送消息，如果消息没有成功被RabbitMQ接收到，那么生产者会收到异常报错，<br>                此时就可以回滚事务（channel.txRollback），然后重试发送消息；如果收到了消息，那么可以提交事务（channel.txCommit）。但是问题是，RabbitMQ事务机制一搞，<br>                基本上吞吐量会下来，因为太耗性能。一般来说，如果你要确保说写RabbitMQ的消息别丢，可以开启confirm模式，在生产者那里设置开启confirm模式之后，<br>                你每次写的消息都会分配一个唯一的id，然后如果写入了RabbitMQ中，RabbitMQ会给你回传一个ack消息，告诉你说这个消息ok了。如果RabbitMQ没能处理这个消息，<br>                会回调你一个nack接口，告诉你这个消息接收失败，你可以重试。而且你可以结合这个机制自己在内存里维护每个消息id的状态，如果超过一定时间还没接收到这个消息的回调，那么你可以重发<br>RabbitMQ丢失了数据：RabbitMQ弄丢了数据，也就是Rabbit自己挂了，开启RabbitMQ的持久化。恢复之后会自动读取之前存储的数据。消息持久化。<br>消费者端丢失数据：你消费的时候，刚消费到，还没处理，结果进程挂了，比如重启了，那么就尴尬了，RabbitMQ认为你都消费了，<br>                这数据就丢了。关闭RabbitMQ自动ack，可以通过一个api来调用就行，然后每次你自己代码里确保处理完的时候，在程序里ack一把。这样的话，<br>                如果你还没处理完，不就没有ack？那RabbitMQ就认为你还没处理完，这个时候RabbitMQ会把这个消费分配给别的consumer去处理，消息是不会丢的。<br>怎么确定对方收到消息：Ack（acknowledgement）消息回执布尔类型的，true为自动，false为手动。默认是自动。分发给消费者之后会从内存中删除，自动情况下如果有未完成的消费者，会丢失信息。手动情况下，<br>                    一个消费者挂了，就会交付到其他消费者，rabbitmq支持消息应答，消费者发送一个消息，告诉rabbitmq这个消息我已经处理完成，然后可以删除内存的消息。</p>
 <p>通讯：都是采用的TCP加NIO</p>
+<p>RabbitMQ 死信队列：<br>死信队列，英文缩写：DLX 。Dead Letter Exchange（死信交换机），其实应该叫做死信交换机才更恰当。<br>“死信”是MQ中的一种消息机制，当你在消费消息时，如果队列里的消息出现以下情况：</p>
+<ol>
+<li>消息被拒绝，并且不重回队列。该信息会被清除并进入死信队列，使用 channel.basicNack 或 channel.basicReject ，并且此时requeue 属性被设置为false。</li>
+<li>队列长度到达限制，无法加入新的消息</li>
+<li>原队列存在消息过期设置，消息到达超时时间未被消费<br>那么该消息将成为“死信”。<br>“死信”消息会被RabbitMQ进行特殊处理，如果配置了死信队列信息，那么该消息将会被丢进死信队列中，如果没有配置，则该消息将会被丢弃。</li>
+</ol>
+<h4 id="RocketMQ："><a href="#RocketMQ：" class="headerlink" title="RocketMQ："></a>RocketMQ：</h4><p>RocketMQ异步发送消息可靠性：<br>消息丢失可能在不同的环节，</p>
+<ol>
+<li>有可能在生产过程中，发送到MQ由于网络等等情况，MQ没收到，消息丢失了，由于同步发送的一般不会出现这样使用方式，所以我们就不考虑同步发送的问题，我们基于异步发送的场景来说<br>异步发送分为两个方式：异步有回调和异步无回调，无回调的方式，生产者发送完后不管结果可能就会造成消息丢失，而通过异步发送，可以通过回调进行处理。</li>
+<li>MQ丢失数据，比如MQ突然宕机的情况，RocketMQ提供了两种刷盘方式，同步刷盘和异步刷盘，默认是异步刷盘，默认是异步刷盘，有可能消息还未保存到硬盘就丢失了，可以通过设置同步刷盘方式来保证MQ的可靠性。<br>即使MQ突然挂了，恢复的时候，也可以从磁盘中去恢复消息。</li>
+<li>消费者丢失的情况，从MQ中消费数据时候，服务突然挂了，RocketMQ提供了回调，当你消费完了，需要响应ACK确认，消费方不返回ack确认，重发的机制根据MQ类型的不同发送时间间隔、<br>次数都不尽相同，如果重试超过次数之后会进入死信队列</li>
+</ol>
+<p>RocketMQ一直失败，导致消息积压怎么处理：</p>
+<ol>
+<li>消费者出错，肯定是程序或者其他问题导致的，如果容易修复，先把问题修复，让consumer恢复正常消费</li>
+<li>如果时间来不及处理很麻烦，做转发处理，写一个临时的consumer消费方案，先把消息消费，然后再转发到一个新的topic和MQ资源，这个新的topic的机器资源单独申请，要能承载住当前积压的消息</li>
+<li>处理完积压数据后，修复consumer，去消费新的MQ和现有的MQ数据，新MQ消费完成后恢复原状</li>
+</ol>
+<p>如果消息积压达到磁盘上限，消息被删除了怎么办？<br>我们发送的消息记录是落库保存了的，而转发发送的数据也保存了，那么我们就可以通过这部分数据来找到丢失的那部分数据，再单独跑个脚本重发就可以了。如果转发的程序没有落库，那就和消费方的记录去做对比，只是过程会更艰难一点。</p>
+<p>RocketMQ原理：<br>RocketMQ由NameServer注册中心集群、Producer生产者集群、Consumer消费者集群和若干Broker（RocketMQ进程）组成，它的架构原理是这样的：<br>Broker在启动的时候去向所有的NameServer注册，并保持长连接，每30s发送一次心跳<br>Producer在发送消息的时候从NameServer获取Broker服务器地址，根据负载均衡算法选择一台服务器来发送消息<br>Conusmer消费消息的时候同样从NameServer获取Broker地址，然后主动拉取消息来消费</p>
+<p>为什么RocketMQ不使用Zookeeper作为注册中心呢？<br>我认为有以下几个点是不使用zookeeper的原因：</p>
+<ol>
+<li>根据CAP理论，同时最多只能满足两个点，而zookeeper满足的是CP，也就是说zookeeper并不能保证服务的可用性，zookeeper在进行选举的时候，整个选举的时间太长，期间整个集群都处于不可用的状态，而这对于一个注册中心来说肯定是不能接受的，作为服务发现来说就应该是为可用性而设计。</li>
+<li>基于性能的考虑，NameServer本身的实现非常轻量，而且可以通过增加机器的方式水平扩展，增加集群的抗压能力，而zookeeper的写是不可扩展的，而zookeeper要解决这个问题只能通过划分领域，划分多个zookeeper集群来解决，首先操作起来太复杂，其次这样还是又违反了CAP中的A的设计，导致服务之间是不连通的。</li>
+<li>持久化的机制来带的问题，ZooKeeper 的 ZAB 协议对每一个写请求，会在每个 ZooKeeper 节点上保持写一个事务日志，同时再加上定期的将内存数据镜像（Snapshot）到磁盘来保证数据的一致性和持久性，而对于一个简单的服务发现的场景来说，这其实没有太大的必要，这个实现方案太重了。而且本身存储的数据应该是高度定制化的。</li>
+<li>消息发送应该弱依赖注册中心，而RocketMQ的设计理念也正是基于此，生产者在第一次发送消息的时候从NameServer获取到Broker地址后缓存到本地，如果NameServer整个集群不可用，短时间内对于生产者和消费者并不会产生太大影响。</li>
+</ol>
+<p>Broker怎么保存数据的？<br>RocketMQ主要的存储文件包括commitlog文件、consumequeue文件、indexfile文件。<br>Broker在收到消息之后，会把消息保存到commitlog的文件当中，而同时在分布式的存储当中，每个broker都会保存一部分topic的数据，同时，<br>每个topic对应的messagequeue下都会生成consumequeue文件用于保存commitlog的物理位置偏移量offset，indexfile中会保存key和offset的对应关系。<br>CommitLog文件保存于${Rocket_Home}/store/commitlog目录中，从图中我们可以明显看出来文件名的偏移量，每个文件默认1G，写满后自动生成一个新的文件。<br>由于同一个topic的消息并不是连续的存储在commitlog中，消费者如果直接从commitlog获取消息效率非常低，所以通过consumequeue保存commitlog中消息的偏移量的物理地址，这样消费者在消费的时候先从consumequeue中根据偏移量定位到具体的commitlog物理文件，然后根据一定的规则（offset和文件大小取模）在commitlog中快速定位。</p>
+<p>Master和Slave之间是怎么同步数据的呢？<br>而消息在master和slave之间的同步是根据raft协议来进行的：</p>
+<p>在broker收到消息后，会被标记为uncommitted状态<br>A. 首先启动Master并在指定端口监听；<br>B. 客户端启动，主动连接Master，建立TCP连接；<br>C. 客户端以每隔5s的间隔时间向服务端拉取消息，如果是第一次拉取的话，先获取本地commitlog文件中最大的偏移量，以该偏移量向服务端拉取消息；<br>D. 服务端解析请求，并返回一批数据给客户端；<br>E. 客户端收到一批消息后，将消息写入本地commitlog文件中，然后向Master汇报拉取进度，并更新下一次待拉取偏移量；</p>
+<p>RocketMQ为什么比较快？<br>是因为使用了顺序存储、Page Cache和异步刷盘。<br>我们在写入commitlog的时候是顺序写入的，这样比随机写入的性能就会提高很多<br>写入commitlog的时候并不是直接写入磁盘，而是先写入操作系统的PageCache<br>最后由操作系统异步将缓存中的数据刷到磁盘</p>
+<p>什么是事务、半事务消息？怎么实现的？<br>事务消息就是MQ提供的类似XA的分布式事务能力，通过事务消息可以达到分布式事务的最终一致性。<br>半事务消息就是MQ收到了生产者的消息，但是没有收到二次确认，不能投递的消息。<br>实现原理如下：<br>1、 生产者先发送一条半事务消息到MQ<br>2、 MQ收到消息后返回ack确认<br>3、 生产者开始执行本地事务<br>4、 如果事务执行成功发送commit到MQ，失败发送rollback<br>5、 如果MQ长时间未收到生产者的二次确认commit或者rollback，MQ对生产者发起消息回查<br>6、 生产者查询事务执行最终状态<br>7、 根据查询事务状态再次提交二次确认<br>最终，如果MQ收到二次确认commit，就可以把消息投递给消费者，反之如果是rollback，消息会保存下来并且在3天后被删除。</p>
+<p>RocketMQ零拷贝：<br>在计算机中，I/O的速度和CPU的速度肯定是很慢的，如果对于I/O操作，CPU比I/O性能好很多，应当尽力给CPU让步，让它去做更多的事情，于是就有了DMA。DMA只需要CPU告诉它，”搬什么数据，搬到哪里，搬好了我告诉你”<br>数据传输过程中，有两次CPU的Copy可以省去，一次将内核缓冲区的数据拷贝到用户缓冲区，同时，发生了一次用内核态到用户态的上下文切换，<br>我们调用 write 方法，系统将用户缓冲区的数据拷贝到 Socket 缓冲区。此时，又发生了一次用户态到内核态的上下文切换。<br>于是就有了内存映射技术（Mmap）、SendFile技术（内核数据Copy），来释放CPU的压力<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E7%A3%81%E7%9B%98IO.png" alt><br>如上我们发现，虽然通过DMA技术能够使得CPU不用忙等待I/O操作，减轻了一些压力,但是CPU的Copy还是需要两次，<br>RocketMQ采用Mmap的零拷贝<br>Mmap全称Memory Mapped Files。简单描述其作用就是：将磁盘文件映射到内存，用户通过修改内存就能修改磁盘文件。<br>它的工作原理是直接利用操作系统的Page来实现文件到物理内存的直接映射，完成映射之后你对物理内存的操作会被同步到磁盘上（操作系统在适当的时候）。<br>通过mmap也有一个很明显的缺陷：不可靠，写到mmap中的数据并没有被真正地写到磁盘，操作系统会在程序主动调用flush的时候才把数据真正写到磁盘<br>RocketMQ主要通过MappedByteBuffer对文件进行读写操作。其中，利用了NIO中的FileChannel模型将磁盘上的物理文件直接映射到用户态的内存地址中<br>（这种Mmap的方式减少了传统IO将磁盘文件数据在操作系统内核地址空间的缓冲区和用户应用程序地址空间的缓冲区之间来回进行拷贝的性能开销），将对文件的操作转化为直接对内存地址进行操作，<br>从而极大地提高了文件的读写效率（正因为需要使用内存映射机制，故RocketMQ的文件存储都使用定长结构来存储，方便一次将整个文件映射至内存）</p>
+<p>而Kafka则用的是Send File来实现零拷贝的，<br>mmap 和 sendfile总结<br>1、都是Linux内核提供、实现零拷贝的API；<br>2、sendfile 是将读到内核空间的数据，转到socket buffer，进行网络发送；<br>3、mmap将磁盘文件映射到内存，支持读和写，对内存的操作会反映在磁盘文件上。</p>
+<p>保证MQ幂等性，<br>数据库方面可以使用乐观锁的思路，加版本号字段，版本号不一致的无法成功。<br>存redis，利用redis的原子性，（消息ID为Key）每次去redis里面拉，但是不可靠，如果redis挂了，就无法判断了。</p>
+<p>MQ顺序消费：<br>普通顺序消息：消费者通过同一个消费队列收到的消息是有顺序的，不同消息队列收到的消息则可能是无顺序的。普通顺序消息在 Broker 重启情况下不会保证消息顺序性 (短暂时间) 。<br>严格顺序消息：严格顺序消息模式下，对于指定的一个 Topic，所有消息按照严格的先入先出（FIFO）的顺序进行发布和消费。严格顺序消息 即使在异常情况下也会保证消息的顺序性 。</p>
+<p>重新消费一般是按照时间维度，例如由于Consumer系统故障，恢复后需要重新消费1小时前的数据。<br>RocketMQ Broker提供了一种机制，可以按照时间维度来回退消费进度，这样就可以保证只要发送成功的消息，只要消息没有过期，消息始终是可以消费到的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 配置文件开启消息轨迹</span></span><br><span class="line"><span class="comment">//traceTopicEnable=true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 消费进度存在offset.json，也提供了OffsetStore消费进度相关的类</span></span><br></pre></td></tr></table></figure>
+
+<p>消息存储：<br>消息存储是由 ConsumeQueue 和 CommitLog 配合完成</p>
+<p>ConsumeQueue 是逻辑队列，CommitLog 是真正存储消息文件的，ConsumeQueue 存储的是指向物理存储的地址。<br>Topic 下的每个 message queue 都有对应的 ConsumeQueue 文件，内容也会被持久化到磁盘。<br>默认地址：store/consumequeue/{topicName}/{queueid}/fileName<br>CommitLog：存储消息真正内容的文件。<br>生成规则：<br>每个文件的默认1G =1024 * 1024 * 1024，commitlog 的文件名 fileName，名字长度为20位，左边补零，剩余为起始偏移量；比如 00000000000000000000 代表了第一个文件，起始偏移量为0，文件大小为1G=1 073 741 824 Byte；当这个文件满了，第二个文件名字为00000000001073741824，起始偏移量为1073741824，消息存储的时候会顺序写入文件，当文件满了则写入下一个文件。<br>判断消息存储在哪个 CommitLog 上<br>例如 1073742827 为物理偏移量，则其对应的相对偏移量为 1003 = 1073742827 - 1073741824，并且该偏移量位于第二个 CommitLog</p>
+<p>如果我们需要根据消息ID，来查找消息，consumequeue 中没有存储消息ID,如果不采取其他措施，又得遍历 commitlog文件了，indexFile就是为了解决这个问题的文件</p>
 
       
 
@@ -1195,15 +1237,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Framework</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">中间件</a>
               </li>
              
               <li class="article-tag-list-item">
