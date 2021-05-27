@@ -9,7 +9,7 @@
   <title>SpringCloud | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="&amp;emsp;&amp;emsp;Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。">
-<meta name="keywords" content="Framework,SOA,微服务">
+<meta name="keywords" content="Framework,微服务,SOA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringCloud">
 <meta property="og:url" content="http://yoursite.com/2019/08/29/SpringCloud/index.html">
@@ -18,7 +18,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/eureka">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/zuul.jpg">
-<meta property="og:updated_time" content="2021-05-26T06:59:56.098Z">
+<meta property="og:updated_time" content="2021-05-27T09:12:14.476Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringCloud">
 <meta name="twitter:description" content="&amp;emsp;&amp;emsp;Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。">
@@ -166,7 +166,7 @@
 <a id="more"></a>
 
 <h5 id="Eureka（服务注册与发现）："><a href="#Eureka（服务注册与发现）：" class="headerlink" title="Eureka（服务注册与发现）："></a>Eureka（服务注册与发现）：</h5><p>&emsp;&emsp;Eureka是Netflix子模块之一，也是核心模块之一， 是一个基REST(Representational State Transfer)的服务，主要用于AWS云，用于定位服务，以实现中间层服务器的负载平衡和故障转移。我们将此服务称为Eureka Server。Eureka还附带了一个基于Java的客户端组件Eureka Client，它使与服务的交互变得更加容易。客户端还有一个内置的负载均衡器，可以进行基本的循环负载均衡。在Netflix，一个更复杂的负载均衡器包含Eureka基于流量，资源使用，错误条件等多种因素提供加权负载平衡，以提供卓越的弹性。（来自GitHub Eureka Wiki）<br>理解：首先Eureka是为了解决AWS庞大云集群而诞生的，当服务多了，服务错综复杂，难以管理，Eureka提供了服务管理类似Dubbo的注册中心的作用。每个服务都是一个实例，每个实例都需要一个统一的名称或者服务ID。其他服务调用接口时候，可以看到多个该服务实例信息，根据负载均衡策略或者提供某个服务调用信息后，调用者直接调用该实例。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/eureka" alt></p>
-<h5 id="emsp-emsp-Eureka官方Wiki架构图："><a href="#emsp-emsp-Eureka官方Wiki架构图：" class="headerlink" title="&emsp;&emsp;Eureka官方Wiki架构图："></a>&emsp;&emsp;Eureka官方Wiki架构图：</h5><h5 id="emsp-emsp-Eureka-Server：表示注册中心集群"><a href="#emsp-emsp-Eureka-Server：表示注册中心集群" class="headerlink" title="&emsp;&emsp;Eureka Server：表示注册中心集群"></a>&emsp;&emsp;Eureka Server：表示注册中心集群</h5><h5 id="emsp-emsp-us-east-xxx：表示集群所在的区域"><a href="#emsp-emsp-us-east-xxx：表示集群所在的区域" class="headerlink" title="&emsp;&emsp;us-east-xxx：表示集群所在的区域"></a>&emsp;&emsp;us-east-xxx：表示集群所在的区域</h5><h5 id="emsp-emsp-Application-Service：表示服务提供者"><a href="#emsp-emsp-Application-Service：表示服务提供者" class="headerlink" title="&emsp;&emsp;Application Service：表示服务提供者"></a>&emsp;&emsp;Application Service：表示服务提供者</h5><h5 id="emsp-emsp-Application-Client：表示服务消费者"><a href="#emsp-emsp-Application-Client：表示服务消费者" class="headerlink" title="&emsp;&emsp;Application Client：表示服务消费者"></a>&emsp;&emsp;Application Client：表示服务消费者</h5><h5 id="emsp-emsp-Eureka-Client：表示Eureka客户端"><a href="#emsp-emsp-Eureka-Client：表示Eureka客户端" class="headerlink" title="&emsp;&emsp;Eureka Client：表示Eureka客户端"></a>&emsp;&emsp;Eureka Client：表示Eureka客户端</h5><p>&emsp;&emsp;每个都us-east区域有个Server和多个提供者和调用者。提供者启动后向Eureka Server注册中心注册服务，包括IP、Port、服务名等信息。消费者启动后从Eureka Server拉取注册列表。消费者发起远程调用的时候优先调用本区域内的Application Service。如果本区内没有可用的Application Service，才会发起对其他区内的Service调用。不同区域的服务调用过程：区域内的Application Service启动后，向本区内的Eureka Server注册服务信息。并跟本区内的Eureka Server维持心跳续约。不同区域内的Eureka Server会将服务信息互相同步。</p>
+<h5 id="emsp-emsp-Eureka官方Wiki架构图："><a href="#emsp-emsp-Eureka官方Wiki架构图：" class="headerlink" title="&emsp;&emsp;Eureka官方Wiki架构图："></a>&emsp;&emsp;Eureka官方Wiki架构图：</h5><h5 id="emsp-emsp-Eureka-Server：表示注册中心集群"><a href="#emsp-emsp-Eureka-Server：表示注册中心集群" class="headerlink" title="&emsp;&emsp;Eureka Server：表示注册中心集群"></a>&emsp;&emsp;Eureka Server：表示注册中心集群</h5><h5 id="emsp-emsp-us-east-xxx：表示集群所在的区域"><a href="#emsp-emsp-us-east-xxx：表示集群所在的区域" class="headerlink" title="&emsp;&emsp;us-east-xxx：表示集群所在的区域"></a>&emsp;&emsp;us-east-xxx：表示集群所在的区域</h5><h5 id="emsp-emsp-Application-Service：表示服务提供者"><a href="#emsp-emsp-Application-Service：表示服务提供者" class="headerlink" title="&emsp;&emsp;Application Service：表示服务提供者"></a>&emsp;&emsp;Application Service：表示服务提供者</h5><h5 id="emsp-emsp-Application-Client：表示服务消费者"><a href="#emsp-emsp-Application-Client：表示服务消费者" class="headerlink" title="&emsp;&emsp;Application Client：表示服务消费者"></a>&emsp;&emsp;Application Client：表示服务消费者</h5><h5 id="emsp-emsp-Eureka-Client：表示Eureka客户端"><a href="#emsp-emsp-Eureka-Client：表示Eureka客户端" class="headerlink" title="&emsp;&emsp;Eureka Client：表示Eureka客户端"></a>&emsp;&emsp;Eureka Client：表示Eureka客户端</h5><p>CAP（一致性， 可用性， 分区容错性）<br>&emsp;&emsp;每个都us-east区域有个Server和多个提供者和调用者。提供者启动后向Eureka Server注册中心注册服务，包括IP、Port、服务名等信息。消费者启动后从Eureka Server拉取注册列表。消费者发起远程调用的时候优先调用本区域内的Application Service。如果本区内没有可用的Application Service，才会发起对其他区内的Service调用。不同区域的服务调用过程：区域内的Application Service启动后，向本区内的Eureka Server注册服务信息。并跟本区内的Eureka Server维持心跳续约。不同区域内的Eureka Server会将服务信息互相同步。</p>
 <p>&emsp;&emsp;Application Service内的Eureka Client后台启动一个定时任务，跟Eureka Server保持一个心跳续约任务，每隔一段时间(默认30S)向Eureka Server发送一次renew请求，进行续约，告诉Eureka Server我还活着，防止被Eureka Server的Evict任务剔除。</p>
 <h4 id="emsp-emsp-服务下线："><a href="#emsp-emsp-服务下线：" class="headerlink" title="&emsp;&emsp;服务下线："></a>&emsp;&emsp;服务下线：</h4><p>&emsp;&emsp;Application Service应用停止后，向Eureka Server发送一个cancel请求，告诉注册中心我已经退出了，Eureka Server接收到之后会将其移出注册列表，后面再有获取注册服务列表的时候就获取不到了，防止消费端消费不可用的服务。</p>
 <h4 id="emsp-emsp-自我保护机制："><a href="#emsp-emsp-自我保护机制：" class="headerlink" title="&emsp;&emsp;自我保护机制："></a>&emsp;&emsp;自我保护机制：</h4><p>&emsp;&emsp;默认情况下，当eureka server在一定时间内没有收到实例的心跳，便会把该实例从注册表中删除（默认是90秒），但是，如果短时间内丢失大量的实例心跳，便会触发eureka server的自我保护机制。<br>&emsp;&emsp;该保护机制的目的是避免网络连接故障，在发生网络故障时，微服务和注册中心之间无法正常通信，但服务本身是健康的，不应该注销该服务，如果eureka因网络故障而把微服务误删了，那即使网络恢复了，该微服务也不会重新注册到eureka server了，因为只有在微服务启动的时候才会发起注册请求，后面只会发送心跳和服务列表请求，这样的话，该实例虽然是运行着，但永远不会被其它服务所感知。所以，eureka server在短时间内丢失过多的客户端心跳时，会进入自我保护模式，该模式下，eureka会保护注册表中的信息，不在注销任何微服务，当网络故障恢复后，eureka会自动退出保护模式。自我保护模式可以让集群更加健壮。</p>
@@ -193,11 +193,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SOA</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">微服务</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">微服务</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SOA</a>
         		</li>
       		
 		</ul>
@@ -345,15 +345,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络协议</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -365,7 +361,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络协议</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -377,7 +373,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SOA</a>
+                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -385,11 +381,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+                <a href="javascript:void(0)" class="js-tag color4">SOA</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
             
             <div class="clearfix"></div>
