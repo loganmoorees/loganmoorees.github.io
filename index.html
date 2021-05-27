@@ -1079,7 +1079,37 @@
 
 <h4 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h4><h6 id="数据分片"><a href="#数据分片" class="headerlink" title="数据分片"></a>数据分片</h6><p>数据分片（sharding）分布式数据存储时，经常要考虑数据分片，避免将大量的数据放在单表或单库中，造成查询等操作的耗时过长。<br>比如，存储订单数据时使用三个mysql库（编号0,1,2），当一条订单数据过来时，对订单id求hash后与机器数量取模，hash(orderId) % 3，<br>假如得到的结果是2，则这条数据会存储到编号为2的mysql中。分表分库存储时，根据数据库的主键或唯一键做hash，然后跟数据库机器的数量取模，<br>从而决定该条数据放在哪个库中。根据机器数量取模就会存在一个问题，当机器不够用需要扩容或机器宕机，机器的数量就会发生变化，造成数据的命中率下降，<br>所以之前的数据就需要重新hash做一次sharding。这种操作会导致服务在一定的时间不可用，而且每次扩缩容都会存在这个问题。</p>
 <h6 id="一致性Hash"><a href="#一致性Hash" class="headerlink" title="一致性Hash"></a>一致性Hash</h6><p>一致性hash由对象、资源、算法和机器组成。它要做的是：对象通过算法判断连哪台机器。在如上系统中：设备id（userID）为对象；其对应的状态数据(cache)为资源；服务器为机器。<br>在一致性hash算法中，这些资源围成了一个闭环，每台机器又保存着一个资源段，每个资源段对应一批对象/设备；这样如果某台机器挂了，那它对应的资源转移到离它较近的机器x，<br>这台dead server对应的设备连接到机器x就行。现在假设这四个资源段对应的设备，<br>活跃情况相差较大。比如说资源段1、2对应的设备特别活跃，而资源段3和4几乎没活动。这样机器1-2需要保存大量的状态数据，而3-4则有大量的空置，<br>显然是不合理的。改进版的一致性hash算法是这样操作的：它不再是每台机器去保存一个连续的资源段，而是让每台机器都保存多个区域的部分资源段。<br>如机器1保存每个资源段的1/4，机器2保存每个资源段的1/4，机器3、4同样如此。这样即使个别号段有热点，也会均摊到不同的机器。</p>
-<h4 id="List"><a href="#List" class="headerlink" title="List"></a>List</h4><h4 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h4><h4 id="SortSet"><a href="#SortSet" class="headerlink" title="SortSet"></a>SortSet</h4>
+<h4 id="List"><a href="#List" class="headerlink" title="List"></a>List</h4><h4 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h4><h4 id="SortSet"><a href="#SortSet" class="headerlink" title="SortSet"></a>SortSet</h4><p>缓存穿透，缓存击穿和缓存雪崩：<br>缓存穿透：<br>假如客户端每秒发送5000个请求，其中4000个为黑客的恶意攻击，即在数据库中也查不到。举个例子，用户id为正数，黑客构造的用户id为负数，如果黑客每秒一直发送这4000个请求，缓存就不起作用，数据库也很快被打死</p>
+<ol>
+<li>对请求参数进行校验，不合理直接返回，比较暴力，实现简单。</li>
+<li>查询不到的数据也放到缓存，value为空，如 set -999 “”  简单但是缺点很明显，大量不存在的key占用资源</li>
+<li>使用布隆过滤器，快速判断key是否在数据库中存在，不存在直接返回，能够有效的防止缓存穿透，缺点：有一定的误判率，数据量越大，误判率越低，耗时就越高</li>
+</ol>
+<p>缓存击穿：<br>和穿透差不多，都是由于Redis里面查不到导致的，而穿透是由于不存在这个key，击穿是这个key刚好在过期时间段。</p>
+<ol>
+<li>加锁，减少同一时间节点Redis的请求量</li>
+<li>热点数据永不过期</li>
+</ol>
+<p>缓存雪崩：<br>由于大面积的key在同一时间节点过期，导致请求都打到数据库了<br>可以从不同方面来处理：<br>事前：</p>
+<ol>
+<li>redis主从加哨兵模式,保证redis的高可用</li>
+<li>在设置过期时间时候，过期时间加上一个随机值，避免同一时间过期。</li>
+</ol>
+<p>事中：<br>本地 ehcache 缓存 + hystrix 限流&amp;降级，避免 MySQL 被打死</p>
+<p>事后：redis 持久化，一旦重启，自动从磁盘上加载数据，快速恢复缓存数据</p>
+<p>Redis高性能：<br>Redis 一般被看作单进程/单线程组件，因为 Redis 的网络 IO 和命令处理，都在核心进程中由单线程处理。<br>Redis 基于 Epoll 事件模型开发，可以进行非阻塞网络 IO，同时由于单线程命令处理，整个处理过程不存在竞争，不需要加锁，没有上下文切换开销，<br>所有数据操作都是在内存中操作，所以 Redis 的性能很高，单个实例即可以达到 10w 级的 QPS。</p>
+<p>select poll epoll三种多路复用IO模型：<br>(1)select==&gt;时间复杂度O(n)<br>它仅仅知道了，有I/O事件发生了，却并不知道是哪那几个流（可能有一个，多个，甚至全部），我们只能无差别轮询所有流，找出能读出数据，或者写入数据的流，对他们进行操作。所以select具有O(n)的无差别轮询复杂度，<br>同时处理的流越多，无差别轮询时间就越长。开销大，而且Linux内核的宏限制了fd_set最多只支持1024</p>
+<p>(2)poll==&gt;时间复杂度O(n)<br>poll本质上和select没有区别，它将用户传入的数组拷贝到内核空间，然后查询每个fd对应的设备状态， 但是它没有最大连接数的限制，原因是它是基于链表来存储的.</p>
+<p>(3)epoll==&gt;时间复杂度O(1)<br>epoll可以理解为event poll，不同于忙轮询和无差别轮询，epoll会把哪个流发生了怎样的I/O事件通知我们。所以我们说epoll实际上是事件驱动（每个事件关联上fd）的，此时我们对这些流的操作都是有意义的。（复杂度降低到了O(1)）<br>select，poll，epoll都是IO多路复用的机制。I/O多路复用就通过一种机制，可以监视多个描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作。<br>但select，poll，epoll本质上都是同步I/O，因为他们都需要在读写事件就绪后自己负责进行读写，也就是说这个读写过程是阻塞的，而异步I/O则无需自己负责进行读写，异步I/O的实现会负责把数据从内核拷贝到用户空间。  </p>
+<p>Redis为什么没有“锁”<br>在关系型数据库中，会通过加锁来保证数据的一致性，这种锁被称为悲观锁。<br>Redis为了近可能的减少客户端等待，使用WATCH命令对数据加锁，只会在数据被其他客户端修改时，才会通知执行WATCH的客户端，<br>之后的事务不会执行。这种加锁方式被称为乐观锁，极大的提升了Redis的性能。</p>
+<p>Redis持久化和淘汰策略：<br>redis支持RDB（默认）和AOF两种持久化策略。<br>a) RDB：Redis Database。RDB是Redis默认的持久化方式。每隔一定的时间周期就将内存的数据以快照的形式保存到硬盘中，对应产生的数据文件为dump.rdb。通过配置文件中的save（bgsave）参数可以设置生成快照的时间周期。<br>优点：<br>1、只有一个文件dump.rdb，方便持久化；<br>2、容灾性好，一个文件可以保存到安全的磁盘；<br>3、性能最大化。使用单独子进程来进行持久化，主进程不会进行任何IO操作，保证了redis的高性能；<br>4、相对于数据集大时，比AOF的启动效率更高</p>
+<p>缺点：<br>1、数据安全性低。因为RDB是间隔一段时间进行持久化，如果持久化之间redis发生故障，会发生数据丢失。</p>
+<p>b) AOF: Append Only File。将Redis每次执行的写命令记录到单独的日志文件中，当重启Redis时，会从持久化的日志文件中重新恢复数据。<br>当两种方式同时开启时，数据恢复Redis会优先选择AOF恢复。<br>优点：<br>1、数据安全，AOF持久化可以令属性appendfsync为always，表示将每一次的命令操作记录到AOF文件中；<br>2、以append模式写文件，即使中途服务器宕机，可以通过redis-check-aof工具解决数据一致性问题。<br>3、AOF机制的rewrite模式，在AOF文件还没被rewrite之前（当文件过大时，会对文件中的命令进行合并重写），可以删除其中的一些命令。</p>
+<p>缺点：<br>1、AOF文件比RDB文件大，且恢复速度慢。<br>2、数据集大的时候，比RDB启动效率低。</p>
+<p>如果同时配置了RDB和AOF，则优先加载AOF。<br>1、AOF文件比RDB更新频率高，优先使用AOF还原数据；<br>2、AOF比RDB更安全也更大<br>3、RDB性能比AOF好</p>
+<p>Redis删除策略：<br>过期策略<br>定期删除<br>redis 会将每个设置了过期时间的 key放入到一个独立的字典中，以后会定期遍历这个字典来删除到期的 key。<br>Redis 默认会每秒进行十次过期扫描（100ms一次），过期扫描不会遍历过期字典中所有的 key，而是采用了一种简单的贪心策略。<br>1.从过期字典中随机 20 个 key；<br>2.删除这 20 个 key 中已经过期的 key；<br>3.如果过期的 key 比率超过 1/4，那就重复步骤 1；<br>redis默认是每隔 100ms就随机抽取一些设置了过期时间的key，检查其是否过期，如果过期就删除。注意这里是随机抽取的。为什么要随机呢？你想一想假如 redis 存了几十万个 key ，每隔100ms就遍历所有的设置过期时间的 key 的话，就会给 CPU 带来很大的负载。</p>
+<p>惰性删除<br>所谓惰性策略就是在客户端访问这个key的时候，redis对key的过期时间进行检查，如果过期了就立即删除，不会给你返回任何东西。<br>定期删除可能会导致很多过期key到了时间并没有被删除掉。所以就有了惰性删除。假如你的过期 key，靠定期删除没有被删除掉，还停留在内存里，除非你的系统去查一下那个 key，才会被redis给删除掉。这就是所谓的惰性删除，即当你主动去查过期的key时,如果发现key过期了,就立即进行删除,不返回任何东西.<br>总结：定期删除是集中处理，惰性删除是零散处理。</p>
+
       
 
       
@@ -1229,11 +1259,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">网络协议</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">网络协议</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1241,11 +1271,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1253,19 +1283,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SOA</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+                <a href="javascript:void(0)" class="js-tag color4">微服务</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
               </li>
             
             <div class="clearfix"></div>
