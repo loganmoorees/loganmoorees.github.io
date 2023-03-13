@@ -136,27 +136,33 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-CountDownLatch" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-分布式一致性" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2023/03/07/CountDownLatch/">CountDownLatch</a>
+      <a class="article-title" href="/2023/03/13/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7/">分布式一致性</a>
     </h1>
   
 
         
-        <a href="/2023/03/07/CountDownLatch/" class="archive-article-date">
-  	<time datetime="2023-03-07T13:05:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-03-07</time>
+        <a href="/2023/03/13/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7/" class="archive-article-date">
+  	<time datetime="2023-03-13T09:17:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-03-13</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h4 id="Hash一致性"><a href="#Hash一致性" class="headerlink" title="Hash一致性"></a>Hash一致性</h4><p>首先hash函数能把数据均匀的分布在不同机器上，函数大概是 hash(数据) ^ 机器数，但是机器数不断增加或者删除，采用一般的哈希函数，在节点数量动态变化的情况会造成大量的数据迁移，导致网络通信压力的剧增，严重情况，还可能导致数据库宕机。<br>一致性hash算法正是为了解决此类问题的方法，它可以保证当机器增加或者减少时，节点之间的数据迁移只限于两个节点之间，不会造成全局的网络问题。</p>
+<p>一致性hash其实也是取模，只不过是个hash环，hash ^ 2^32</p>
+<p>步骤一：一致性哈希算法将整个哈希值空间按照顺时针方向组织成一个虚拟的圆环，称为 Hash 环；<br>步骤二：接着将各个服务器使用 Hash 函数进行哈希，具体可以选择服务器的IP或主机名作为关键字进行哈希，从而确定每台机器在哈希环上的位置<br>步骤三：最后使用算法定位数据访问到相应服务器：将数据key使用相同的函数Hash计算出哈希值，并确定此数据在环上的位置，从此位置沿环顺时针寻找，第一台遇到的服务器就是其应该定位到的服务器</p>
+<p>一致性Hash算法对于节点的增减都只需重定位环空间中的一小部分数据，只有部分缓存会失效，不至于将所有压力都在同一时间集中到后端服务器上，具有较好的容错性和可扩展性。</p>
+<h5 id="hash倾斜"><a href="#hash倾斜" class="headerlink" title="hash倾斜"></a>hash倾斜</h5><p>但是同样有相应的问题：<br>一致性哈希算法在服务节点太少的情况下，容易因为节点分部不均匀而造成数据倾斜问题，也就是被缓存的对象大部分集中缓存在某一台服务器上，从而出现数据分布不均匀的情况，这种情况就称为 hash 环的倾斜</p>
+<p>hash 环的倾斜在极端情况下，仍然有可能引起系统的崩溃，为了解决这种数据倾斜问题，一致性哈希算法引入了虚拟节点机制，即对每一个服务节点计算多个哈希，每个计算结果位置都放置一个此服务节点，称为虚拟节点，一个实际物理节点可以对应多个虚拟节点，虚拟节点越多，hash环上的节点就越多，缓存被均匀分布的概率就越大，hash环倾斜所带来的影响就越小，同时数据定位算法不变，只是多了一步虚拟节点到实际节点的映射。</p>
+
       
 
       
@@ -168,7 +174,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2023/03/07/CountDownLatch/">展开全文 >></a>
+          <a class="article-more-a" href="/2023/03/13/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7/">展开全文 >></a>
         </p>
       
 
@@ -564,7 +570,7 @@
 <p>二进制中，0表示false，1表示true，&amp;运算： 1和1结果还是true   true和false结果为false。所以得到的二进制编码为：00000000000000000000000000000010，转换成10进制则是2。所以最后这个put进去是分配到下标为2的数组中。</p>
 <p>值得一提的是 -65326的二进制为什么为11111111111111110000000011010010？<br>65326二进制:  00000000000000001111111100101110<br>-65326二进制: 11111111111111110000000011010010</p>
 <p>原码：一个整数，按照绝对值大小转换成的二进制数，称为原码。<br>反码：将二进制数按位取反，所得的新二进制数称为原二进制数的反码。<br>补码：反码加1称为补码。<br>正的为0，转成负的取正数的反码。负的则为1，则正的65325的反码是： 11111111111111110000000011010001<br>然后进行一个补码加一操作。最后一位加一，二进制逢二进一：<br>则变成了：11111111111111110000000011010010</p>
-
+<h4 id="扩容操作："><a href="#扩容操作：" class="headerlink" title="扩容操作："></a>扩容操作：</h4>
       
 
       
