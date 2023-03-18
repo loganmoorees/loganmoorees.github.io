@@ -136,93 +136,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-NIO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/26/NIO/">NIO</a>
-    </h1>
-  
-
-        
-        <a href="/2021/03/26/NIO/" class="archive-article-date">
-  	<time datetime="2021-03-26T09:27:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h4><p>同步阻塞IO<br>在JDK1.4出来之前，我们建立网络连接的时候采用BIO模式，一个线程read或者write时，该线程将会被阻塞，直到IO操作完成，需要先在服务端启动一个ServerSocket，然后在客户端启动Socket来对服务端进行通信，服务端需要对每个请求建立一堆线程等待请求，没有客户端连接时候会阻塞住。<br>    缺点：虽然能够满足IO操作，但是一个线程对应一个客户端，线程多系统调用也多，线程是要消耗资源的，会占内存，如果说并发量大，会有很多很多的线程，而且多个线程之间的上下文切换很消耗CPU资源。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/BIO.jpg"></p>
-<h4 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h4><p>NewIO，非阻塞IO</p>
-<!-- ![](https://blog-1254224452.cos.ap-shanghai.myqcloud.com/NIO%E6%A8%A1%E5%9E%8B.jpg) -->
-<p>Acceptor<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/NIO.png"></p>
-<p>NIO三大核心：Channel，Buffer，Selector</p>
-<h6 id="通道Channel"><a href="#通道Channel" class="headerlink" title="通道Channel"></a>通道Channel</h6><p>NIO的通道类似于流，但有些区别如下：</p>
-<ol>
-<li>流只能读或者写，通道可以同时读写</li>
-</ol>
-<h5 id="缓存Buffer"><a href="#缓存Buffer" class="headerlink" title="缓存Buffer"></a>缓存Buffer</h5><p>缓存区本质上是一个可读可写入数据的内存块。<br>调用buffer.flip()方法进行写入，<br>buffer.clear()或者buffer.compat()读取数据</p>
-<p>Buffer中对应的Position， Mark， Capacity，Limit都是什么：<br>a. capacity：缓冲区容量的大小，就是里面包含的数据大小。<br>b. limit：对buffer缓冲区使用的一个限制，从这个index开始就不能读取数据了。<br>c. position：代表着数组中可以开始读写的index， 不能大于limit。mark：是类似路标的东西，在某个position的时候，设置一下mark，此时就可以设置一个标记后续调用reset()方法可以把position复位到当时设置的那个mark上。去把position或limit调整为小于mark的值时，就丢弃这个mark如果使用的是<br>d. Direct模式创建的Buffer的话，就会减少中间缓冲直接使用DirectorBuffer来进行数据的存储。</p>
-<h5 id="Selector选择器"><a href="#Selector选择器" class="headerlink" title="Selector选择器"></a>Selector选择器</h5><p>多个Channel以事件的方式可以注册到同一个Selector，可以检测多个NIO channel，看看读或者写事件是否就绪。从而达到用一个线程处理多个请求成为可能。多路复用</p>
-<h4 id="NIO存在的问题"><a href="#NIO存在的问题" class="headerlink" title="NIO存在的问题"></a>NIO存在的问题</h4><p>使用NIO不等于高性能，当连接数&lt;1000，并发程度不高或者局域网环境下NIO并没有显著的性能优势。</p>
-<h5 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h5><p>异步非阻塞IO，适合比较重的操作，例如QQ相册，上传一大批文件，然后可以去做别的，等它处理完会有个回调通知。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络协议</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/26/NIO/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-MQ中间件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1067,6 +980,104 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/09/10/Linux%E5%9F%BA%E7%A1%80/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-数据结构（二）：树形结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/">数据结构（二）：树形结构</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/" class="archive-article-date">
+  	<time datetime="2019-09-04T07:59:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="树形结构"><a href="#树形结构" class="headerlink" title="树形结构"></a>树形结构</h4><p>&amp;emsp;&amp;emsp;树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：</p>
+<ol>
+<li>每个节点有零个或多个子节点</li>
+<li>没有父节点的节点称为根节点</li>
+<li>每一个非根节点有且只有一个父节点</li>
+<li>除了根节点外，每个子节点可以分为多个不相交的子树</li>
+</ol>
+<p><strong>树的种类大范围可以分为无序树和有序树。</strong></p>
+<ol>
+<li>节点的度：一个节点含有的子树的个数称为该节点的度；</li>
+<li>树的度：一棵树中，最大的节点的度称为树的度；</li>
+<li>叶节点或终端节点：度为零的节点；</li>
+<li>非终端节点或分支节点：度不为零的节点；</li>
+<li>父亲节点或父节点：若一个节点含有子节点，则这个节点称为其子节点的父节点；</li>
+<li>孩子节点或子节点：一个节点含有的子树的根节点称为该节点的子节点；</li>
+<li>兄弟节点：具有相同父节点的节点互称为兄弟节点；</li>
+<li>节点的层次：从根开始定义起，根为第1层，根的子节点为第2层，以此类推；</li>
+<li>深度：对于任意节点n,n的深度为从根到n的唯一路径长，根的深度为0；</li>
+<li>高度：对于任意节点n,n的高度为从n到一片树叶的最长路径长，所有树叶的高度为0；</li>
+<li>堂兄弟节点：父节点在同一层的节点互为堂兄弟；</li>
+<li>节点的祖先：从根到该节点所经分支上的所有节点；</li>
+<li>子孙：以某节点为根的子树中任一节点都称为该节点的子孙。</li>
+<li>森林：由m（m&gt;&#x3D;0）棵互不相交的树的集合称为森林；
+        
+          <a class="article-more-a" href="/2019/09/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/">展开全文 >></a>
         </p>
       
 

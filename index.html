@@ -280,80 +280,6 @@
 
 
   
-    <article id="post-Spring源码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/06/12/Spring%E6%BA%90%E7%A0%81/">Spring源码</a>
-    </h1>
-  
-
-        
-        <a href="/2021/06/12/Spring%E6%BA%90%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2021-06-12T04:58:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Spring版本：<br>    5.2.12</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/06/12/Spring%E6%BA%90%E7%A0%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-分布式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -824,7 +750,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h5><p>宏观上Spring是一个Spring生态圈，比如下面的子项目Spring MVC，WebFlux等等，<br>核心功能其实主要IOC和AOP，<br>OC：（Inversion of Control）控制反转，IOC 不是一种技术，只是一种思想，一个重要的面向对象编程的法则，它能指导我们如何设计出松耦合、更优良的程序。传统应用程序都是由我们在类内部主动创建依赖对象，<br>从而导致类与类之间高耦合，难于测试；有了IoC容器后，把创建和查找依赖对象的控制权交给了容器，由容器进行注入组合对象，所以对象与对象之间是 松散耦合，这样也方便测试，利于功能复用，更重要的是使得程序的整个体系结构变得非常灵活。<br>其实IoC对编程带来的最大改变不是从代码上，而是从思想上，发生了“主从换位”的变化。应用程序原本是老大，要获取什么资源都是主动出击，但是在IoC&#x2F;DI思想中，<br>应用程序就变成被动的了，被动的等待IoC容器来创建并注入它所需要的资源了</p>
+        <h5 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h5><p>宏观上Spring是一个Spring生态圈，比如下面的子项目Spring MVC，WebFlux等等，<br>核心功能其实主要IOC和AOP，<br>IOC：（Inversion of Control）控制反转，IOC 不是一种技术，只是一种思想，一个重要的面向对象编程的法则，它能指导我们如何设计出松耦合、更优良的程序。传统应用程序都是由我们在类内部主动创建依赖对象，<br>从而导致类与类之间高耦合，难于测试；有了IoC容器后，把创建和查找依赖对象的控制权交给了容器，由容器进行注入组合对象，所以对象与对象之间是 松散耦合，这样也方便测试，利于功能复用，更重要的是使得程序的整个体系结构变得非常灵活。<br>其实IoC对编程带来的最大改变不是从代码上，而是从思想上，发生了“主从换位”的变化。应用程序原本是老大，要获取什么资源都是主动出击，但是在IoC&#x2F;DI思想中，<br>应用程序就变成被动的了，被动的等待IoC容器来创建并注入它所需要的资源了</p>
 <p>DI：（Dependency Injection）依赖注入，IoC的一个重点是在系统运行中，动态的向某个对象提供它所需要的其他对象。这一点是通过DI来实现的，DI是IOC的另一种表达方式，侧重于实现。</p>
 <p>AOP：（Aspect Oriented Programming）可以通过预编译方式和运行期动态代理实现在不修改源代码的情况下给程序动态统一添加功能的一种技术，非侵入性的特点在程序开发中主要用来解决一些系统层面上的问题，<br>比如日志，事务，权限等待</p>
 <p>Spring注入方式有几种？<br>    Spring有三种注入方式<br>1.	构造器注入（Spring官方比较提倡这种方式注入）<br>2.	GetSet方法注入<br>3.	注解注入（最常用）</p>
@@ -846,20 +772,30 @@
 <li>BeanDefinition的注册：这个注册过程把上面载入过程中解析得到的BeanDeftnition向IoC容器进行注册。注册过程是通过调用BeanDefinitionRegistry接口的实现来完成的。在IoC容器内部将BeanDefinition注人到一个HashMap中去，IoC容器就是通过这个HashMap来持有这些BeanDefinition数据的。</li>
 <li>注册完了即可使用，当程序关闭，Spring随着程序的关闭而被销毁</li>
 </ol>
-<p>Spring帮我们管理Bean的，<br>创建bean，如果是懒加载则不创建，如果不是</p>
+<p>Spring帮我们管理Bean的，创建bean，如果是懒加载则不创建，如果不是</p>
 <ol>
 <li>首先从缓存中获取对象，缓存中不存在，则新建对象，调用createBean方法，真正创建bean的是doCreateBean方法</li>
 <li>此时bean工厂开始创建对象，首先会检测一个类是否是public的，如果不是抛出异常</li>
 <li>通过beanDefinition实例化，有参数，根据参数自动装配，没有调用无参构造器</li>
 <li>通过initializeBean初始化对象</li>
-<li></li>
 </ol>
-<p>Spring生命周期</p>
+<p>Spring生命周期<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/spring%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg"></p>
 <p>IOC容器如何解决循环依赖的？<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96.png"><br>Spring通过三级缓存解决了循环依赖，其中一级缓存为单例池（singletonObjects）,二级缓存为早期曝光对象earlySingletonObjects（半成品bean），三级缓存为早期曝光对象工厂（singletonFactories）。<br>当A、B两个类发生循环引用时，在A完成实例化后，就使用实例化后的对象去创建一个对象工厂，并添加到三级缓存中，如果A被AOP代理，<br>那么通过这个工厂获取到的就是A代理后的对象，如果A没有被AOP代理，那么这个工厂获取到的就是A实例化的对象。<br>当A进行属性注入时，会去创建B，同时B又依赖了A，所以创建B的同时又会去调用getBean(a)来获取需要的依赖，此时的getBean(a)会从缓存中获取，第一步，先获取到三级缓存中的工厂；<br>第二步，调用对象工工厂的getObject方法来获取到对应的对象，得到这个对象后将其注入到B中。紧接着B会走完它的生命周期流程，包括初始化、后置处理器等。当B创建完后，会将B再注入到A中，<br>此时A再完成它的整个生命周期。至此，循环依赖结束！</p>
-<p>为什么要使用三级缓存呢？二级缓存能解决循环依赖吗:<br>如果要使用二级缓存解决循环依赖，意味着所有Bean在实例化后就要完成AOP代理，这样违背了Spring设计的原则，<br>Spring在设计之初就是通过AnnotationAwareAspectJAutoProxyCreator这个后置处理器来在Bean生命周期的最后一步来完成AOP代理，而不是在实例化后就立马进行AOP代理。</p>
+<p>为什么要使用三级缓存呢？二级缓存能解决循环依赖吗:<br>如果要使用二级缓存解决循环依赖，意味着所有Bean在实例化后就要完成AOP代理，这样违背了Spring设计的原则，<br>感觉主要还是因为spring开发者不希望循环依赖的处理影响了原本创建bean的流程，原本是在bean初始化之后，再通过后置处理来创建代理对象；如果只使用一级缓存，那势必要在实例化bean后直接创建代理对象放入缓存，这样就仅仅因为循环依赖破坏了原本的流程。<br>Spring在设计之初就是通过AnnotationAwareAspectJAutoProxyCreator这个后置处理器来在Bean生命周期的最后一步来完成AOP代理，而不是在实例化后就立马进行AOP代理。</p>
 <p>Aop原理：<br>核心就是拦截器和JDK代理以及Cglib代理，通过拦截器和动态代理，进行偷梁换柱，织入其他的操作</p>
 <p>AOP是用的哪一种代理，怎么决定的？<br>    默认JDK代理。可以通过proxy-target-class进行修改为cglib代理<br>    如果被代理的目标对象实现了至少一个接口，则会使用JDK动态代理。所有该目标类型实现的接口都将被代理。若该目标对象没有实现任何接口，则创建一个CGLIB代理。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AbstractApplicationContext</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">refresh</span><span class="params">()</span> <span class="keyword">throws</span> BeansException, IllegalStateException &#123;</span><br><span class="line">		<span class="keyword">synchronized</span> (<span class="built_in">this</span>.startupShutdownMonitor) &#123;</span><br><span class="line">			<span class="comment">// Prepare this context for refreshing.</span></span><br><span class="line">			<span class="comment">// 准备，记录容器的启动时间startupDate, 标记容器为激活，初始化上下文环境如文件路径信息，验证必填属性是否填写</span></span><br><span class="line">            <span class="comment">// 初始化前的准备工作，比如系统属性、环境变量的准备及验证</span></span><br><span class="line">			prepareRefresh();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Tell the subclass to refresh the internal bean factory.</span></span><br><span class="line">			<span class="comment">// 这步比较重要(解析)，告诉子类去刷新bean工厂，这步完成后配置文件就解析成一个个bean定义，注册到BeanFactory（但是未被初始化，仅将信息写到了beanDefination的map中）</span></span><br><span class="line">            <span class="comment">// </span></span><br><span class="line">			<span class="type">ConfigurableListableBeanFactory</span> <span class="variable">beanFactory</span> <span class="operator">=</span> obtainFreshBeanFactory();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Prepare the bean factory for use in this context.</span></span><br><span class="line">			<span class="comment">// 设置beanFactory类加载器，添加多个beanPostProcesser</span></span><br><span class="line">			prepareBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				<span class="comment">// Allows post-processing of the bean factory in context subclasses.</span></span><br><span class="line">				<span class="comment">// 允许子类上下文中对beanFactory做后期处理</span></span><br><span class="line">				postProcessBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Invoke factory processors registered as beans in the context.</span></span><br><span class="line">				<span class="comment">// 调用BeanFactoryPostProcessor各个实现类的方法</span></span><br><span class="line">				invokeBeanFactoryPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Register bean processors that intercept bean creation.</span></span><br><span class="line">				<span class="comment">// 注册 BeanPostProcessor 的实现类</span></span><br><span class="line">				<span class="comment">// 此接口两个方法: postProcessBeforeInitialization 和 postProcessAfterInitializatio</span></span><br><span class="line">				<span class="comment">// 分别在 Bean 初始化之前和初始化之后得到执行。注意，到这里 Bean 还没初始化</span></span><br><span class="line">				registerBeanPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Initialize message source for this context.</span></span><br><span class="line">				<span class="comment">// 初始化ApplicationContext的MessageSource</span></span><br><span class="line">				initMessageSource();</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Initialize event multicaster for this context.</span></span><br><span class="line">				<span class="comment">// 初始化ApplicationContext事件广播器</span></span><br><span class="line">				initApplicationEventMulticaster();</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Initialize other special beans in specific context subclasses.</span></span><br><span class="line">				<span class="comment">// 初始化子类特殊bean（钩子方法）</span></span><br><span class="line">				onRefresh();</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Check for listener beans and register them.</span></span><br><span class="line">				<span class="comment">// 注册事件监听器</span></span><br><span class="line">				registerListeners();</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Instantiate all remaining (non-lazy-init) singletons.</span></span><br><span class="line">				<span class="comment">// 初始化所有singleton bean  重点！</span></span><br><span class="line">				finishBeanFactoryInitialization(beanFactory);</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Last step: publish corresponding event.</span></span><br><span class="line">				<span class="comment">// 广播事件，ApplicationContext初始化完成</span></span><br><span class="line">				finishRefresh();</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">catch</span> (BeansException ex) &#123;</span><br><span class="line">				<span class="keyword">if</span> (logger.isWarnEnabled()) &#123;</span><br><span class="line">					logger.warn(<span class="string">&quot;Exception encountered during context initialization - &quot;</span> +</span><br><span class="line">							<span class="string">&quot;cancelling refresh attempt: &quot;</span> + ex);</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Destroy already created singletons to avoid dangling resources.</span></span><br><span class="line">				destroyBeans();</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Reset &#x27;active&#x27; flag.</span></span><br><span class="line">				cancelRefresh(ex);</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Propagate exception to caller.</span></span><br><span class="line">				<span class="keyword">throw</span> ex;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">finally</span> &#123;</span><br><span class="line">				<span class="comment">// Reset common introspection caches in Spring&#x27;s core, since we</span></span><br><span class="line">				<span class="comment">// might not ever need metadata for singleton beans anymore...</span></span><br><span class="line">				resetCommonCaches();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>spring提供的扩展接口：<br>两类：生命周期接口， Aware接口<br>FactroyBean接口<br>    什么是FactroyBean？<br>        1. 一般情况下，Spring通过反射机制利用的class属性指定实现类实例化Bean。在某些情况下，实例化Bean过程比较复杂，如果按照传统的方式，则需要在中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。Spring为此提供了一个org.springframework.bean.factory.FactoryBean的工厂类接口，用户可以通过实现该接口定制实例化Bean的逻辑。<br>        2. 由于第三方库不能直接注册到spring容器，于是可以实现org.springframework.bean.factory.FactoryBean接口，然后给出自己对象的实例化代码即可<br>    比如Mybatis-Spring中的SqlSessionFactoryBean<br>BeanPostProcess<br>    什么是BeanPostProcess？<br>        spring提供的后置处理器，调用前，将会调用BeanPostProcessor中的postProcessBeforeInitialization方法，而在bean实例初始化方法调用完成后，则会调用BeanPostProcessor中的postProcessAfterInitialization方法<br>    使用场景：<br>        1. 处理自定义注解。bean可以添加我们自定义的注解，自定义的注解处理方式在该类中实现，如通过注解识别一组或几组bean，在后续的业务处理中根据组bean进行逻辑。<br>        2. 打印日志，将每个bean的初始化情况打印出来；打印初始化时间等。</p>
+<p>InitialingBean<br>    什么是InitialingBean？<br>        InitializingBean是Spring提供的拓展性接口，InitializingBean接口为bean提供了属性初始化后的处理方法，它只有一个afterPropertiesSet方法，凡是继承该接口的类，在bean的属性初始化后都会执行该方法。<br>使用场景： 可以做策略模式使用</p>
+<p>Aware接口<br>    什么是Spring的Aware接口？<br>        Aware类型的接口的作用就是让我们能够拿到Spring容器中的一些资源</p>
+<pre><code>有哪些Aware接口
+    1. BeanNameAware 可以拿到beanName
+    2. BeanFactoryAware获取当前 BeanFactory ，这样可以调用容器的服务
+    3. ApplicationEventPublisherAware，发布事件，可以作为观察者模式的实现
+    4. ResourceLoaderAware获取资源加载器，这样获取外部资源文件
+</code></pre>
+
       
 
       
@@ -1023,6 +959,93 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/03/29/mysql/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-NIO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/26/NIO/">NIO</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/26/NIO/" class="archive-article-date">
+  	<time datetime="2021-03-26T09:27:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h4><p>同步阻塞IO<br>在JDK1.4出来之前，我们建立网络连接的时候采用BIO模式，一个线程read或者write时，该线程将会被阻塞，直到IO操作完成，需要先在服务端启动一个ServerSocket，然后在客户端启动Socket来对服务端进行通信，服务端需要对每个请求建立一堆线程等待请求，没有客户端连接时候会阻塞住。<br>    缺点：虽然能够满足IO操作，但是一个线程对应一个客户端，线程多系统调用也多，线程是要消耗资源的，会占内存，如果说并发量大，会有很多很多的线程，而且多个线程之间的上下文切换很消耗CPU资源。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/BIO.jpg"></p>
+<h4 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h4><p>NewIO，非阻塞IO</p>
+<!-- ![](https://blog-1254224452.cos.ap-shanghai.myqcloud.com/NIO%E6%A8%A1%E5%9E%8B.jpg) -->
+<p>Acceptor<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/NIO.png"></p>
+<p>NIO三大核心：Channel，Buffer，Selector</p>
+<h6 id="通道Channel"><a href="#通道Channel" class="headerlink" title="通道Channel"></a>通道Channel</h6><p>NIO的通道类似于流，但有些区别如下：</p>
+<ol>
+<li>流只能读或者写，通道可以同时读写</li>
+</ol>
+<h5 id="缓存Buffer"><a href="#缓存Buffer" class="headerlink" title="缓存Buffer"></a>缓存Buffer</h5><p>缓存区本质上是一个可读可写入数据的内存块。<br>调用buffer.flip()方法进行写入，<br>buffer.clear()或者buffer.compat()读取数据</p>
+<p>Buffer中对应的Position， Mark， Capacity，Limit都是什么：<br>a. capacity：缓冲区容量的大小，就是里面包含的数据大小。<br>b. limit：对buffer缓冲区使用的一个限制，从这个index开始就不能读取数据了。<br>c. position：代表着数组中可以开始读写的index， 不能大于limit。mark：是类似路标的东西，在某个position的时候，设置一下mark，此时就可以设置一个标记后续调用reset()方法可以把position复位到当时设置的那个mark上。去把position或limit调整为小于mark的值时，就丢弃这个mark如果使用的是<br>d. Direct模式创建的Buffer的话，就会减少中间缓冲直接使用DirectorBuffer来进行数据的存储。</p>
+<h5 id="Selector选择器"><a href="#Selector选择器" class="headerlink" title="Selector选择器"></a>Selector选择器</h5><p>多个Channel以事件的方式可以注册到同一个Selector，可以检测多个NIO channel，看看读或者写事件是否就绪。从而达到用一个线程处理多个请求成为可能。多路复用</p>
+<h4 id="NIO存在的问题"><a href="#NIO存在的问题" class="headerlink" title="NIO存在的问题"></a>NIO存在的问题</h4><p>使用NIO不等于高性能，当连接数&lt;1000，并发程度不高或者局域网环境下NIO并没有显著的性能优势。</p>
+<h5 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h5><p>异步非阻塞IO，适合比较重的操作，例如QQ相册，上传一大批文件，然后可以去做别的，等它处理完会有个回调通知。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络协议</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/26/NIO/">展开全文 >></a>
         </p>
       
 
