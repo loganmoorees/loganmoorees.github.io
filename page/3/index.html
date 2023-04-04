@@ -233,7 +233,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Shiro"><a href="#Shiro" class="headerlink" title="Shiro"></a>Shiro</h2><p>&amp;emsp;&amp;emsp;Shiro是一个安全框架，开始于2003年初称为JSecurity，2008年提供给Apache，Apache提供的解释是Shiro是一个强大易用的 Java 安全框架，提供了认证、授权、加密和会话管理功能。<br>&amp;emsp;&amp;emsp;1.	认证：用户身份识别，常被称为用户“登录”；<br>&amp;emsp;&amp;emsp;2.	授权：访问控制权限；<br>&amp;emsp;&amp;emsp;3.	密码加密 - 保护或隐藏数据防止被偷窥；<br>&amp;emsp;&amp;emsp;4.	会话管理 - 每用户相关的时间敏感的状态。</p>
+        <h2 id="Shiro"><a href="#Shiro" class="headerlink" title="Shiro"></a>Shiro</h2><pre><code>Shiro是一个安全框架，开始于2003年初称为JSecurity，2008年提供给Apache，Apache提供的解释是Shiro是一个强大易用的 Java 安全框架，提供了认证、授权、加密和会话管理功能。
+1.	认证：用户身份识别，常被称为用户“登录”；
+2.	授权：访问控制权限；
+3.	密码加密 - 保护或隐藏数据防止被偷窥；
+4.	会话管理 - 每用户相关的时间敏感的状态。
+</code></pre>
 <p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Shiro%E6%9E%B6%E6%9E%84%E5%9B%BE.jpg"></p>
         
           <a class="article-more-a" href="/2019/08/31/Shiro/#more">more >></a>
@@ -310,8 +315,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h4><p>&amp;emsp;&amp;emsp;JDK(Java Development Kit)，Java开发工具集，它提供了Java的开发环境(提供了编译器javac等工具，用于将java文件编译为class文件)和运行环境(提 供了JVM和Runtime辅助包，用于解析class文件使其得到运行)。还包含了很多java程序调试和分析的工具：jconsole，jvisualvm等工具软件，如果你下载并安装了JDK，那么你不仅可以开发Java程序，也同时拥有了运行Java程序的平台。JDK是整个Java的核心，包括了Java运行环境(JRE)，一堆Java工具tools.jar和Java标准类库 (rt.jar)。JDK包含了JRE。</p>
-<h4 id="JRE"><a href="#JRE" class="headerlink" title="JRE"></a>JRE</h4><p>&amp;emsp;&amp;emsp;JRE(Java Runtime Enviroment)是Java的运行环境。面向Java程序的使用者，而不是开发者。如果你仅下载并安装了JRE，那么你的系统只能运行Java程序。JRE是运行Java程序所必须环境的集合，包含JVM标准实现及 Java核心类库。它包括Java虚拟机、Java平台核心类和支持文件。它不包含开发工具(编译器、调试器等)。</p>
+        <h4 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h4><pre><code>JDK(Java Development Kit)，Java开发工具集，它提供了Java的开发环境(提供了编译器javac等工具，用于将java文件编译为class文件)和运行环境(提 供了JVM和Runtime辅助包，用于解析class文件使其得到运行)。还包含了很多java程序调试和分析的工具：jconsole，jvisualvm等工具软件，如果你下载并安装了JDK，那么你不仅可以开发Java程序，也同时拥有了运行Java程序的平台。JDK是整个Java的核心，包括了Java运行环境(JRE)，一堆Java工具tools.jar和Java标准类库 (rt.jar)。JDK包含了JRE。
+</code></pre>
+<h4 id="JRE"><a href="#JRE" class="headerlink" title="JRE"></a>JRE</h4><pre><code>JRE(Java Runtime Enviroment)是Java的运行环境。面向Java程序的使用者，而不是开发者。如果你仅下载并安装了JRE，那么你的系统只能运行Java程序。JRE是运行Java程序所必须环境的集合，包含JVM标准实现及 Java核心类库。它包括Java虚拟机、Java平台核心类和支持文件。它不包含开发工具(编译器、调试器等)。
+</code></pre>
 <h4 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h4><p>Java虚拟机，Java程序的运行只与虚拟机有关，与操作系统无关。</p>
         
           <a class="article-more-a" href="/2019/08/31/JVM/#more">more >></a>
@@ -388,12 +395,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&amp;emsp;&amp;emsp;Java泛型是JDK1.5引入的一个新特性，泛型提供了编译时类型安全检测机制，该机制允许开发者在编译时检测到非法的类型。<br>&amp;emsp;&amp;emsp;它的本质是参数化类型，也就是说操作的数据类型被指定为一个参数。</p>
-<h4 id="为什么需要泛型"><a href="#为什么需要泛型" class="headerlink" title="为什么需要泛型"></a>为什么需要泛型</h4><p>&amp;emsp;&amp;emsp;泛型就是不确定的数据类型，如<code>ArrayList&lt;E&gt;</code>中 E 是泛型，泛型可以省略，如果省略默认泛型是Object类型。<br>&amp;emsp;&amp;emsp;泛型我们并不陌生，JDK源码中就使用了大量的泛型，如<code>ArrayList&lt;E&gt;</code>,<code>Class&lt;T&gt;</code>,<code>HashMap&lt;K, V&gt;</code>或者<code>Class&lt;?&gt;</code>，每种通配符都有着不同的含义。<br>&amp;emsp;&amp;emsp;省略了强制转换</p>
+        <pre><code>Java泛型是JDK1.5引入的一个新特性，泛型提供了编译时类型安全检测机制，该机制允许开发者在编译时检测到非法的类型。
+它的本质是参数化类型，也就是说操作的数据类型被指定为一个参数。
+</code></pre>
+<h4 id="为什么需要泛型"><a href="#为什么需要泛型" class="headerlink" title="为什么需要泛型"></a>为什么需要泛型</h4><pre><code>泛型就是不确定的数据类型，如`ArrayList&lt;E&gt;`中 E 是泛型，泛型可以省略，如果省略默认泛型是Object类型。
+泛型我们并不陌生，JDK源码中就使用了大量的泛型，如`ArrayList&lt;E&gt;`,`Class&lt;T&gt;`,`HashMap&lt;K, V&gt;`或者`Class&lt;?&gt;`，每种通配符都有着不同的含义。
+省略了强制转换
+</code></pre>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">List</span> <span class="variable">list</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line"><span class="type">short</span> <span class="variable">a</span> <span class="operator">=</span> (<span class="type">short</span>) list.get(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<p>&amp;emsp;&amp;emsp;但是运行结果</p>
+<pre><code>但是运行结果
+</code></pre>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread <span class="string">&quot;main&quot;</span> java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.Short</span><br></pre></td></tr></table></figure>
-<p>&amp;emsp;&amp;emsp;类型转换异常了，看样子没什么错，明明上面的代码1是属于short类型范围，但是仔细一看，Java中整型的变量都默认为int类型，int类型也可以强转short阿，也没错。接着看他们在JVM中执行的经过</p>
+<pre><code>类型转换异常了，看样子没什么错，明明上面的代码1是属于short类型范围，但是仔细一看，Java中整型的变量都默认为int类型，int类型也可以强转short阿，也没错。接着看他们在JVM中执行的经过
+</code></pre>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(java.lang.String[])</span>;</span><br><span class="line">    Code:</span><br><span class="line">       <span class="number">0</span>: <span class="keyword">new</span>           #<span class="number">2</span>                  <span class="comment">// class java/util/ArrayList</span></span><br><span class="line">       <span class="number">3</span>: dup</span><br><span class="line">       <span class="number">4</span>: invokespecial #<span class="number">3</span>                  <span class="comment">// Method java/util/ArrayList.&quot;&lt;init&gt;&quot;:()V</span></span><br><span class="line">       <span class="number">7</span>: astore_1</span><br><span class="line">       <span class="number">8</span>: aload_1</span><br><span class="line">       <span class="number">9</span>: iconst_1</span><br><span class="line">      <span class="number">10</span>: invokestatic  #<span class="number">4</span>                  <span class="comment">// Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;</span></span><br><span class="line">      <span class="number">13</span>: invokeinterface #<span class="number">5</span>,  <span class="number">2</span>            <span class="comment">// InterfaceMethod java/util/List.add:(Ljava/lang/Object;)Z</span></span><br></pre></td></tr></table></figure>
         
           <a class="article-more-a" href="/2019/08/30/%E6%B3%9B%E5%9E%8B%E6%9B%B4%E6%B7%B1%E5%B1%82%E6%AC%A1%E7%9A%84%E6%8C%96%E6%8E%98/#more">more >></a>
@@ -470,7 +484,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&amp;emsp;&amp;emsp;Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。</p>
+        <pre><code>Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。
+</code></pre>
         
           <a class="article-more-a" href="/2019/08/29/SpringCloud/#more">more >></a>
         
@@ -554,7 +569,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="什么是数据结构？"><a href="#什么是数据结构？" class="headerlink" title="什么是数据结构？"></a>什么是数据结构？</h4><p>&amp;emsp;&amp;emsp;数据结构就是计算机组织，存储数据的方式。数据结构是指互相之间一种或多种特定关<br>系的数据元素的集合。<br>&amp;emsp;&amp;emsp;数据类型：<br>&amp;emsp;&amp;emsp;根据数据与数据之间的互相关系，它们的逻辑结构可分为4类：<br>&amp;emsp;&amp;emsp;1.	集合<br>&amp;emsp;&amp;emsp;2.	线性结构<br>&amp;emsp;&amp;emsp;3.	树形结构<br>&amp;emsp;&amp;emsp;4.	图形结构<br>&amp;emsp;&amp;emsp;根据数据在计算机中存储的形式可分为2类：<br>&amp;emsp;&amp;emsp;1.	顺序存储结构<br>&amp;emsp;&amp;emsp;2.	链式存储结构</p>
+        <h4 id="什么是数据结构？"><a href="#什么是数据结构？" class="headerlink" title="什么是数据结构？"></a>什么是数据结构？</h4><pre><code>数据结构就是计算机组织，存储数据的方式。数据结构是指互相之间一种或多种特定关
+</code></pre>
+<p>系的数据元素的集合。<br>    数据类型：<br>    根据数据与数据之间的互相关系，它们的逻辑结构可分为4类：<br>    1.	集合<br>    2.	线性结构<br>    3.	树形结构<br>    4.	图形结构<br>    根据数据在计算机中存储的形式可分为2类：<br>    1.	顺序存储结构<br>    2.	链式存储结构</p>
         
           <a class="article-more-a" href="/2019/08/29/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84/#more">more >></a>
         

@@ -405,8 +405,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="什么是并发。与并行的区别"><a href="#什么是并发。与并行的区别" class="headerlink" title="什么是并发。与并行的区别"></a>什么是并发。与并行的区别</h4><p>&amp;nbsp;&amp;nbsp;在Web程序中，有多人同时访问的情况下，并发强调的是同时执行，而并行强调的是多任务交替执行，每个任务互不干扰。</p>
-<h4 id="线程是什么，和进程协程的区别"><a href="#线程是什么，和进程协程的区别" class="headerlink" title="线程是什么，和进程协程的区别"></a>线程是什么，和进程协程的区别</h4><p>&amp;nbsp;&amp;nbsp;线程是资源分配的最小单位，也是CPU调度的最小单位，包含在进程之中，是进程实际运作的单位，进程需要依赖线程，一个进程中至少有一个线程。<br>&amp;nbsp;&amp;nbsp;协程又叫做微线程，协程拥有自己的寄存器上下文和栈。协程调度切换时，将寄存器上下文和栈保存到其他地方，在切回来的时候，恢复先前保存的寄存器上下文和栈，<br>每次过程重入时，就相当于进入上一次调用的状态，换种说法：进入上一次离开时所处逻辑流的位置。<br>&amp;nbsp;&amp;nbsp;优点：无需线程上下文切换的开销,无需原子操作锁定及同步的开销,方便切换控制流，简化编程模型<br>&amp;nbsp;&amp;nbsp;缺点：无法利用多核资源：协程的本质是个单线程,它不能同时将 单个CPU 的多个核用上,协程需要和进程配合才能运行在多CPU上，进行阻塞（Blocking）操作（如IO时）会阻塞掉整个程序</p>
+        <h4 id="什么是并发。与并行的区别"><a href="#什么是并发。与并行的区别" class="headerlink" title="什么是并发。与并行的区别"></a>什么是并发。与并行的区别</h4><pre><code>在Web程序中，有多人同时访问的情况下，并发强调的是同时执行，而并行强调的是多任务交替执行，每个任务互不干扰。
+</code></pre>
+<h4 id="线程是什么，和进程协程的区别"><a href="#线程是什么，和进程协程的区别" class="headerlink" title="线程是什么，和进程协程的区别"></a>线程是什么，和进程协程的区别</h4><pre><code>线程是资源分配的最小单位，也是CPU调度的最小单位，包含在进程之中，是进程实际运作的单位，进程需要依赖线程，一个进程中至少有一个线程。
+协程又叫做微线程，协程拥有自己的寄存器上下文和栈。协程调度切换时，将寄存器上下文和栈保存到其他地方，在切回来的时候，恢复先前保存的寄存器上下文和栈，
+</code></pre>
+<p>每次过程重入时，就相当于进入上一次调用的状态，换种说法：进入上一次离开时所处逻辑流的位置。<br>    优点：无需线程上下文切换的开销,无需原子操作锁定及同步的开销,方便切换控制流，简化编程模型<br>    缺点：无法利用多核资源：协程的本质是个单线程,它不能同时将 单个CPU 的多个核用上,协程需要和进程配合才能运行在多CPU上，进行阻塞（Blocking）操作（如IO时）会阻塞掉整个程序</p>
 <h4 id="什么是线程安全"><a href="#什么是线程安全" class="headerlink" title="什么是线程安全"></a>什么是线程安全</h4><p>在多线程环境中，不管多少个线程同时执行，结果跟预期的正确结果一致，跟单线程执行的结果一致，则是线程安全的，如果跟单线程执行的结果不一致，有可能发生偏差，称之为线程不安全的。</p>
 <h4 id="这么保证线程安全"><a href="#这么保证线程安全" class="headerlink" title="这么保证线程安全"></a>这么保证线程安全</h4><p>使用线程安全的类，如java.util.concurrent.atomic包中的类<br>加锁，使用同步锁或者lock锁</p>
 <h4 id="Synchronized和Lock的区别"><a href="#Synchronized和Lock的区别" class="headerlink" title="Synchronized和Lock的区别"></a>Synchronized和Lock的区别</h4><p>1.在层次上： Synchronized是Java关键字，而Lock是位于java.uitl.concurrent.locks包下的接口。<br>2.从锁的获取来说： 使用Synchronized获取到了锁，其他的线程都需要等待，而Lock锁的获取有多种方式：<br>    a. lock.lock();获取锁，如被锁定则等待，拿不到lock就不罢休，不然线程一直block，比较无赖的做法。<br>    b. lock.tryLock();如未被锁定才获取锁，马上返回，拿到lock就返回true，不然返回false，比lock.lock()更为潇洒，拿不到我不拿了。<br>    c. lock.tryLock(long timeout, TimeUnit unit);获取锁，如果已经被锁定，则最多等待timeout时间后返回获取锁的状态，比lock.trylock();更聪明，拿不到lock我稍微等待一下，等不到我就不拿了。<br>    d. lock.lockInterruptibly();如当前线程未被interrup()[中断,如果线程在等待锁，对线程对象调用interrupt()只是会设置线程的中断标志位]才获取锁,相较lock();和tryLock();而言，是一种优先响应中断的方法，只要代码中抛出了InterruptedException，请求锁<br>    不论当前线程是否拥有锁，都会运行run()方法中的部分代码块。运行的哪部分代码块，因为lockInterruptibly();抛出的异常，返回给上层try catch进行处理<br> 3.从锁的释放来说，Synchronized等到代码执行结束自动释放锁，即使线程执行发生异常也会释放，而Lock需要手动释放，否则容易造成死锁<br> 4.从性能来说：如果锁的竞争不激烈，两者性能差不多，但是如果竞争激烈的情况，Lock性能优于Synchronized<br> 5.从锁的状态来说： Synchronized不可判断锁的状态，而Lock可以获取到锁的状态，<br> 6. synchronized的锁可重入、不可中断、非公平，而Lock锁可重入、可判断、可公平（两者皆可）</p>
@@ -559,19 +563,34 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="equals和-x3D-x3D-的区别"><a href="#equals和-x3D-x3D-的区别" class="headerlink" title="equals和&#x3D;&#x3D;的区别"></a>equals和&#x3D;&#x3D;的区别</h4><p>&amp;nbsp;&amp;nbsp;&#x3D;&#x3D;比较的是栈中指向堆的地址，判断两个对象的地址是否相同，是真正意义上的指针操作。</p>
-<p>&amp;nbsp;&amp;nbsp;equals是Object类中的方法，如果没有重写equals方法的话，调用的还是Object中的方法，跟&#x3D;&#x3D;作用一样，比较地址是否相等，<br>如果重写了equals方法，则比较的是内容是否相等。</p>
-<h4 id="static关键字"><a href="#static关键字" class="headerlink" title="static关键字"></a>static关键字</h4><p>&amp;nbsp;&amp;nbsp;static关键字可以修饰代码块，方法，以及类变量</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;代码块：</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;static修饰的代码块称为静态代码块，在类首次被加载时执行，可以有多个static块</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;方法：</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;static修饰的方法称为静态方法，调用时，无需通过new对象，直接类名.方法名即可调用，在静态方法里，<br>不能直接调用非静态方法和非静态变量。可以通过new来访问。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;变量：</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;static修饰的变量称为静态变量，静态变量被所有的对象所共享，在内存中只有一个副本，它当且仅当在类初次加载时会被初始化。而非静态变量是对象所拥有的，在创建对象的时候被初始化，存在多个副本，各个对象拥有的副本互不影响。静态变量存放于JVM的静态区之中。</p>
-<h4 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a>final关键字</h4><p>&amp;nbsp;&amp;nbsp;在Java中，final关键字可以用来修饰类、方法和变量（包括成员变量和局部变量）</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;修饰类： 表明这个类不能被继承</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;修饰方法： 表示方法不能被子类重写，类的private方法会隐式地被指定为final方法</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;修饰变量：对于一个final变量，如果是基本数据类型的变量，则其数值一旦在初始化之后便不能更改；如果是引用类型的变量，则在对其初始化之后便不能再让其指向另一个对象。</p>
+        <h4 id="equals和-x3D-x3D-的区别"><a href="#equals和-x3D-x3D-的区别" class="headerlink" title="equals和&#x3D;&#x3D;的区别"></a>equals和&#x3D;&#x3D;的区别</h4><pre><code>==比较的是栈中指向堆的地址，判断两个对象的地址是否相同，是真正意义上的指针操作。
+
+equals是Object类中的方法，如果没有重写equals方法的话，调用的还是Object中的方法，跟==作用一样，比较地址是否相等，
+</code></pre>
+<p>如果重写了equals方法，则比较的是内容是否相等。</p>
+<h4 id="static关键字"><a href="#static关键字" class="headerlink" title="static关键字"></a>static关键字</h4><pre><code>static关键字可以修饰代码块，方法，以及类变量
+
+    代码块：
+
+            static修饰的代码块称为静态代码块，在类首次被加载时执行，可以有多个static块
+
+    方法：
+
+            static修饰的方法称为静态方法，调用时，无需通过new对象，直接类名.方法名即可调用，在静态方法里，
+</code></pre>
+<p>不能直接调用非静态方法和非静态变量。可以通过new来访问。</p>
+<pre><code>    变量：
+
+            static修饰的变量称为静态变量，静态变量被所有的对象所共享，在内存中只有一个副本，它当且仅当在类初次加载时会被初始化。而非静态变量是对象所拥有的，在创建对象的时候被初始化，存在多个副本，各个对象拥有的副本互不影响。静态变量存放于JVM的静态区之中。
+</code></pre>
+<h4 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a>final关键字</h4><pre><code>在Java中，final关键字可以用来修饰类、方法和变量（包括成员变量和局部变量）
+
+    修饰类： 表明这个类不能被继承
+
+    修饰方法： 表示方法不能被子类重写，类的private方法会隐式地被指定为final方法
+
+    修饰变量：对于一个final变量，如果是基本数据类型的变量，则其数值一旦在初始化之后便不能更改；如果是引用类型的变量，则在对其初始化之后便不能再让其指向另一个对象。
+</code></pre>
 
       
 
@@ -878,8 +897,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&amp;emsp;&amp;emsp; Java8的特性虽然以前知道，但是没用过，同事之间也没人用，比如Lambda，Stream，最近看同事写出来的代码感觉更为简洁，而自己还在使用老一套的方式，特此学习一下Java8的操作</p>
-<h4 id="什么是Lambda"><a href="#什么是Lambda" class="headerlink" title="什么是Lambda?"></a>什么是Lambda?</h4><p>&amp;emsp;&amp;emsp; Lambda表达式是Java SE 8中包含的一项新的重要功能。它们提供了一种简洁明了的方式来使用表达式表示一个方法接口。Lambda表达式还改进了Collection库，使其更易于遍历，过滤和从中提取数据Collection。此外，新的并发功能提高了多核环境中的性能。<br>&amp;emsp;&amp;emsp;Lambda表达式是一个匿名函数，可以理解为是一段可以传递的代码（将代码像数据一样进行传递）</p>
+        <pre><code> Java8的特性虽然以前知道，但是没用过，同事之间也没人用，比如Lambda，Stream，最近看同事写出来的代码感觉更为简洁，而自己还在使用老一套的方式，特此学习一下Java8的操作
+</code></pre>
+<h4 id="什么是Lambda"><a href="#什么是Lambda" class="headerlink" title="什么是Lambda?"></a>什么是Lambda?</h4><pre><code> Lambda表达式是Java SE 8中包含的一项新的重要功能。它们提供了一种简洁明了的方式来使用表达式表示一个方法接口。Lambda表达式还改进了Collection库，使其更易于遍历，过滤和从中提取数据Collection。此外，新的并发功能提高了多核环境中的性能。
+Lambda表达式是一个匿名函数，可以理解为是一段可以传递的代码（将代码像数据一样进行传递）
+</code></pre>
 
       
 
@@ -953,8 +975,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="Linux介绍"><a href="#Linux介绍" class="headerlink" title="Linux介绍"></a>Linux介绍</h4><p>&amp;emsp;&amp;emsp;Linux就是一个操作系统，Linus Torvalds开发的内核，严格来说是单指操作系统的内核，因操作系统中包含了许多用户图形接口和其他实用工具。如今Linux常用来指基于Linux的完整操作系统，内核则改以Linux内核称之。主要有三部分组成：<br>&amp;emsp;&amp;emsp;1. Linux内核，内核是操作系统的核心，具有很多基本功能，如虚拟内存，多任务，共享&amp;emsp;&amp;emsp;库，需求加载，可执行的TCP&#x2F;IP网络功能；Linux的内核模块分为以下几部分：存储管理、CPU和进程管理、文件系统、设备管理和驱动、网络通信、系统初始化和系统调用等。<br>&amp;emsp;&amp;emsp;2. Linux文件系统，文件系统是文件存放在磁盘等存储设备上的组织方法。Linux系统能支持多种目前流行的文件系统。<br>&amp;emsp;&amp;emsp;3. Shell，shell是系统的用户界面，提供了用户与内核进行交互操作的一种接口。它接受用户输入的命令并把它送入内核去执行，是一个命令解释器，另外，Shell编程语言具有普通编程语言的很多特点，用这种编程语言编写的shell程序与其他重新具有同样的效果。</p>
-<p>&amp;emsp;&amp;emsp;优点：<br>&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;1. 稳定：Windows卡住直接卡死了，而Linux不影响其他程序。不会“崩盘”；<br>&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;2. 开源的：更多人参与进来，一起为Linux的发展做出贡献，软件透明度高，信任好；<br>&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;3. 更安全：Linux权限很严格，没有管理员密码，即使有病毒木马也不会影响到核心重要文件。<br>&amp;emsp;&amp;emsp;缺点：<br>&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;1. 资源数量不如Windows，Windows流行度比Linux高很多；<br>&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;2. 学习成本高<br>&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;3. 图形界面不行，饱受诟病</p>
+        <h4 id="Linux介绍"><a href="#Linux介绍" class="headerlink" title="Linux介绍"></a>Linux介绍</h4><pre><code>Linux就是一个操作系统，Linus Torvalds开发的内核，严格来说是单指操作系统的内核，因操作系统中包含了许多用户图形接口和其他实用工具。如今Linux常用来指基于Linux的完整操作系统，内核则改以Linux内核称之。主要有三部分组成：
+1. Linux内核，内核是操作系统的核心，具有很多基本功能，如虚拟内存，多任务，共享    库，需求加载，可执行的TCP/IP网络功能；Linux的内核模块分为以下几部分：存储管理、CPU和进程管理、文件系统、设备管理和驱动、网络通信、系统初始化和系统调用等。
+2. Linux文件系统，文件系统是文件存放在磁盘等存储设备上的组织方法。Linux系统能支持多种目前流行的文件系统。
+3. Shell，shell是系统的用户界面，提供了用户与内核进行交互操作的一种接口。它接受用户输入的命令并把它送入内核去执行，是一个命令解释器，另外，Shell编程语言具有普通编程语言的很多特点，用这种编程语言编写的shell程序与其他重新具有同样的效果。
+
+优点：
+    1. 稳定：Windows卡住直接卡死了，而Linux不影响其他程序。不会“崩盘”；
+    2. 开源的：更多人参与进来，一起为Linux的发展做出贡献，软件透明度高，信任好；
+    3. 更安全：Linux权限很严格，没有管理员密码，即使有病毒木马也不会影响到核心重要文件。
+缺点：
+    1. 资源数量不如Windows，Windows流行度比Linux高很多；
+    2. 学习成本高
+    3. 图形界面不行，饱受诟病
+</code></pre>
 <h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><p><code>pwd</code> 显示你当前所在目录<br><code>mkdir</code>创建目录<br><code>rmkdir</code> 只能删除空目录，包含文件的用<code>rm</code><br><code>rm</code>删除文件和目录，<code>rm -r</code>只删除目录<br><code>touch</code>用于创建文件<br><code>cp</code> 复制命令（copy），它需要两个参数：第一个是要复制的文件的位置，第二个是要复制的位置。<br><code>mv</code> 移动命令，还可以重命名，它也需要两个参数，第一个移动的起始位置，第二个移动的目标位置<br><code>locate</code>查找命令,不知道文件的保存位置或文件的实际名称时，想要查找a.txt文件，<code>locate a.txt</code>，<br>它的搜索速度要比find快很多，但是不是实时的，在索引数据库中查找，在查找前先运行<code>updatedb</code><br><code>echo</code> <code>echo 这是我新加的数据 &gt;&gt; a.txt</code>这个是在文件后面追加数据，<code>echo 这是我再次新加的数据 &gt; a.txt</code>这个会覆盖原来的文件（慎用）<br><code>cat</code>  对文件全部内容进行输出</p>
 
       
@@ -1029,7 +1063,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="树形结构"><a href="#树形结构" class="headerlink" title="树形结构"></a>树形结构</h4><p>&amp;emsp;&amp;emsp;树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：</p>
+        <h4 id="树形结构"><a href="#树形结构" class="headerlink" title="树形结构"></a>树形结构</h4><pre><code>树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：
+</code></pre>
 <ol>
 <li>每个节点有零个或多个子节点</li>
 <li>没有父节点的节点称为根节点</li>

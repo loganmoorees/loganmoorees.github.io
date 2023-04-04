@@ -8,12 +8,12 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>多线程编程 | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是并发。与并行的区别&amp;nbsp;&amp;nbsp;在Web程序中，有多人同时访问的情况下，并发强调的是同时执行，而并行强调的是多任务交替执行，每个任务互不干扰。 线程是什么，和进程协程的区别&amp;nbsp;&amp;nbsp;线程是资源分配的最小单位，也是CPU调度的最小单位，包含在进程之中，是进程实际运作的单位，进程需要依赖线程，一个进程中至少有一个线程。&amp;nbsp;&amp;">
+  <meta name="description" content="什么是并发。与并行的区别在Web程序中，有多人同时访问的情况下，并发强调的是同时执行，而并行强调的是多任务交替执行，每个任务互不干扰。  线程是什么，和进程协程的区别线程是资源分配的最小单位，也是CPU调度的最小单位，包含在进程之中，是进程实际运作的单位，进程需要依赖线程，一个进程中至少有一个线程。 协程又叫做微线程，协程拥有自己的寄存器上下文和栈。协程调度切换时，将寄存器上下文和栈保存到其他地方">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多线程编程">
 <meta property="og:url" content="http://yoursite.com/2021/03/22/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Logan Moorees">
-<meta property="og:description" content="什么是并发。与并行的区别&amp;nbsp;&amp;nbsp;在Web程序中，有多人同时访问的情况下，并发强调的是同时执行，而并行强调的是多任务交替执行，每个任务互不干扰。 线程是什么，和进程协程的区别&amp;nbsp;&amp;nbsp;线程是资源分配的最小单位，也是CPU调度的最小单位，包含在进程之中，是进程实际运作的单位，进程需要依赖线程，一个进程中至少有一个线程。&amp;nbsp;&amp;">
+<meta property="og:description" content="什么是并发。与并行的区别在Web程序中，有多人同时访问的情况下，并发强调的是同时执行，而并行强调的是多任务交替执行，每个任务互不干扰。  线程是什么，和进程协程的区别线程是资源分配的最小单位，也是CPU调度的最小单位，包含在进程之中，是进程实际运作的单位，进程需要依赖线程，一个进程中至少有一个线程。 协程又叫做微线程，协程拥有自己的寄存器上下文和栈。协程调度切换时，将寄存器上下文和栈保存到其他地方">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Lock%E7%BB%A7%E6%89%BF.png">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/AQS.png">
@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/volatile.png">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C.jpg">
 <meta property="article:published_time" content="2021-03-22T01:13:43.000Z">
-<meta property="article:modified_time" content="2023-03-17T18:08:35.833Z">
+<meta property="article:modified_time" content="2023-04-04T21:44:53.185Z">
 <meta property="article:author" content="Logan Moore">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Lock%E7%BB%A7%E6%89%BF.png">
@@ -165,8 +165,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="什么是并发。与并行的区别"><a href="#什么是并发。与并行的区别" class="headerlink" title="什么是并发。与并行的区别"></a>什么是并发。与并行的区别</h4><p>&amp;nbsp;&amp;nbsp;在Web程序中，有多人同时访问的情况下，并发强调的是同时执行，而并行强调的是多任务交替执行，每个任务互不干扰。</p>
-<h4 id="线程是什么，和进程协程的区别"><a href="#线程是什么，和进程协程的区别" class="headerlink" title="线程是什么，和进程协程的区别"></a>线程是什么，和进程协程的区别</h4><p>&amp;nbsp;&amp;nbsp;线程是资源分配的最小单位，也是CPU调度的最小单位，包含在进程之中，是进程实际运作的单位，进程需要依赖线程，一个进程中至少有一个线程。<br>&amp;nbsp;&amp;nbsp;协程又叫做微线程，协程拥有自己的寄存器上下文和栈。协程调度切换时，将寄存器上下文和栈保存到其他地方，在切回来的时候，恢复先前保存的寄存器上下文和栈，<br>每次过程重入时，就相当于进入上一次调用的状态，换种说法：进入上一次离开时所处逻辑流的位置。<br>&amp;nbsp;&amp;nbsp;优点：无需线程上下文切换的开销,无需原子操作锁定及同步的开销,方便切换控制流，简化编程模型<br>&amp;nbsp;&amp;nbsp;缺点：无法利用多核资源：协程的本质是个单线程,它不能同时将 单个CPU 的多个核用上,协程需要和进程配合才能运行在多CPU上，进行阻塞（Blocking）操作（如IO时）会阻塞掉整个程序</p>
+        <h4 id="什么是并发。与并行的区别"><a href="#什么是并发。与并行的区别" class="headerlink" title="什么是并发。与并行的区别"></a>什么是并发。与并行的区别</h4><pre><code>在Web程序中，有多人同时访问的情况下，并发强调的是同时执行，而并行强调的是多任务交替执行，每个任务互不干扰。
+</code></pre>
+<h4 id="线程是什么，和进程协程的区别"><a href="#线程是什么，和进程协程的区别" class="headerlink" title="线程是什么，和进程协程的区别"></a>线程是什么，和进程协程的区别</h4><pre><code>线程是资源分配的最小单位，也是CPU调度的最小单位，包含在进程之中，是进程实际运作的单位，进程需要依赖线程，一个进程中至少有一个线程。
+协程又叫做微线程，协程拥有自己的寄存器上下文和栈。协程调度切换时，将寄存器上下文和栈保存到其他地方，在切回来的时候，恢复先前保存的寄存器上下文和栈，
+</code></pre>
+<p>每次过程重入时，就相当于进入上一次调用的状态，换种说法：进入上一次离开时所处逻辑流的位置。<br>    优点：无需线程上下文切换的开销,无需原子操作锁定及同步的开销,方便切换控制流，简化编程模型<br>    缺点：无法利用多核资源：协程的本质是个单线程,它不能同时将 单个CPU 的多个核用上,协程需要和进程配合才能运行在多CPU上，进行阻塞（Blocking）操作（如IO时）会阻塞掉整个程序</p>
 <h4 id="什么是线程安全"><a href="#什么是线程安全" class="headerlink" title="什么是线程安全"></a>什么是线程安全</h4><p>在多线程环境中，不管多少个线程同时执行，结果跟预期的正确结果一致，跟单线程执行的结果一致，则是线程安全的，如果跟单线程执行的结果不一致，有可能发生偏差，称之为线程不安全的。</p>
 <h4 id="这么保证线程安全"><a href="#这么保证线程安全" class="headerlink" title="这么保证线程安全"></a>这么保证线程安全</h4><p>使用线程安全的类，如java.util.concurrent.atomic包中的类<br>加锁，使用同步锁或者lock锁</p>
 <h4 id="Synchronized和Lock的区别"><a href="#Synchronized和Lock的区别" class="headerlink" title="Synchronized和Lock的区别"></a>Synchronized和Lock的区别</h4><p>1.在层次上： Synchronized是Java关键字，而Lock是位于java.uitl.concurrent.locks包下的接口。<br>2.从锁的获取来说： 使用Synchronized获取到了锁，其他的线程都需要等待，而Lock锁的获取有多种方式：<br>    a. lock.lock();获取锁，如被锁定则等待，拿不到lock就不罢休，不然线程一直block，比较无赖的做法。<br>    b. lock.tryLock();如未被锁定才获取锁，马上返回，拿到lock就返回true，不然返回false，比lock.lock()更为潇洒，拿不到我不拿了。<br>    c. lock.tryLock(long timeout, TimeUnit unit);获取锁，如果已经被锁定，则最多等待timeout时间后返回获取锁的状态，比lock.trylock();更聪明，拿不到lock我稍微等待一下，等不到我就不拿了。<br>    d. lock.lockInterruptibly();如当前线程未被interrup()[中断,如果线程在等待锁，对线程对象调用interrupt()只是会设置线程的中断标志位]才获取锁,相较lock();和tryLock();而言，是一种优先响应中断的方法，只要代码中抛出了InterruptedException，请求锁<br>    不论当前线程是否拥有锁，都会运行run()方法中的部分代码块。运行的哪部分代码块，因为lockInterruptibly();抛出的异常，返回给上层try catch进行处理<br> 3.从锁的释放来说，Synchronized等到代码执行结束自动释放锁，即使线程执行发生异常也会释放，而Lock需要手动释放，否则容易造成死锁<br> 4.从性能来说：如果锁的竞争不激烈，两者性能差不多，但是如果竞争激烈的情况，Lock性能优于Synchronized<br> 5.从锁的状态来说： Synchronized不可判断锁的状态，而Lock可以获取到锁的状态，<br> 6. synchronized的锁可重入、不可中断、非公平，而Lock锁可重入、可判断、可公平（两者皆可）</p>

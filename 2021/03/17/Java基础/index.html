@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Java基础 | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="equals和&#x3D;&#x3D;的区别&amp;nbsp;&amp;nbsp;&#x3D;&#x3D;比较的是栈中指向堆的地址，判断两个对象的地址是否相同，是真正意义上的指针操作。 &amp;nbsp;&amp;nbsp;equals是Object类中的方法，如果没有重写equals方法的话，调用的还是Object中的方法，跟&#x3D;&#x3D;作用一样，比较地址是否相等，如果重写了eq">
+  <meta name="description" content="equals和&#x3D;&#x3D;的区别&#x3D;&#x3D;比较的是栈中指向堆的地址，判断两个对象的地址是否相同，是真正意义上的指针操作。  equals是Object类中的方法，如果没有重写equals方法的话，调用的还是Object中的方法，跟&#x3D;&#x3D;作用一样，比较地址是否相等，  如果重写了equals方法，则比较的是内容是否相等。 static关键字static关键字可以修饰代码块，方法，以及类变量">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java基础">
 <meta property="og:url" content="http://yoursite.com/2021/03/17/Java%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="Logan Moorees">
-<meta property="og:description" content="equals和&#x3D;&#x3D;的区别&amp;nbsp;&amp;nbsp;&#x3D;&#x3D;比较的是栈中指向堆的地址，判断两个对象的地址是否相同，是真正意义上的指针操作。 &amp;nbsp;&amp;nbsp;equals是Object类中的方法，如果没有重写equals方法的话，调用的还是Object中的方法，跟&#x3D;&#x3D;作用一样，比较地址是否相等，如果重写了eq">
+<meta property="og:description" content="equals和&#x3D;&#x3D;的区别&#x3D;&#x3D;比较的是栈中指向堆的地址，判断两个对象的地址是否相同，是真正意义上的指针操作。  equals是Object类中的方法，如果没有重写equals方法的话，调用的还是Object中的方法，跟&#x3D;&#x3D;作用一样，比较地址是否相等，  如果重写了equals方法，则比较的是内容是否相等。 static关键字static关键字可以修饰代码块，方法，以及类变量">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-03-17T01:32:04.000Z">
-<meta property="article:modified_time" content="2021-03-17T03:25:57.000Z">
+<meta property="article:modified_time" content="2023-04-04T21:43:44.694Z">
 <meta property="article:author" content="Logan Moore">
 <meta name="twitter:card" content="summary">
   
@@ -158,19 +158,34 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="equals和-x3D-x3D-的区别"><a href="#equals和-x3D-x3D-的区别" class="headerlink" title="equals和&#x3D;&#x3D;的区别"></a>equals和&#x3D;&#x3D;的区别</h4><p>&amp;nbsp;&amp;nbsp;&#x3D;&#x3D;比较的是栈中指向堆的地址，判断两个对象的地址是否相同，是真正意义上的指针操作。</p>
-<p>&amp;nbsp;&amp;nbsp;equals是Object类中的方法，如果没有重写equals方法的话，调用的还是Object中的方法，跟&#x3D;&#x3D;作用一样，比较地址是否相等，<br>如果重写了equals方法，则比较的是内容是否相等。</p>
-<h4 id="static关键字"><a href="#static关键字" class="headerlink" title="static关键字"></a>static关键字</h4><p>&amp;nbsp;&amp;nbsp;static关键字可以修饰代码块，方法，以及类变量</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;代码块：</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;static修饰的代码块称为静态代码块，在类首次被加载时执行，可以有多个static块</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;方法：</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;static修饰的方法称为静态方法，调用时，无需通过new对象，直接类名.方法名即可调用，在静态方法里，<br>不能直接调用非静态方法和非静态变量。可以通过new来访问。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;变量：</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;static修饰的变量称为静态变量，静态变量被所有的对象所共享，在内存中只有一个副本，它当且仅当在类初次加载时会被初始化。而非静态变量是对象所拥有的，在创建对象的时候被初始化，存在多个副本，各个对象拥有的副本互不影响。静态变量存放于JVM的静态区之中。</p>
-<h4 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a>final关键字</h4><p>&amp;nbsp;&amp;nbsp;在Java中，final关键字可以用来修饰类、方法和变量（包括成员变量和局部变量）</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;修饰类： 表明这个类不能被继承</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;修饰方法： 表示方法不能被子类重写，类的private方法会隐式地被指定为final方法</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;修饰变量：对于一个final变量，如果是基本数据类型的变量，则其数值一旦在初始化之后便不能更改；如果是引用类型的变量，则在对其初始化之后便不能再让其指向另一个对象。</p>
+        <h4 id="equals和-x3D-x3D-的区别"><a href="#equals和-x3D-x3D-的区别" class="headerlink" title="equals和&#x3D;&#x3D;的区别"></a>equals和&#x3D;&#x3D;的区别</h4><pre><code>==比较的是栈中指向堆的地址，判断两个对象的地址是否相同，是真正意义上的指针操作。
+
+equals是Object类中的方法，如果没有重写equals方法的话，调用的还是Object中的方法，跟==作用一样，比较地址是否相等，
+</code></pre>
+<p>如果重写了equals方法，则比较的是内容是否相等。</p>
+<h4 id="static关键字"><a href="#static关键字" class="headerlink" title="static关键字"></a>static关键字</h4><pre><code>static关键字可以修饰代码块，方法，以及类变量
+
+    代码块：
+
+            static修饰的代码块称为静态代码块，在类首次被加载时执行，可以有多个static块
+
+    方法：
+
+            static修饰的方法称为静态方法，调用时，无需通过new对象，直接类名.方法名即可调用，在静态方法里，
+</code></pre>
+<p>不能直接调用非静态方法和非静态变量。可以通过new来访问。</p>
+<pre><code>    变量：
+
+            static修饰的变量称为静态变量，静态变量被所有的对象所共享，在内存中只有一个副本，它当且仅当在类初次加载时会被初始化。而非静态变量是对象所拥有的，在创建对象的时候被初始化，存在多个副本，各个对象拥有的副本互不影响。静态变量存放于JVM的静态区之中。
+</code></pre>
+<h4 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a>final关键字</h4><pre><code>在Java中，final关键字可以用来修饰类、方法和变量（包括成员变量和局部变量）
+
+    修饰类： 表明这个类不能被继承
+
+    修饰方法： 表示方法不能被子类重写，类的private方法会隐式地被指定为final方法
+
+    修饰变量：对于一个final变量，如果是基本数据类型的变量，则其数值一旦在初始化之后便不能更改；如果是引用类型的变量，则在对其初始化之后便不能再让其指向另一个对象。
+</code></pre>
 
       
 

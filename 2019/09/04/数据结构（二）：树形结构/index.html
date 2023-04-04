@@ -8,12 +8,12 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>数据结构（二）：树形结构 | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="树形结构&amp;emsp;&amp;emsp;树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：  每个节点有零个或多个子节点 没">
+  <meta name="description" content="树形结构树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：   每个节点有零个或多个子节点 没有父节点的节点称为根节点 每一个非根节">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据结构（二）：树形结构">
 <meta property="og:url" content="http://yoursite.com/2019/09/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/index.html">
 <meta property="og:site_name" content="Logan Moorees">
-<meta property="og:description" content="树形结构&amp;emsp;&amp;emsp;树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：  每个节点有零个或多个子节点 没">
+<meta property="og:description" content="树形结构树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：   每个节点有零个或多个子节点 没有父节点的节点称为根节点 每一个非根节">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%97%A0%E5%BA%8F%E6%A0%91.jpg">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%9C%89%E5%BA%8F%E6%A0%911.jpg">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/B-Tree.png">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/B%2BTree.png">
 <meta property="article:published_time" content="2019-09-04T07:59:52.000Z">
-<meta property="article:modified_time" content="2021-03-31T06:13:09.000Z">
+<meta property="article:modified_time" content="2023-04-04T21:44:20.908Z">
 <meta property="article:author" content="Logan Moore">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
@@ -172,7 +172,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="树形结构"><a href="#树形结构" class="headerlink" title="树形结构"></a>树形结构</h4><p>&amp;emsp;&amp;emsp;树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：</p>
+        <h4 id="树形结构"><a href="#树形结构" class="headerlink" title="树形结构"></a>树形结构</h4><pre><code>树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：
+</code></pre>
 <ol>
 <li>每个节点有零个或多个子节点</li>
 <li>没有父节点的节点称为根节点</li>
@@ -196,10 +197,17 @@
 <li>子孙：以某节点为根的子树中任一节点都称为该节点的子孙。</li>
 <li>森林：由m（m&gt;&#x3D;0）棵互不相交的树的集合称为森林；<span id="more"></span></li>
 </ol>
-<h4 id="无序树"><a href="#无序树" class="headerlink" title="无序树"></a>无序树</h4><p>&amp;emsp;&amp;emsp;树中任意节点的子节点之间没有顺序关系，这种树称为无序树，也称为自由树。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%97%A0%E5%BA%8F%E6%A0%91.jpg"></p>
-<h4 id="有序树"><a href="#有序树" class="headerlink" title="有序树"></a>有序树</h4><p>&amp;emsp;&amp;emsp;用自己的话归纳就是兄弟节点有顺序的树就可以称为有序树<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%9C%89%E5%BA%8F%E6%A0%911.jpg"></p>
-<h4 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h4><p>&amp;emsp;&amp;emsp;二叉树是每个结点最多有两个子树的树结构。通常子树被称作“左子树”（left subtree）和“右子树”（right subtree）。二叉树常被用于实现二叉查找树和二叉堆<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E4%BA%8C%E5%8F%89%E6%A0%911.png"><br>二叉树是递归定义的，其结点有左右子树之分，逻辑上二叉树有五种基本形态：<br>二叉树又可以被分为满二叉树 full binary tree（一棵深度为 k，且最底层有 2^(k- 1) 个节点称之为满二叉树；形如其名，所有的节点都是满的）和完全二叉树 complete binary tree（深度为 k，有 n 个节点的二叉树，当且仅当其每一个节点都与深度为 k 的满二叉树中序号为 1 至 n 的节点对应；简单来说，就是除深度是k 层之外，其他各层（1至k-1）的节点数都达到最大个数，第k 层的所有节点都连续几个在最左边）。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E4%BA%8C%E5%8F%89%E6%A0%912%20.png"></p>
-<p>&amp;emsp;&amp;emsp;二叉树的遍历</p>
+<h4 id="无序树"><a href="#无序树" class="headerlink" title="无序树"></a>无序树</h4><pre><code>树中任意节点的子节点之间没有顺序关系，这种树称为无序树，也称为自由树。
+</code></pre>
+<p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%97%A0%E5%BA%8F%E6%A0%91.jpg"></p>
+<h4 id="有序树"><a href="#有序树" class="headerlink" title="有序树"></a>有序树</h4><pre><code>用自己的话归纳就是兄弟节点有顺序的树就可以称为有序树
+</code></pre>
+<p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%9C%89%E5%BA%8F%E6%A0%911.jpg"></p>
+<h4 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h4><pre><code>二叉树是每个结点最多有两个子树的树结构。通常子树被称作“左子树”（left subtree）和“右子树”（right subtree）。二叉树常被用于实现二叉查找树和二叉堆
+</code></pre>
+<p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E4%BA%8C%E5%8F%89%E6%A0%911.png"><br>二叉树是递归定义的，其结点有左右子树之分，逻辑上二叉树有五种基本形态：<br>二叉树又可以被分为满二叉树 full binary tree（一棵深度为 k，且最底层有 2^(k- 1) 个节点称之为满二叉树；形如其名，所有的节点都是满的）和完全二叉树 complete binary tree（深度为 k，有 n 个节点的二叉树，当且仅当其每一个节点都与深度为 k 的满二叉树中序号为 1 至 n 的节点对应；简单来说，就是除深度是k 层之外，其他各层（1至k-1）的节点数都达到最大个数，第k 层的所有节点都连续几个在最左边）。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E4%BA%8C%E5%8F%89%E6%A0%912%20.png"></p>
+<pre><code>二叉树的遍历
+</code></pre>
 <ul>
 <li>先序遍历；根节点-&gt;左子树-&gt;右子树。</li>
 <li>中序遍历；左子树-&gt;根节点-&gt;右子树。</li>
@@ -215,13 +223,26 @@
     非二叉树：指数树，融合树，区间树，PQ树，Range tree，SPQR树
     空间数据分割树：R树，R*树，R+树，X树，M树，线段树，可持久化线段树，希尔伯特R树，优先R树
 </code></pre>
-<h4 id="平衡二叉树（AVL树）"><a href="#平衡二叉树（AVL树）" class="headerlink" title="平衡二叉树（AVL树）"></a>平衡二叉树（AVL树）</h4><p>&amp;emsp;&amp;emsp;在计算机科学中，AVL树是最早被发明的自平衡二叉查找树。在AVL树中，任一节点对应的两棵子树的最大高度差为1，因此它也被称为高度平衡树。查找、插入和删除在平均和最坏情况下的时间复杂度都是$$ O(logn) $$。增加和删除元素的操作则可能需要借由一次或多次树旋转，以实现树的重新平衡。<br>&amp;emsp;&amp;emsp;节点的平衡因子是它的左子树的高度减去它的右子树的高度（有时相反）。带有平衡因子1、0或 -1的节点被认为是平衡的。带有平衡因子 -2或2的节点被认为是不平衡的，并需要重新平衡这个树。平衡因子可以直接存储在每个节点中，或从可能存储在节点中的子树高度计算出来。</p>
-<p>&amp;emsp;&amp;emsp;二叉搜索树一定程度上可以提高搜索效率，但是当原序列有序时，例如序列 A &#x3D; {1，2，3，4}，构造二叉搜索树如图，依据此序列构造的二叉搜索树为右斜树，同时二叉树退化成单链表，搜索效率降低为 O(n)。<br><a target="_blank" rel="noopener" href="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%A0%91%E9%93%BE%E8%A1%A8.jpg">https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%A0%91%E9%93%BE%E8%A1%A8.jpg</a><br>&amp;emsp;&amp;emsp;在此二叉搜索树中查找元素 4 需要查找 4 次。</p>
-<p>&amp;emsp;&amp;emsp;二叉搜索树的查找效率取决于树的高度，因此保持树的高度最小，即可保证树的查找效率。同样的序列 A，将其改为图 1.2 的方式存储，查找元素 4 时只需比较 2 次，查找效率提升一倍。</p>
-<p>&amp;emsp;&amp;emsp;可以看出当节点数目一定，保持树的左右两端保持平衡，树的查找效率最高。<br>&amp;emsp;&amp;emsp;可以是空树，这种左右子树的高度相差不超过 1 的树为平衡二叉树。</p>
-<h4 id="建立树的过程中，我们如何知道左右子树的高度差呢？在这里我们采用了平衡因子进行记录。"><a href="#建立树的过程中，我们如何知道左右子树的高度差呢？在这里我们采用了平衡因子进行记录。" class="headerlink" title="建立树的过程中，我们如何知道左右子树的高度差呢？在这里我们采用了平衡因子进行记录。"></a>建立树的过程中，我们如何知道左右子树的高度差呢？在这里我们采用了平衡因子进行记录。</h4><p>&amp;emsp;&amp;emsp; 平衡因子：左子树的高度减去右子树的高度。由平衡二叉树的定义可知，平衡因子的取值只可能为0,1,-1.分别对应着左右子树等高，左子树比较高，右子树比较高。如下图<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%B9%B3%E8%A1%A1%E5%9B%A0%E5%AD%90.jpg"></p>
-<h4 id="AVL树插入时候的失衡与调整"><a href="#AVL树插入时候的失衡与调整" class="headerlink" title="AVL树插入时候的失衡与调整"></a>AVL树插入时候的失衡与调整</h4><p>&amp;emsp;&amp;emsp;平衡二叉树的失衡调整主要是通过旋转最小失衡子树来实现的。<br>最小失衡子树：在新插入的结点向上查找，以第一个平衡因子的绝对值超过1的结点为根的子树称为最小不平衡子树。也就是说，一棵失衡的树，是有可能有多棵子树同时失衡的，如下。而这个时候，我们只要调整最小的不平衡子树，就能够将不平衡的树调整为平衡的树。</p>
-<p>&amp;emsp;&amp;emsp;在图7中。2结点（左子树树高-右子树树高）的绝对值&#x3D;2。同理，3结点的平衡因子也为2.此时同时存在了两棵不平衡子树，而以3为根的树是最小的不平衡子树。我们只要将其以3为中心，将最小不平衡树向左旋转，即可得到平衡二叉树，如图8。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%A4%B1%E8%A1%A1%E5%AD%90%E6%A0%91.jpg"></p>
+<h4 id="平衡二叉树（AVL树）"><a href="#平衡二叉树（AVL树）" class="headerlink" title="平衡二叉树（AVL树）"></a>平衡二叉树（AVL树）</h4><pre><code>在计算机科学中，AVL树是最早被发明的自平衡二叉查找树。在AVL树中，任一节点对应的两棵子树的最大高度差为1，因此它也被称为高度平衡树。查找、插入和删除在平均和最坏情况下的时间复杂度都是$$ O(logn) $$。增加和删除元素的操作则可能需要借由一次或多次树旋转，以实现树的重新平衡。
+节点的平衡因子是它的左子树的高度减去它的右子树的高度（有时相反）。带有平衡因子1、0或 -1的节点被认为是平衡的。带有平衡因子 -2或2的节点被认为是不平衡的，并需要重新平衡这个树。平衡因子可以直接存储在每个节点中，或从可能存储在节点中的子树高度计算出来。
+
+二叉搜索树一定程度上可以提高搜索效率，但是当原序列有序时，例如序列 A = &#123;1，2，3，4&#125;，构造二叉搜索树如图，依据此序列构造的二叉搜索树为右斜树，同时二叉树退化成单链表，搜索效率降低为 O(n)。
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%A0%91%E9%93%BE%E8%A1%A8.jpg">https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%A0%91%E9%93%BE%E8%A1%A8.jpg</a><br>    在此二叉搜索树中查找元素 4 需要查找 4 次。</p>
+<pre><code>二叉搜索树的查找效率取决于树的高度，因此保持树的高度最小，即可保证树的查找效率。同样的序列 A，将其改为图 1.2 的方式存储，查找元素 4 时只需比较 2 次，查找效率提升一倍。
+
+可以看出当节点数目一定，保持树的左右两端保持平衡，树的查找效率最高。
+可以是空树，这种左右子树的高度相差不超过 1 的树为平衡二叉树。
+</code></pre>
+<h4 id="建立树的过程中，我们如何知道左右子树的高度差呢？在这里我们采用了平衡因子进行记录。"><a href="#建立树的过程中，我们如何知道左右子树的高度差呢？在这里我们采用了平衡因子进行记录。" class="headerlink" title="建立树的过程中，我们如何知道左右子树的高度差呢？在这里我们采用了平衡因子进行记录。"></a>建立树的过程中，我们如何知道左右子树的高度差呢？在这里我们采用了平衡因子进行记录。</h4><pre><code> 平衡因子：左子树的高度减去右子树的高度。由平衡二叉树的定义可知，平衡因子的取值只可能为0,1,-1.分别对应着左右子树等高，左子树比较高，右子树比较高。如下图
+</code></pre>
+<p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%B9%B3%E8%A1%A1%E5%9B%A0%E5%AD%90.jpg"></p>
+<h4 id="AVL树插入时候的失衡与调整"><a href="#AVL树插入时候的失衡与调整" class="headerlink" title="AVL树插入时候的失衡与调整"></a>AVL树插入时候的失衡与调整</h4><pre><code>平衡二叉树的失衡调整主要是通过旋转最小失衡子树来实现的。
+</code></pre>
+<p>最小失衡子树：在新插入的结点向上查找，以第一个平衡因子的绝对值超过1的结点为根的子树称为最小不平衡子树。也就是说，一棵失衡的树，是有可能有多棵子树同时失衡的，如下。而这个时候，我们只要调整最小的不平衡子树，就能够将不平衡的树调整为平衡的树。</p>
+<pre><code>在图7中。2结点（左子树树高-右子树树高）的绝对值=2。同理，3结点的平衡因子也为2.此时同时存在了两棵不平衡子树，而以3为根的树是最小的不平衡子树。我们只要将其以3为中心，将最小不平衡树向左旋转，即可得到平衡二叉树，如图8。
+</code></pre>
+<p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%A4%B1%E8%A1%A1%E5%AD%90%E6%A0%91.jpg"></p>
 <h4 id="红黑树（binary-search-tree）"><a href="#红黑树（binary-search-tree）" class="headerlink" title="红黑树（binary search tree）"></a>红黑树（binary search tree）</h4><p>红黑树是一种典型的自平衡的二叉查找树：时间复杂度O（n）,二叉查找树，左子树小于根节点，右子树大于根节点。补足了二叉查找树的缺点，二叉查找树会退化成链表.<br>红黑树的特征：<br>1.节点都是红色或者黑色的。<br>2.根节点是黑色的。<br>3.每个叶子节点都是黑色或者空节点<br>4.每个红色节点的两个子节点都是黑色的（从每个叶子到根的所有路径上不能出现连续的红色节点）<br>5.从任意节点到其每个叶子的所有路径都包含相同数目的黑色节点<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E7%BA%A2%E9%BB%91%E6%A0%911.png"><br>但是插入或者删除节点时候，红黑树的规则可能被打破，这时候需要做出一些调整，从而维持这个原则，调整分为变色和自旋。自旋分为左旋转和右旋转。<br>变色：<br>当我们插入51节点，这时候红黑树破坏了规则4：<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E7%BA%A2%E9%BB%91%E6%A0%91%E5%8F%98%E8%89%B2.png"><br>所以需要调整，可以通过变色的方式达到目的：将43和49变色就满足了规律<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E7%BA%A2%E9%BB%91%E6%A0%91%E5%8F%98%E8%89%B21.jpg"></p>
 <p>很多时候，光靠变色无法达到目的，那么就得自旋了，如果在66下面插入一个65，无论64是红色还是黑色都会破坏规则5<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E7%BA%A2%E9%BB%91%E6%A0%91%E8%87%AA%E6%97%8B.png"><br>左旋，当前父结点是红色，叔叔是黑色的时候，且当前的结点是右子树。左旋以父节点作为左旋<br>右旋，当前父结点是红色，叔叔是黑色的时候，且当前的结点是左子树。右旋<br>右子树左璇，左子树右旋</p>
 <p>和AVL树的区别：<br>AVL树是严格的平衡二叉树，要求每个节点的左右子树高度差不超过1，而红黑树则要宽松一些，要求任何一条路径的长度不超过其他路径长度的2倍。正因为这个区别，AVL树查找效率更高，<br>但平衡的调整也更高，频繁查找时，选用AVL树更合适，频繁插入时，红黑树更合适。</p>
