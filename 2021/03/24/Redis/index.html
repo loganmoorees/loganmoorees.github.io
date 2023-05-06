@@ -15,11 +15,13 @@
 <meta property="og:site_name" content="Logan Moorees">
 <meta property="og:description" content="Redis是什么：由C语言编写的一个开源[遵从BSD协议]的高性能键值对内存数据库，可以用作数据库，缓存，消息中间件等等的一个NoSql[not only sql 不仅仅是sql，非关系型]数据库，Redis作为一个内存数据库：1.性能优秀，数据在内存中，独写速度非常快，最高可达10W的QPS2.Redis是单线程的，线程安全，采用IO多路复用机制，NIO3.有丰富的数据类型，支持字符串（Stri">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/redisson.jpg">
 <meta property="article:published_time" content="2021-03-24T08:30:40.000Z">
-<meta property="article:modified_time" content="2021-06-08T09:00:46.000Z">
+<meta property="article:modified_time" content="2023-05-06T18:25:47.861Z">
 <meta property="article:author" content="Logan Moore">
 <meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/redisson.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Logan Moorees" type="application/atom+xml">
   
@@ -199,6 +201,33 @@
 <p>如果同时配置了RDB和AOF，则优先加载AOF。<br>1、AOF文件比RDB更新频率高，优先使用AOF还原数据；<br>2、AOF比RDB更安全也更大<br>3、RDB性能比AOF好</p>
 <p>Redis删除策略：<br>过期策略<br>定期删除<br>redis 会将每个设置了过期时间的 key放入到一个独立的字典中，以后会定期遍历这个字典来删除到期的 key。<br>Redis 默认会每秒进行十次过期扫描（100ms一次），过期扫描不会遍历过期字典中所有的 key，而是采用了一种简单的贪心策略。<br>1.从过期字典中随机 20 个 key；<br>2.删除这 20 个 key 中已经过期的 key；<br>3.如果过期的 key 比率超过 1&#x2F;4，那就重复步骤 1；<br>redis默认是每隔 100ms就随机抽取一些设置了过期时间的key，检查其是否过期，如果过期就删除。注意这里是随机抽取的。为什么要随机呢？你想一想假如 redis 存了几十万个 key ，每隔100ms就遍历所有的设置过期时间的 key 的话，就会给 CPU 带来很大的负载。</p>
 <p>惰性删除<br>所谓惰性策略就是在客户端访问这个key的时候，redis对key的过期时间进行检查，如果过期了就立即删除，不会给你返回任何东西。<br>定期删除可能会导致很多过期key到了时间并没有被删除掉。所以就有了惰性删除。假如你的过期 key，靠定期删除没有被删除掉，还停留在内存里，除非你的系统去查一下那个 key，才会被redis给删除掉。这就是所谓的惰性删除，即当你主动去查过期的key时,如果发现key过期了,就立即进行删除,不返回任何东西.<br>总结：定期删除是集中处理，惰性删除是零散处理。</p>
+<h3 id="Redis分布式锁"><a href="#Redis分布式锁" class="headerlink" title="Redis分布式锁"></a>Redis分布式锁</h3><p>Redisson<br>Redisson是一个在Redis的基础上实现的Java驻内存数据网格（In-Memory Data Grid）。<br>Redisson的宗旨是促进使用者对Redis的关注分离（Separation of Concern），从而让使用者能够将精力更集中地放在处理业务逻辑上。</p>
+<p>和Jedis的区别：<br>Jedis更像是对命令的封装，Redisson更多的是对业务的抽象，以及提供了解决方案。</p>
+<p>Redisson分布式锁：</p>
+<p>分布式锁需要考虑的点：</p>
+<ol>
+<li>互斥，同一时间只能有一个线程能够获取到锁。这是最基本的</li>
+<li>安全性，防止死锁的发生，有线程获取到锁之后，还没来得及释放锁或者其他故障无法释放，其他的线程都无法获取到锁，容易造成死锁。</li>
+<li>锁续期。假设业务执行时间大于锁的过期时间，业务没执行完锁过期了，所以得考虑锁的续期问题，保证可重入性</li>
+</ol>
+<p>Redisson提供了一套完整的redis分布式锁的方案，核心其实还是利用redis setnx的原子性<br>只不过redisson是一段lua脚本来实现的。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/redisson.jpg"></p>
+<ol>
+<li><p>尝试获取锁，返回 null 则说明加锁成功，返回一个数值，则说明已经存在该锁，ttl 为锁的剩余存活时间</p>
+</li>
+<li><p>如果此时客户端 2 进程获取锁失败，那么使用客户端 2通过 Redis 的 channel 订阅锁释放的事件，。如果等待的过程中一直未等到锁的释放事件通知，当超过最大等待时间则获取锁失败，返回 false，如果等到了锁的释放事件的通知，则开始进入一个不断重试获取锁的循环。</p>
+</li>
+<li><p>循环中每次都先试着获取锁，并得到已存在的锁的剩余存活时间。如果在重试中拿到了锁，则直接返回。如果锁当前还是被占用的，那么等待释放锁的消息</p>
+</li>
+</ol>
+<p>锁续期：<br>Redisson 提供了一个续期机制， 只要客户端一旦加锁成功，就会启动一个 Watch Dog，<br>Watch Dog 机制其实就是一个后台定时任务线程，获取锁成功之后，会每隔 10 秒 （internalLockLeaseTime &#x2F; 3） 检查一下，如果客户端还持有锁，那么就会不断的延长锁 key 的生存时间。</p>
+<p>redisson尽管已经很全面了， 但是还是没有解决 主从节点下异步同步数据导致锁丢失问题。</p>
+<p>redisson分布式锁是redlock算法的实现</p>
+<p>主从异步问题<br>multiLock 方案</p>
+<p>设置多个并列的 Rediss 节点，对锁信息，将其写入每个 Redis 节点中。</p>
+<p>获取锁时，向多个 Redis 节点中获取锁，只有每个节点都获取锁成功，才算获取锁成功。实现了，只要有一个节点存活，其他线程就不能获取锁，锁不会失效。</p>
+<p>当其中有节点宕机时，其他节点仍然含有锁信息，其他节点仍然有效</p>
+<p>读写锁<br>如果是同一个客户端同一个线程，先加了一次写锁，然后加读锁，是可以加成功的，默认是在同一个线程写锁的期间，可以多次加读锁<br>而同一个客户端同一个线程，先加了一次读锁，是不允许再被加写锁的<br>读的时候需要等待写锁的释放。</p>
+<p>比如说一个用户在修改数据，另个用户要统计数据，先更新数据库，再更新缓存，导致拿到的缓存数据不一致，所以分布式读写锁可以保证读写数据的一致性</p>
 
       
 

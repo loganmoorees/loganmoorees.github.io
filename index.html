@@ -136,6 +136,72 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mysql分库分表" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/04/07/mysql%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/">mysql分库分表</a>
+    </h1>
+  
+
+        
+        <a href="/2023/04/07/mysql%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/" class="archive-article-date">
+  	<time datetime="2023-04-07T11:06:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="垂直分片"><a href="#垂直分片" class="headerlink" title="垂直分片"></a>垂直分片</h4><p>垂直分片又叫做纵向拆分，核心理念就是专库专用，在拆分之前，一个数据库由多个数据表组成，每个表对应不同的业务，拆分后把不同业务的表归类，分布到不同的库中，从而减轻数据库的压力</p>
+<p>缺点：尽管业务之间已经足够独立了，但是有些业务之间或多或少总会有点联系，如用户，基本上都会和每个业务相关联，况且这种分区方式，也不能解决单张表数据量暴涨的问题</p>
+<h4 id="水平分片"><a href="#水平分片" class="headerlink" title="水平分片"></a>水平分片</h4><p>水平分片相对于垂直分片，它不再按业务逻辑来拆分了，而是通过某个字段或者几个字断（一般都是主键唯一值），按照某种规则，比如说hash取模，或者区间等等，将数据分散至多个库或者表中，每个分片都包含一部分数据。</p>
+<p>单表超过500w或者单表容量超过2GB，才推荐分库分表。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/04/07/mysql%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-分布式一致性" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -300,33 +366,43 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="分布式事务："><a href="#分布式事务：" class="headerlink" title="分布式事务："></a>分布式事务：</h4><p> 分布式事务2PC，<br> <img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/2pc.png"></p>
-<p>基于XA协议的2PC：<br>XA协议是一个基于数据库的分布式事务协议，其分为两部分：事务管理器和本地资源管理器。事务管理器作为一个全局的调度者，负责对各个本地资源管理器统一号令提交或者回滚</p>
-<p>2PC：分为两个阶段， 准备阶段（投票）和提交阶段（执行）<br>一个client请求，通过协调者给每一个参与者发送 prepare 消息，执行本地数据脚本但不提交事务<br>如果协调者收到参与者返回的失败消息或者超时未返回，直接给每个参与者发送rollback消息，否则发送commit消息。</p>
-<p>缺点： 虽然能够提供原子性操作，但它存在缺陷<br>    1. 性能问题：无论是在第一阶段的过程中,还是在第二阶段,所有的参与者资源和协调者资源都是被锁住的,<br>    只有当所有节点准备完毕，事务协调者才会通知进行全局提交，参与者进行本地事务提交后才会释放资源。这样的过程会比较漫长，对性能影响比较大。<br>    2. 单节点故障：<br>        a. 协调者正常,参与者宕机<br>            由于 协调者 无法收集到所有 参与者 的反馈，会陷入阻塞情况。<br>          ​ 解决方案:引入超时机制,如果协调者在超过指定的时间还没有收到参与者的反馈,事务就失败,向所有节点发送终止事务请求。<br>        b. 协调者宕机,参与者正常<br>            无论处于哪个阶段，由于协调者宕机，无法发送提交请求，所有处于执行了操作但是未提交状态的参与者都会陷入阻塞情况.<br>            解决方案:引入协调者备份,同时协调者需记录操作日志.当检测到协调者宕机一段时间后，协调者备份取代协调者，并读取操作日志，向所有参与者询问状态<br>        c. 协调者和参与者都宕机有部分参与者已经commit了<br>           这个时候数据就不一致了，虽然可以通过其他手段去恢复数据的一致性，但是在这段时间内他的数据状态已经是不一致的。</p>
-<p>3PC：<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/paxos.png"></p>
-<p>3PC是对2PC的一种升级优化，3PC在2PC的第一阶段和第二阶段中插入一个准备阶段。保证了在最后提交阶段之前，各参与者节点的状态都一致。<br>同时在协调者和参与者中都引入超时机制，当参与者各种原因未收到协调者的commit请求后，会对本地事务进行commit，不会一直阻塞等待，解决了2PC的单点故障问题，但3PC 还是没能从根本上解决数据一致性的问题。</p>
-<ol>
-<li>第一阶段CanCommit： 协调者向所有参与者发送CanCommit命令，询问是否可以执行事务提交操作。如果全部响应YES则进入下一个阶段</li>
-<li>第二阶段PreCommit： 协调者向所有参与者发送PreCommit命令，询问是否可以进行事务的预提交操作，参与者接收到PreCommit请求后，如参与者成功的执行了事务操作，则返回Yes响应，进入最终commit阶段。<br>                一旦参与者中有向协调者发送了No响应，或因网络造成超时，协调者没有接到参与者的响应，协调者向所有参与者发送abort请求，参与者接受abort命令执行事务的中断。</li>
-<li>第三阶段DoCommit： 在前两个阶段中所有参与者的响应反馈均是YES后，协调者向参与者发送DoCommit命令正式提交事务，如协调者没有接收到参与者发送的ACK响应，会向所有参与者发送abort请求命令，执行事务的中断。</li>
+        <h3 id="分布式ID"><a href="#分布式ID" class="headerlink" title="分布式ID"></a>分布式ID</h3><ol>
+<li><p>数据库自增：<br> 优点： 简单易实现<br> 缺点： a. 强依赖DB，不同数据库语法和实现不同，数据库迁移的时候会比较麻烦。<br>   b. 单点故障。在单个数据库或读写分离或一主多从的情况下，只有一个主库可以生成。有单点故障的风险。<br>   c. 数据一致性问题。配置主从复制可以尽可能的增加可用性，但是数据一致性在特殊情况下难以保证。主从切换时的不一致可能会导致重复发号。</p>
+</li>
+<li><p>UUID<br> 优点： 本地生成，没有网络消耗，生成简单，没有高可用风险。<br> 缺点： 是字符串的无序ID，并且较于自增ID要低很多</p>
+</li>
+<li><p>雪花算法（snowflake）<br>snowflake(雪花算法)是Twitter开源的分布式ID生成算法，结果是一个long型的ID。这种方案把64-bit分别划分成多段，分开来标示机器、时间等。<br>其核心思想是：使用41bit作为毫秒数，10bit作为机器的ID（10bit中5个bit是数据中心，5个bit的机器ID），12bit作为毫秒内的流水号（意味着每个节点在每毫秒可以产生 4096 个 ID），最后还有一个符号位，永远是0。具体实现的代码可以参看github。<br> 优点： a. 稳定性高，不依赖于数据库等第三方系统，以服务的方式部署，稳定性更高，生成ID的性能也是非常高的。<br>   b. 灵活方便，可以根据自身业务特性分配bit位。<br>   c. 单机上ID单调自增，毫秒数在高位，自增序列在低位，整个ID都是趋势递增的。<br> 缺点： a. 强依赖机器时钟，如果机器上时钟回拨，会导致发号重复或者服务会处于不可用状态。<br>   b. ID可能不是全局递增。在单机上是递增的，但是由于涉及到分布式环境，每台机器上的时钟不可能完全同步，也许有时候也会出现不是全局递增的情况。</p>
+</li>
+<li><p>美团的Leaf<br>支持号段和雪花算法<br>雪花算法模式依赖于ZooKeeper</p>
+</li>
 </ol>
-<p>相比较2PC而言，3PC对于协调者（Coordinator）和参与者（Partcipant）都设置了超时时间，而2PC只有协调者才拥有超时机制。这解决了一个什么问题呢？<br>    这个优化点，主要是避免了参与者在长时间无法与协调者节点通讯（协调者挂掉了）的情况下，无法释放资源的问题，因为参与者自身拥有超时机制会在超时后，<br>    自动进行本地commit从而进行释放资源。而这种机制也侧面降低了整个事务的阻塞时间和范围。<br>    另外，通过CanCommit、PreCommit、DoCommit三个阶段的设计，相较于2PC而言，多设置了一个缓冲阶段保证了在最后提交阶段之前各参与节点的状态是一致的。<br>    以上就是3PC相对于2PC的一个提高（相对缓解了2PC中的前两个问题），但是3PC依然没有完全解决数据不一致的问题。</p>
-<p> TCC补偿机制：<br>  TCC与2PC的思想很相似，事务处理流程也很相似，但2PC 是应用于在DB层面，TCC则可以理解为在应用层面的2PC，是需要我们编写业务逻辑来实现。<br>  Try阶段：<br>  下单时通过Try操作去扣除库存预留资源。<br>  Confirm阶段：<br>  确认执行业务操作，在只预留的资源基础上，发起购买请求。<br>  Cancel阶段：<br>  只要涉及到的相关业务中，有一个业务方预留资源未成功，则取消所有业务资源的预留请求。</p>
-<p> Paxos：<br> <img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/paxos.png"> </p>
-<p> 第一阶段(查询提案权利)</p>
-<ol>
-<li>生成全局唯一且递增的ProposalID v(为了保证Proposal ID唯一和递增性，可采用时间戳+Server ID生成)</li>
-<li>Proposer向所有Acceptors广播Prepare的请求</li>
-<li>Acceptor比较当前的v和最大的v，如果v&lt;最大值，并且将当前已经接受的提案acceptedProposal和 acceptedValue返回(如果没有则返回null)</li>
-<li>Proposer接收到过半数回复后，如果发现有acceptedValue返回，将所有回复中acceptedProposal最大的acceptedValue作为本次提案的value，否则可以任意决定本次提案的value</li>
-</ol>
-<p> 第二阶段(发出提案请求)</p>
-<ol>
-<li>Proposer广播Accept (n1,value) 到所有节点；</li>
-<li>Acceptor比较n1和minProposal，如果n1&gt;&#x3D;minProposal，则acceptedProposal&#x3D;minProposal&#x3D;n1，acceptedValue&#x3D;value，返回；否则，返回minProposal。</li>
-<li>Proposer接收到过半数请求后，如果发现有返回值result &gt;n1，表示有更新的提议，跳转到1)；否则value达成一致</li>
-</ol>
+<p>分布式共识协议：<br>    2pc， 3pc，一致性hash， raft， zab， paxos等等</p>
+<p>共识协议的选举双主问题：<br>双主是可能发生的，例如原主网络与外部中断，集群发生脑裂，则老的集群主还存在，分裂的剩余节点由于与老主失联，大家重新选了新主出来。此时就会产生双主。</p>
+<p>规避双主的影响，需要通过租约机制，让老主发现在租约到期后与大多数节点失联主动降备；新主的选举也要等待超过这个租约时间后去选举新主，避免业务同一时刻看到双主。但是由于各个服务器资源、负载、调度等问题，时间并不是一个精确的可靠保障，例如定时器失真，还是可能导致同一时刻出现双主，所以每个地方的租约时间配置是个技术点。另外新主产生，生成新的epoch（+1），这样可以避免大家去处理老消息，从而进一步规避双主的问题。</p>
+<p>如何设计一个海量数据存储系统？<br>    市面上成熟的方案有很多，基于内存如redis，memcached等等，但是如果要存储过多的海量数据，内存是比较贵的，磁盘存储更为合适。</p>
+<pre><code>数据结构，如果选取磁盘存储，那么必须要明确它的存储结构，那么二叉树就比较合适，二叉树有很多种，比如说B+树。红黑树，LSM树等等，树的层级一定要少，像红黑树这种就不合适了，因为自旋和变色太频繁会影响效率。LSM树比较合适，比如Hbase，TiDB，LevelDB等等都是LSM树作为存储结构的，但是LSM适合内存中操作，磁盘的话更偏向于B+树。对LSM树的增删改，均在内存中操作，在归并的时候，会将修改落到磁盘，写性能强，但读性能偏弱，所以适用于多写少读的场景。
+
+安全性，数据存储安全性极为重要，多用户之间的资源隔离机制，数据存储的机制等等，只要磁盘不损坏，数据就不能丢失。
+
+性能方面，写入数据要保证数据不丢的同时尽量的提升效率，可以建立数据缓存，索引等等。
+
+然后单机和分布式，单机性能有限，要能够进行扩展，分布式存储，所以要选取合适的一致性协议等等，Paxos，ZAB，raft等等。
+
+当然每一步展开又是很复杂设计，目前临时想到的就只有这些。
+</code></pre>
+<p>让你设计一个缓存该如何设计？<br>    缓存存在的意义就是通过开辟一个新的数据交换缓冲区，来解决原始数据获取代价太大的问题，让数据得到更快的访问。</p>
+<pre><code>设计思想就是以空间换时间，原来获取数据的代价太大，所以用缓存更为高效的加速获取数据。
+
+那么缓存的存储方案内存更为合适，高效且快。
+那么结构的话hash表更适合存储，比如说nacos内部的存储，ehcache，包括我们平时也会用hashmap作为缓存。
+
+存储的方式要多样化，比如说redis的redisObject，value为一个对象。
+（redis object 存储的type类型，encoding 底层编码类型，然后一些使用信息等等，如最后一次使用时间，引用次数，底层的数据指针等等）
+
+然后要考虑到，内存是很容易丢失的，如果断电了，内存数据就丢失了，要记录日志到磁盘，即使发生意外情况，也不容易丢失数据。
+
+再就是内存也不能无限的使用，不需要的数据要及时清理，比如说限制最大内存不让继续使用，LRU策略，还是LFU策略，再或者参考redis的过期删除和惰性删除等等。
+</code></pre>
 
       
 
@@ -662,6 +738,15 @@
 <li>对象年龄动态判定（如果S0，S1中相同年龄所有对象的总和大于等于S0&#x2F;S1空间的一半，那么所有大于等于该年龄的对象直接进入老年代）</li>
 <li>空间分配担保（当前晋升为老年代的大小如果大于老年代剩余空间，则直接触发Full GC）</li>
 </ol>
+<p>stop the world：<br>指的是GC事件发生过程中，会产生应用程序的停顿。停顿产生时整个应用程序线程都会被暂停，没有任何响应, 有点像卡死的感觉，这个停顿称为STW，</p>
+<p>minor GC和full GC的区别以及触发机制：<br>minor GC又叫做young gc，指发生在新生代的垃圾收集动作，因为Java对象大多都具备朝生暮死的特性,所以 Minor GC非常频繁，回收速度也比较快。新生代非常适合复制算法，新建 Java 对象优先放到 Eden 区，当 Eden 区的空间耗尽时， Java 虚拟机便会触发一次 Minor GC，来收集新生代的垃圾。</p>
+<p>full gc，一般指整个 Java 堆和方法区的垃圾回收，出现了 Full GC，一般会伴随至少ー次的Minor GC。 Full GC 的速度一般会比 Minor GC 慢10倍以上，<br>full gc比较慢，当gc回收时，会出现stop the world，所以应当尽可能的减少full gc。</p>
+<p>full gc频繁如何解决？<br>导致full gc频繁的原因一般有：</p>
+<ol>
+<li>内存泄漏（代码有问题，对象引用没及时释放，导致对象不能及时回收）。</li>
+<li>死循环，不停的创建对象，导致对象快速进入老年代。</li>
+<li>大对象。 尤其是大对象，80%以上的情况就是他，比如说数据库的，消息队列里的，或者第三方接口传输的。<br>通过jvisualvm可以观察堆内情况。</li>
+</ol>
 <p>最大年龄动态判断探究：</p>
 <p>虚拟机并不是永远地要求对象的年龄必须达到了MaxTenuringThreshold（最大持续阈值）才能晋升老年代，如果在Survivor空间中相同年龄所有对象大小的总和大于Survivor空间的一半，年龄大于或等于该年龄的对象就可以直接进入老年代，无须等到MaxTenuringThreshold中要求的年龄。</p>
 <p>作出假设：<br>MaxTenuringThreshold为15<br>年龄1的对象占用了33%<br>年龄2的对象占用33%<br>年龄3的对象占用34%</p>
@@ -781,9 +866,11 @@
 </ol>
 <p>Spring生命周期<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/spring%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg"></p>
 <p>IOC容器如何解决循环依赖的？<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96.png"><br>Spring通过三级缓存解决了循环依赖，其中一级缓存为单例池（singletonObjects）,二级缓存为早期曝光对象earlySingletonObjects（半成品bean），三级缓存为早期曝光对象工厂（singletonFactories）。<br>当A、B两个类发生循环引用时，在A完成实例化后，就使用实例化后的对象去创建一个对象工厂，并添加到三级缓存中，如果A被AOP代理，<br>那么通过这个工厂获取到的就是A代理后的对象，如果A没有被AOP代理，那么这个工厂获取到的就是A实例化的对象。<br>当A进行属性注入时，会去创建B，同时B又依赖了A，所以创建B的同时又会去调用getBean(a)来获取需要的依赖，此时的getBean(a)会从缓存中获取，第一步，先获取到三级缓存中的工厂；<br>第二步，调用对象工工厂的getObject方法来获取到对应的对象，得到这个对象后将其注入到B中。紧接着B会走完它的生命周期流程，包括初始化、后置处理器等。当B创建完后，会将B再注入到A中，<br>此时A再完成它的整个生命周期。至此，循环依赖结束！</p>
-<p>为什么要使用三级缓存呢？二级缓存能解决循环依赖吗:<br>如果要使用二级缓存解决循环依赖，意味着所有Bean在实例化后就要完成AOP代理，这样违背了Spring设计的原则，<br>感觉主要还是因为spring开发者不希望循环依赖的处理影响了原本创建bean的流程，原本是在bean初始化之后，再通过后置处理来创建代理对象；如果只使用一级缓存，那势必要在实例化bean后直接创建代理对象放入缓存，这样就仅仅因为循环依赖破坏了原本的流程。<br>Spring在设计之初就是通过AnnotationAwareAspectJAutoProxyCreator这个后置处理器来在Bean生命周期的最后一步来完成AOP代理，而不是在实例化后就立马进行AOP代理。</p>
-<p>Aop原理：<br>核心就是拦截器和JDK代理以及Cglib代理，通过拦截器和动态代理，进行偷梁换柱，织入其他的操作</p>
+<p>为什么要使用三级缓存呢？二级缓存能解决循环依赖吗:<br>主要还是因为spring开发者不希望循环依赖的处理影响了原本创建bean的流程，原本是在bean初始化之后，再通过后置处理来创建代理对象；如果只使用一级缓存，那势必要在实例化bean后直接创建代理对象放入缓存，这样就仅仅因为循环依赖破坏了原本的流程，违背了Spring设计的原则，<br>Spring在设计之初就是通过AnnotationAwareAspectJAutoProxyCreator这个后置处理器来在Bean生命周期的最后一步来完成AOP代理，而不是在实例化后就立马进行AOP代理。</p>
+<p>Aop原理：<br>核心就是拦截器和JDK代理以及Cglib代理，通过拦截器和动态代理，进行偷梁换柱，织入其他的操作，</p>
 <p>AOP是用的哪一种代理，怎么决定的？<br>    默认JDK代理。可以通过proxy-target-class进行修改为cglib代理<br>    如果被代理的目标对象实现了至少一个接口，则会使用JDK动态代理。所有该目标类型实现的接口都将被代理。若该目标对象没有实现任何接口，则创建一个CGLIB代理。</p>
+<p>jdk代理和cglib代理的区别：<br>    jdk有一个限制，就是它只能为接口创建代理实例，实现InvocationHandler接口。核心是反射机制<br>    而cglib代理需要引入jar包，核心是动态生成一个新的类</p>
+<p>静态代理和动态代理的区别：<br>    代理模式，主要是隐藏真实身份，委起到保护作用，代理对象可以扩展目标对象的功能，代理模式能将客户端与目标对象分离，在一定程度上降低了系统的耦合度；<br>    动态代理更灵活，主要区别在于静态代理在编码的时候就已经创建好了委托关系，而动态代理则需要在程序运行期间才能确定委托关系。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AbstractApplicationContext</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">refresh</span><span class="params">()</span> <span class="keyword">throws</span> BeansException, IllegalStateException &#123;</span><br><span class="line">		<span class="keyword">synchronized</span> (<span class="built_in">this</span>.startupShutdownMonitor) &#123;</span><br><span class="line">			<span class="comment">// Prepare this context for refreshing.</span></span><br><span class="line">			<span class="comment">// 准备，记录容器的启动时间startupDate, 标记容器为激活，初始化上下文环境如文件路径信息，验证必填属性是否填写</span></span><br><span class="line">            <span class="comment">// 初始化前的准备工作，比如系统属性、环境变量的准备及验证</span></span><br><span class="line">			prepareRefresh();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Tell the subclass to refresh the internal bean factory.</span></span><br><span class="line">			<span class="comment">// 这步比较重要(解析)，告诉子类去刷新bean工厂，这步完成后配置文件就解析成一个个bean定义，注册到BeanFactory（但是未被初始化，仅将信息写到了beanDefination的map中）</span></span><br><span class="line">            <span class="comment">// </span></span><br><span class="line">			<span class="type">ConfigurableListableBeanFactory</span> <span class="variable">beanFactory</span> <span class="operator">=</span> obtainFreshBeanFactory();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Prepare the bean factory for use in this context.</span></span><br><span class="line">			<span class="comment">// 设置beanFactory类加载器，添加多个beanPostProcesser</span></span><br><span class="line">			prepareBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				<span class="comment">// Allows post-processing of the bean factory in context subclasses.</span></span><br><span class="line">				<span class="comment">// 允许子类上下文中对beanFactory做后期处理</span></span><br><span class="line">				postProcessBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Invoke factory processors registered as beans in the context.</span></span><br><span class="line">				<span class="comment">// 调用BeanFactoryPostProcessor各个实现类的方法</span></span><br><span class="line">				invokeBeanFactoryPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Register bean processors that intercept bean creation.</span></span><br><span class="line">				<span class="comment">// 注册 BeanPostProcessor 的实现类</span></span><br><span class="line">				<span class="comment">// 此接口两个方法: postProcessBeforeInitialization 和 postProcessAfterInitializatio</span></span><br><span class="line">				<span class="comment">// 分别在 Bean 初始化之前和初始化之后得到执行。注意，到这里 Bean 还没初始化</span></span><br><span class="line">				registerBeanPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Initialize message source for this context.</span></span><br><span class="line">				<span class="comment">// 初始化ApplicationContext的MessageSource</span></span><br><span class="line">				initMessageSource();</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Initialize event multicaster for this context.</span></span><br><span class="line">				<span class="comment">// 初始化ApplicationContext事件广播器</span></span><br><span class="line">				initApplicationEventMulticaster();</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Initialize other special beans in specific context subclasses.</span></span><br><span class="line">				<span class="comment">// 初始化子类特殊bean（钩子方法）</span></span><br><span class="line">				onRefresh();</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Check for listener beans and register them.</span></span><br><span class="line">				<span class="comment">// 注册事件监听器</span></span><br><span class="line">				registerListeners();</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Instantiate all remaining (non-lazy-init) singletons.</span></span><br><span class="line">				<span class="comment">// 初始化所有singleton bean  重点！</span></span><br><span class="line">				finishBeanFactoryInitialization(beanFactory);</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Last step: publish corresponding event.</span></span><br><span class="line">				<span class="comment">// 广播事件，ApplicationContext初始化完成</span></span><br><span class="line">				finishRefresh();</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">catch</span> (BeansException ex) &#123;</span><br><span class="line">				<span class="keyword">if</span> (logger.isWarnEnabled()) &#123;</span><br><span class="line">					logger.warn(<span class="string">&quot;Exception encountered during context initialization - &quot;</span> +</span><br><span class="line">							<span class="string">&quot;cancelling refresh attempt: &quot;</span> + ex);</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Destroy already created singletons to avoid dangling resources.</span></span><br><span class="line">				destroyBeans();</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Reset &#x27;active&#x27; flag.</span></span><br><span class="line">				cancelRefresh(ex);</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Propagate exception to caller.</span></span><br><span class="line">				<span class="keyword">throw</span> ex;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">finally</span> &#123;</span><br><span class="line">				<span class="comment">// Reset common introspection caches in Spring&#x27;s core, since we</span></span><br><span class="line">				<span class="comment">// might not ever need metadata for singleton beans anymore...</span></span><br><span class="line">				resetCommonCaches();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>spring提供的扩展接口：<br>两类：生命周期接口， Aware接口<br>FactroyBean接口<br>    什么是FactroyBean？<br>        1. 一般情况下，Spring通过反射机制利用的class属性指定实现类实例化Bean。在某些情况下，实例化Bean过程比较复杂，如果按照传统的方式，则需要在中提供大量的配置信息。配置方式的灵活性是受限的，这时采用编码的方式可能会得到一个简单的方案。Spring为此提供了一个org.springframework.bean.factory.FactoryBean的工厂类接口，用户可以通过实现该接口定制实例化Bean的逻辑。<br>        2. 由于第三方库不能直接注册到spring容器，于是可以实现org.springframework.bean.factory.FactoryBean接口，然后给出自己对象的实例化代码即可<br>    比如Mybatis-Spring中的SqlSessionFactoryBean<br>BeanPostProcess<br>    什么是BeanPostProcess？<br>        spring提供的后置处理器，调用前，将会调用BeanPostProcessor中的postProcessBeforeInitialization方法，而在bean实例初始化方法调用完成后，则会调用BeanPostProcessor中的postProcessAfterInitialization方法<br>    使用场景：<br>        1. 处理自定义注解。bean可以添加我们自定义的注解，自定义的注解处理方式在该类中实现，如通过注解识别一组或几组bean，在后续的业务处理中根据组bean进行逻辑。<br>        2. 打印日志，将每个bean的初始化情况打印出来；打印初始化时间等。</p>
@@ -937,7 +1024,7 @@
 <p>总结：MVCC是为了实现事务的隔离性，通过版本号，避免同一数据在不同事务间的竞争，你可以把它当成基于多版本号的一种乐观锁。当然，这种乐观锁只在事务级别提交读和可重复读有效。MVCC最大的好处，读不加锁，读写不冲突。在读多写少的应用中，读写不冲突是非常重要的，极大的增加了系统的并发性能。</p>
 <h4 id="mysql锁分类"><a href="#mysql锁分类" class="headerlink" title="mysql锁分类"></a>mysql锁分类</h4><p>按模式：  乐观锁和悲观锁</p>
 <p>按颗粒度：全局锁，表锁，行锁</p>
-<p>按属性：  共享锁（读锁），排他锁（写锁）</p>
+<p>按属性：  共享锁（读锁： select … lock in share mode），排他锁（写锁： select … for update）</p>
 <p>按状态：  意向共享锁，意向排他锁</p>
 <p>按算法：  间隙锁，记录锁，临键锁</p>
 <p>什么是记录锁：<br>记录锁也叫行锁。它会在 id&#x3D;1 的记录上加上记录锁，以阻止其他事务插入，更新，删除 id&#x3D;1 这一行。</p>
@@ -967,93 +1054,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/03/29/mysql/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-NIO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/26/NIO/">NIO</a>
-    </h1>
-  
-
-        
-        <a href="/2021/03/26/NIO/" class="archive-article-date">
-  	<time datetime="2021-03-26T09:27:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h4><p>同步阻塞IO<br>在JDK1.4出来之前，我们建立网络连接的时候采用BIO模式，一个线程read或者write时，该线程将会被阻塞，直到IO操作完成，需要先在服务端启动一个ServerSocket，然后在客户端启动Socket来对服务端进行通信，服务端需要对每个请求建立一堆线程等待请求，没有客户端连接时候会阻塞住。<br>    缺点：虽然能够满足IO操作，但是一个线程对应一个客户端，线程多系统调用也多，线程是要消耗资源的，会占内存，如果说并发量大，会有很多很多的线程，而且多个线程之间的上下文切换很消耗CPU资源。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/BIO.jpg"></p>
-<h4 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h4><p>NewIO，非阻塞IO</p>
-<!-- ![](https://blog-1254224452.cos.ap-shanghai.myqcloud.com/NIO%E6%A8%A1%E5%9E%8B.jpg) -->
-<p>Acceptor<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/NIO.png"></p>
-<p>NIO三大核心：Channel，Buffer，Selector</p>
-<h6 id="通道Channel"><a href="#通道Channel" class="headerlink" title="通道Channel"></a>通道Channel</h6><p>NIO的通道类似于流，但有些区别如下：</p>
-<ol>
-<li>流只能读或者写，通道可以同时读写</li>
-</ol>
-<h5 id="缓存Buffer"><a href="#缓存Buffer" class="headerlink" title="缓存Buffer"></a>缓存Buffer</h5><p>缓存区本质上是一个可读可写入数据的内存块。<br>调用buffer.flip()方法进行写入，<br>buffer.clear()或者buffer.compat()读取数据</p>
-<p>Buffer中对应的Position， Mark， Capacity，Limit都是什么：<br>a. capacity：缓冲区容量的大小，就是里面包含的数据大小。<br>b. limit：对buffer缓冲区使用的一个限制，从这个index开始就不能读取数据了。<br>c. position：代表着数组中可以开始读写的index， 不能大于limit。mark：是类似路标的东西，在某个position的时候，设置一下mark，此时就可以设置一个标记后续调用reset()方法可以把position复位到当时设置的那个mark上。去把position或limit调整为小于mark的值时，就丢弃这个mark如果使用的是<br>d. Direct模式创建的Buffer的话，就会减少中间缓冲直接使用DirectorBuffer来进行数据的存储。</p>
-<h5 id="Selector选择器"><a href="#Selector选择器" class="headerlink" title="Selector选择器"></a>Selector选择器</h5><p>多个Channel以事件的方式可以注册到同一个Selector，可以检测多个NIO channel，看看读或者写事件是否就绪。从而达到用一个线程处理多个请求成为可能。多路复用</p>
-<h4 id="NIO存在的问题"><a href="#NIO存在的问题" class="headerlink" title="NIO存在的问题"></a>NIO存在的问题</h4><p>使用NIO不等于高性能，当连接数&lt;1000，并发程度不高或者局域网环境下NIO并没有显著的性能优势。</p>
-<h5 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h5><p>异步非阻塞IO，适合比较重的操作，例如QQ相册，上传一大批文件，然后可以去做别的，等它处理完会有个回调通知。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络协议</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/26/NIO/">展开全文 >></a>
         </p>
       
 

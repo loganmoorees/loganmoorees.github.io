@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Mysql%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95.png">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Mysql%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95.jpg">
 <meta property="article:published_time" content="2021-03-29T14:34:20.000Z">
-<meta property="article:modified_time" content="2023-03-21T16:44:38.151Z">
+<meta property="article:modified_time" content="2023-05-06T13:12:20.617Z">
 <meta property="article:author" content="Logan Moore">
 <meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary">
@@ -234,7 +234,7 @@
 <p>总结：MVCC是为了实现事务的隔离性，通过版本号，避免同一数据在不同事务间的竞争，你可以把它当成基于多版本号的一种乐观锁。当然，这种乐观锁只在事务级别提交读和可重复读有效。MVCC最大的好处，读不加锁，读写不冲突。在读多写少的应用中，读写不冲突是非常重要的，极大的增加了系统的并发性能。</p>
 <h4 id="mysql锁分类"><a href="#mysql锁分类" class="headerlink" title="mysql锁分类"></a>mysql锁分类</h4><p>按模式：  乐观锁和悲观锁</p>
 <p>按颗粒度：全局锁，表锁，行锁</p>
-<p>按属性：  共享锁（读锁），排他锁（写锁）</p>
+<p>按属性：  共享锁（读锁： select … lock in share mode），排他锁（写锁： select … for update）</p>
 <p>按状态：  意向共享锁，意向排他锁</p>
 <p>按算法：  间隙锁，记录锁，临键锁</p>
 <p>什么是记录锁：<br>记录锁也叫行锁。它会在 id&#x3D;1 的记录上加上记录锁，以阻止其他事务插入，更新，删除 id&#x3D;1 这一行。</p>

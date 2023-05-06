@@ -136,6 +136,93 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-NIO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/26/NIO/">NIO</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/26/NIO/" class="archive-article-date">
+  	<time datetime="2021-03-26T09:27:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h4><p>同步阻塞IO<br>在JDK1.4出来之前，我们建立网络连接的时候采用BIO模式，一个线程read或者write时，该线程将会被阻塞，直到IO操作完成，需要先在服务端启动一个ServerSocket，然后在客户端启动Socket来对服务端进行通信，服务端需要对每个请求建立一堆线程等待请求，没有客户端连接时候会阻塞住。<br>    缺点：虽然能够满足IO操作，但是一个线程对应一个客户端，线程多系统调用也多，线程是要消耗资源的，会占内存，如果说并发量大，会有很多很多的线程，而且多个线程之间的上下文切换很消耗CPU资源。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/BIO.jpg"></p>
+<h4 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h4><p>NewIO，非阻塞IO</p>
+<!-- ![](https://blog-1254224452.cos.ap-shanghai.myqcloud.com/NIO%E6%A8%A1%E5%9E%8B.jpg) -->
+<p>Acceptor<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/NIO.png"></p>
+<p>NIO三大核心：Channel，Buffer，Selector</p>
+<h6 id="通道Channel"><a href="#通道Channel" class="headerlink" title="通道Channel"></a>通道Channel</h6><p>NIO的通道类似于流，但有些区别如下：</p>
+<ol>
+<li>流只能读或者写，通道可以同时读写</li>
+</ol>
+<h5 id="缓存Buffer"><a href="#缓存Buffer" class="headerlink" title="缓存Buffer"></a>缓存Buffer</h5><p>缓存区本质上是一个可读可写入数据的内存块。<br>调用buffer.flip()方法进行写入，<br>buffer.clear()或者buffer.compat()读取数据</p>
+<p>Buffer中对应的Position， Mark， Capacity，Limit都是什么：<br>a. capacity：缓冲区容量的大小，就是里面包含的数据大小。<br>b. limit：对buffer缓冲区使用的一个限制，从这个index开始就不能读取数据了。<br>c. position：代表着数组中可以开始读写的index， 不能大于limit。mark：是类似路标的东西，在某个position的时候，设置一下mark，此时就可以设置一个标记后续调用reset()方法可以把position复位到当时设置的那个mark上。去把position或limit调整为小于mark的值时，就丢弃这个mark如果使用的是<br>d. Direct模式创建的Buffer的话，就会减少中间缓冲直接使用DirectorBuffer来进行数据的存储。</p>
+<h5 id="Selector选择器"><a href="#Selector选择器" class="headerlink" title="Selector选择器"></a>Selector选择器</h5><p>多个Channel以事件的方式可以注册到同一个Selector，可以检测多个NIO channel，看看读或者写事件是否就绪。从而达到用一个线程处理多个请求成为可能。多路复用</p>
+<h4 id="NIO存在的问题"><a href="#NIO存在的问题" class="headerlink" title="NIO存在的问题"></a>NIO存在的问题</h4><p>使用NIO不等于高性能，当连接数&lt;1000，并发程度不高或者局域网环境下NIO并没有显著的性能优势。</p>
+<h5 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h5><p>异步非阻塞IO，适合比较重的操作，例如QQ相册，上传一大批文件，然后可以去做别的，等它处理完会有个回调通知。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络协议</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/26/NIO/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-MQ中间件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -332,6 +419,33 @@
 <p>如果同时配置了RDB和AOF，则优先加载AOF。<br>1、AOF文件比RDB更新频率高，优先使用AOF还原数据；<br>2、AOF比RDB更安全也更大<br>3、RDB性能比AOF好</p>
 <p>Redis删除策略：<br>过期策略<br>定期删除<br>redis 会将每个设置了过期时间的 key放入到一个独立的字典中，以后会定期遍历这个字典来删除到期的 key。<br>Redis 默认会每秒进行十次过期扫描（100ms一次），过期扫描不会遍历过期字典中所有的 key，而是采用了一种简单的贪心策略。<br>1.从过期字典中随机 20 个 key；<br>2.删除这 20 个 key 中已经过期的 key；<br>3.如果过期的 key 比率超过 1&#x2F;4，那就重复步骤 1；<br>redis默认是每隔 100ms就随机抽取一些设置了过期时间的key，检查其是否过期，如果过期就删除。注意这里是随机抽取的。为什么要随机呢？你想一想假如 redis 存了几十万个 key ，每隔100ms就遍历所有的设置过期时间的 key 的话，就会给 CPU 带来很大的负载。</p>
 <p>惰性删除<br>所谓惰性策略就是在客户端访问这个key的时候，redis对key的过期时间进行检查，如果过期了就立即删除，不会给你返回任何东西。<br>定期删除可能会导致很多过期key到了时间并没有被删除掉。所以就有了惰性删除。假如你的过期 key，靠定期删除没有被删除掉，还停留在内存里，除非你的系统去查一下那个 key，才会被redis给删除掉。这就是所谓的惰性删除，即当你主动去查过期的key时,如果发现key过期了,就立即进行删除,不返回任何东西.<br>总结：定期删除是集中处理，惰性删除是零散处理。</p>
+<h3 id="Redis分布式锁"><a href="#Redis分布式锁" class="headerlink" title="Redis分布式锁"></a>Redis分布式锁</h3><p>Redisson<br>Redisson是一个在Redis的基础上实现的Java驻内存数据网格（In-Memory Data Grid）。<br>Redisson的宗旨是促进使用者对Redis的关注分离（Separation of Concern），从而让使用者能够将精力更集中地放在处理业务逻辑上。</p>
+<p>和Jedis的区别：<br>Jedis更像是对命令的封装，Redisson更多的是对业务的抽象，以及提供了解决方案。</p>
+<p>Redisson分布式锁：</p>
+<p>分布式锁需要考虑的点：</p>
+<ol>
+<li>互斥，同一时间只能有一个线程能够获取到锁。这是最基本的</li>
+<li>安全性，防止死锁的发生，有线程获取到锁之后，还没来得及释放锁或者其他故障无法释放，其他的线程都无法获取到锁，容易造成死锁。</li>
+<li>锁续期。假设业务执行时间大于锁的过期时间，业务没执行完锁过期了，所以得考虑锁的续期问题，保证可重入性</li>
+</ol>
+<p>Redisson提供了一套完整的redis分布式锁的方案，核心其实还是利用redis setnx的原子性<br>只不过redisson是一段lua脚本来实现的。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/redisson.jpg"></p>
+<ol>
+<li><p>尝试获取锁，返回 null 则说明加锁成功，返回一个数值，则说明已经存在该锁，ttl 为锁的剩余存活时间</p>
+</li>
+<li><p>如果此时客户端 2 进程获取锁失败，那么使用客户端 2通过 Redis 的 channel 订阅锁释放的事件，。如果等待的过程中一直未等到锁的释放事件通知，当超过最大等待时间则获取锁失败，返回 false，如果等到了锁的释放事件的通知，则开始进入一个不断重试获取锁的循环。</p>
+</li>
+<li><p>循环中每次都先试着获取锁，并得到已存在的锁的剩余存活时间。如果在重试中拿到了锁，则直接返回。如果锁当前还是被占用的，那么等待释放锁的消息</p>
+</li>
+</ol>
+<p>锁续期：<br>Redisson 提供了一个续期机制， 只要客户端一旦加锁成功，就会启动一个 Watch Dog，<br>Watch Dog 机制其实就是一个后台定时任务线程，获取锁成功之后，会每隔 10 秒 （internalLockLeaseTime &#x2F; 3） 检查一下，如果客户端还持有锁，那么就会不断的延长锁 key 的生存时间。</p>
+<p>redisson尽管已经很全面了， 但是还是没有解决 主从节点下异步同步数据导致锁丢失问题。</p>
+<p>redisson分布式锁是redlock算法的实现</p>
+<p>主从异步问题<br>multiLock 方案</p>
+<p>设置多个并列的 Rediss 节点，对锁信息，将其写入每个 Redis 节点中。</p>
+<p>获取锁时，向多个 Redis 节点中获取锁，只有每个节点都获取锁成功，才算获取锁成功。实现了，只要有一个节点存活，其他线程就不能获取锁，锁不会失效。</p>
+<p>当其中有节点宕机时，其他节点仍然含有锁信息，其他节点仍然有效</p>
+<p>读写锁<br>如果是同一个客户端同一个线程，先加了一次写锁，然后加读锁，是可以加成功的，默认是在同一个线程写锁的期间，可以多次加读锁<br>而同一个客户端同一个线程，先加了一次读锁，是不允许再被加写锁的<br>读的时候需要等待写锁的释放。</p>
+<p>比如说一个用户在修改数据，另个用户要统计数据，先更新数据库，再更新缓存，导致拿到的缓存数据不一致，所以分布式读写锁可以保证读写数据的一致性</p>
 
       
 
@@ -1014,105 +1128,6 @@ Lambda表达式是一个匿名函数，可以理解为是一段可以传递的�
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/09/10/Linux%E5%9F%BA%E7%A1%80/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-数据结构（二）：树形结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/">数据结构（二）：树形结构</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/" class="archive-article-date">
-  	<time datetime="2019-09-04T07:59:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="树形结构"><a href="#树形结构" class="headerlink" title="树形结构"></a>树形结构</h4><pre><code>树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：
-</code></pre>
-<ol>
-<li>每个节点有零个或多个子节点</li>
-<li>没有父节点的节点称为根节点</li>
-<li>每一个非根节点有且只有一个父节点</li>
-<li>除了根节点外，每个子节点可以分为多个不相交的子树</li>
-</ol>
-<p><strong>树的种类大范围可以分为无序树和有序树。</strong></p>
-<ol>
-<li>节点的度：一个节点含有的子树的个数称为该节点的度；</li>
-<li>树的度：一棵树中，最大的节点的度称为树的度；</li>
-<li>叶节点或终端节点：度为零的节点；</li>
-<li>非终端节点或分支节点：度不为零的节点；</li>
-<li>父亲节点或父节点：若一个节点含有子节点，则这个节点称为其子节点的父节点；</li>
-<li>孩子节点或子节点：一个节点含有的子树的根节点称为该节点的子节点；</li>
-<li>兄弟节点：具有相同父节点的节点互称为兄弟节点；</li>
-<li>节点的层次：从根开始定义起，根为第1层，根的子节点为第2层，以此类推；</li>
-<li>深度：对于任意节点n,n的深度为从根到n的唯一路径长，根的深度为0；</li>
-<li>高度：对于任意节点n,n的高度为从n到一片树叶的最长路径长，所有树叶的高度为0；</li>
-<li>堂兄弟节点：父节点在同一层的节点互为堂兄弟；</li>
-<li>节点的祖先：从根到该节点所经分支上的所有节点；</li>
-<li>子孙：以某节点为根的子树中任一节点都称为该节点的子孙。</li>
-<li>森林：由m（m&gt;&#x3D;0）棵互不相交的树的集合称为森林；
-        
-          <a class="article-more-a" href="/2019/09/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/">展开全文 >></a>
         </p>
       
 

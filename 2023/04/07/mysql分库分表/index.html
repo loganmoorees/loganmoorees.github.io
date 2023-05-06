@@ -6,19 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>分布式 | Logan Moorees</title>
+  <title>mysql分库分表 | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="分布式ID 数据库自增： 优点： 简单易实现 缺点： a. 强依赖DB，不同数据库语法和实现不同，数据库迁移的时候会比较麻烦。   b. 单点故障。在单个数据库或读写分离或一主多从的情况下，只有一个主库可以生成。有单点故障的风险。   c. 数据一致性问题。配置主从复制可以尽可能的增加可用性，但是数据一致性在特殊情况下难以保证。主从切换时的不一致可能会导致重复发号。  UUID 优点： 本地生成，">
+  <meta name="description" content="垂直分片垂直分片又叫做纵向拆分，核心理念就是专库专用，在拆分之前，一个数据库由多个数据表组成，每个表对应不同的业务，拆分后把不同业务的表归类，分布到不同的库中，从而减轻数据库的压力 缺点：尽管业务之间已经足够独立了，但是有些业务之间或多或少总会有点联系，如用户，基本上都会和每个业务相关联，况且这种分区方式，也不能解决单张表数据量暴涨的问题 水平分片水平分片相对于垂直分片，它不再按业务逻辑来拆分了，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="分布式">
-<meta property="og:url" content="http://yoursite.com/2021/05/20/%E5%88%86%E5%B8%83%E5%BC%8F/index.html">
+<meta property="og:title" content="mysql分库分表">
+<meta property="og:url" content="http://yoursite.com/2023/04/07/mysql%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/index.html">
 <meta property="og:site_name" content="Logan Moorees">
-<meta property="og:description" content="分布式ID 数据库自增： 优点： 简单易实现 缺点： a. 强依赖DB，不同数据库语法和实现不同，数据库迁移的时候会比较麻烦。   b. 单点故障。在单个数据库或读写分离或一主多从的情况下，只有一个主库可以生成。有单点故障的风险。   c. 数据一致性问题。配置主从复制可以尽可能的增加可用性，但是数据一致性在特殊情况下难以保证。主从切换时的不一致可能会导致重复发号。  UUID 优点： 本地生成，">
+<meta property="og:description" content="垂直分片垂直分片又叫做纵向拆分，核心理念就是专库专用，在拆分之前，一个数据库由多个数据表组成，每个表对应不同的业务，拆分后把不同业务的表归类，分布到不同的库中，从而减轻数据库的压力 缺点：尽管业务之间已经足够独立了，但是有些业务之间或多或少总会有点联系，如用户，基本上都会和每个业务相关联，况且这种分区方式，也不能解决单张表数据量暴涨的问题 水平分片水平分片相对于垂直分片，它不再按业务逻辑来拆分了，">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-05-20T00:57:48.000Z">
-<meta property="article:modified_time" content="2023-05-06T15:44:53.181Z">
+<meta property="article:published_time" content="2023-04-07T11:06:26.000Z">
+<meta property="article:modified_time" content="2023-04-07T11:32:22.615Z">
 <meta property="article:author" content="Logan Moore">
-<meta property="article:tag" content="SOA">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Logan Moorees" type="application/atom+xml">
@@ -139,63 +138,30 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-分布式" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-mysql分库分表" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      分布式
+      mysql分库分表
     </h1>
   
 
         
-        <a href="/2021/05/20/%E5%88%86%E5%B8%83%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2021-05-20T00:57:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-20</time>
+        <a href="/2023/04/07/mysql%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/" class="archive-article-date">
+  	<time datetime="2023-04-07T11:06:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="分布式ID"><a href="#分布式ID" class="headerlink" title="分布式ID"></a>分布式ID</h3><ol>
-<li><p>数据库自增：<br> 优点： 简单易实现<br> 缺点： a. 强依赖DB，不同数据库语法和实现不同，数据库迁移的时候会比较麻烦。<br>   b. 单点故障。在单个数据库或读写分离或一主多从的情况下，只有一个主库可以生成。有单点故障的风险。<br>   c. 数据一致性问题。配置主从复制可以尽可能的增加可用性，但是数据一致性在特殊情况下难以保证。主从切换时的不一致可能会导致重复发号。</p>
-</li>
-<li><p>UUID<br> 优点： 本地生成，没有网络消耗，生成简单，没有高可用风险。<br> 缺点： 是字符串的无序ID，并且较于自增ID要低很多</p>
-</li>
-<li><p>雪花算法（snowflake）<br>snowflake(雪花算法)是Twitter开源的分布式ID生成算法，结果是一个long型的ID。这种方案把64-bit分别划分成多段，分开来标示机器、时间等。<br>其核心思想是：使用41bit作为毫秒数，10bit作为机器的ID（10bit中5个bit是数据中心，5个bit的机器ID），12bit作为毫秒内的流水号（意味着每个节点在每毫秒可以产生 4096 个 ID），最后还有一个符号位，永远是0。具体实现的代码可以参看github。<br> 优点： a. 稳定性高，不依赖于数据库等第三方系统，以服务的方式部署，稳定性更高，生成ID的性能也是非常高的。<br>   b. 灵活方便，可以根据自身业务特性分配bit位。<br>   c. 单机上ID单调自增，毫秒数在高位，自增序列在低位，整个ID都是趋势递增的。<br> 缺点： a. 强依赖机器时钟，如果机器上时钟回拨，会导致发号重复或者服务会处于不可用状态。<br>   b. ID可能不是全局递增。在单机上是递增的，但是由于涉及到分布式环境，每台机器上的时钟不可能完全同步，也许有时候也会出现不是全局递增的情况。</p>
-</li>
-<li><p>美团的Leaf<br>支持号段和雪花算法<br>雪花算法模式依赖于ZooKeeper</p>
-</li>
-</ol>
-<p>分布式共识协议：<br>    2pc， 3pc，一致性hash， raft， zab， paxos等等</p>
-<p>共识协议的选举双主问题：<br>双主是可能发生的，例如原主网络与外部中断，集群发生脑裂，则老的集群主还存在，分裂的剩余节点由于与老主失联，大家重新选了新主出来。此时就会产生双主。</p>
-<p>规避双主的影响，需要通过租约机制，让老主发现在租约到期后与大多数节点失联主动降备；新主的选举也要等待超过这个租约时间后去选举新主，避免业务同一时刻看到双主。但是由于各个服务器资源、负载、调度等问题，时间并不是一个精确的可靠保障，例如定时器失真，还是可能导致同一时刻出现双主，所以每个地方的租约时间配置是个技术点。另外新主产生，生成新的epoch（+1），这样可以避免大家去处理老消息，从而进一步规避双主的问题。</p>
-<p>如何设计一个海量数据存储系统？<br>    市面上成熟的方案有很多，基于内存如redis，memcached等等，但是如果要存储过多的海量数据，内存是比较贵的，磁盘存储更为合适。</p>
-<pre><code>数据结构，如果选取磁盘存储，那么必须要明确它的存储结构，那么二叉树就比较合适，二叉树有很多种，比如说B+树。红黑树，LSM树等等，树的层级一定要少，像红黑树这种就不合适了，因为自旋和变色太频繁会影响效率。LSM树比较合适，比如Hbase，TiDB，LevelDB等等都是LSM树作为存储结构的，但是LSM适合内存中操作，磁盘的话更偏向于B+树。对LSM树的增删改，均在内存中操作，在归并的时候，会将修改落到磁盘，写性能强，但读性能偏弱，所以适用于多写少读的场景。
-
-安全性，数据存储安全性极为重要，多用户之间的资源隔离机制，数据存储的机制等等，只要磁盘不损坏，数据就不能丢失。
-
-性能方面，写入数据要保证数据不丢的同时尽量的提升效率，可以建立数据缓存，索引等等。
-
-然后单机和分布式，单机性能有限，要能够进行扩展，分布式存储，所以要选取合适的一致性协议等等，Paxos，ZAB，raft等等。
-
-当然每一步展开又是很复杂设计，目前临时想到的就只有这些。
-</code></pre>
-<p>让你设计一个缓存该如何设计？<br>    缓存存在的意义就是通过开辟一个新的数据交换缓冲区，来解决原始数据获取代价太大的问题，让数据得到更快的访问。</p>
-<pre><code>设计思想就是以空间换时间，原来获取数据的代价太大，所以用缓存更为高效的加速获取数据。
-
-那么缓存的存储方案内存更为合适，高效且快。
-那么结构的话hash表更适合存储，比如说nacos内部的存储，ehcache，包括我们平时也会用hashmap作为缓存。
-
-存储的方式要多样化，比如说redis的redisObject，value为一个对象。
-（redis object 存储的type类型，encoding 底层编码类型，然后一些使用信息等等，如最后一次使用时间，引用次数，底层的数据指针等等）
-
-然后要考虑到，内存是很容易丢失的，如果断电了，内存数据就丢失了，要记录日志到磁盘，即使发生意外情况，也不容易丢失数据。
-
-再就是内存也不能无限的使用，不需要的数据要及时清理，比如说限制最大内存不让继续使用，LRU策略，还是LFU策略，再或者参考redis的过期删除和惰性删除等等。
-</code></pre>
+        <h4 id="垂直分片"><a href="#垂直分片" class="headerlink" title="垂直分片"></a>垂直分片</h4><p>垂直分片又叫做纵向拆分，核心理念就是专库专用，在拆分之前，一个数据库由多个数据表组成，每个表对应不同的业务，拆分后把不同业务的表归类，分布到不同的库中，从而减轻数据库的压力</p>
+<p>缺点：尽管业务之间已经足够独立了，但是有些业务之间或多或少总会有点联系，如用户，基本上都会和每个业务相关联，况且这种分区方式，也不能解决单张表数据量暴涨的问题</p>
+<h4 id="水平分片"><a href="#水平分片" class="headerlink" title="水平分片"></a>水平分片</h4><p>水平分片相对于垂直分片，它不再按业务逻辑来拆分了，而是通过某个字段或者几个字断（一般都是主键唯一值），按照某种规则，比如说hash取模，或者区间等等，将数据分散至多个库或者表中，每个分片都包含一部分数据。</p>
+<p>单表超过500w或者单表容量超过2GB，才推荐分库分表。</p>
 
       
 
@@ -204,17 +170,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SOA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -228,18 +183,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/06/21/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          分布式事务
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/05/17/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">操作系统</div>
+    <a href="/2023/03/13/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">分布式一致性</div>
       <i class="icon-circle-right"></i>
     </a>
   

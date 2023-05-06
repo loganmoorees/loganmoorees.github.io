@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/JVM%E5%A0%86.jpg">
 <meta property="article:published_time" content="2021-03-31T13:53:23.000Z">
-<meta property="article:modified_time" content="2021-04-02T18:43:42.000Z">
+<meta property="article:modified_time" content="2023-05-06T13:35:17.562Z">
 <meta property="article:author" content="Logan Moore">
 <meta property="article:tag" content="JVM">
 <meta name="twitter:card" content="summary">
@@ -170,6 +170,15 @@
 <li>长期存活的对象进入老年代（默认熬过15次minor GC的对象）</li>
 <li>对象年龄动态判定（如果S0，S1中相同年龄所有对象的总和大于等于S0&#x2F;S1空间的一半，那么所有大于等于该年龄的对象直接进入老年代）</li>
 <li>空间分配担保（当前晋升为老年代的大小如果大于老年代剩余空间，则直接触发Full GC）</li>
+</ol>
+<p>stop the world：<br>指的是GC事件发生过程中，会产生应用程序的停顿。停顿产生时整个应用程序线程都会被暂停，没有任何响应, 有点像卡死的感觉，这个停顿称为STW，</p>
+<p>minor GC和full GC的区别以及触发机制：<br>minor GC又叫做young gc，指发生在新生代的垃圾收集动作，因为Java对象大多都具备朝生暮死的特性,所以 Minor GC非常频繁，回收速度也比较快。新生代非常适合复制算法，新建 Java 对象优先放到 Eden 区，当 Eden 区的空间耗尽时， Java 虚拟机便会触发一次 Minor GC，来收集新生代的垃圾。</p>
+<p>full gc，一般指整个 Java 堆和方法区的垃圾回收，出现了 Full GC，一般会伴随至少ー次的Minor GC。 Full GC 的速度一般会比 Minor GC 慢10倍以上，<br>full gc比较慢，当gc回收时，会出现stop the world，所以应当尽可能的减少full gc。</p>
+<p>full gc频繁如何解决？<br>导致full gc频繁的原因一般有：</p>
+<ol>
+<li>内存泄漏（代码有问题，对象引用没及时释放，导致对象不能及时回收）。</li>
+<li>死循环，不停的创建对象，导致对象快速进入老年代。</li>
+<li>大对象。 尤其是大对象，80%以上的情况就是他，比如说数据库的，消息队列里的，或者第三方接口传输的。<br>通过jvisualvm可以观察堆内情况。</li>
 </ol>
 <p>最大年龄动态判断探究：</p>
 <p>虚拟机并不是永远地要求对象的年龄必须达到了MaxTenuringThreshold（最大持续阈值）才能晋升老年代，如果在Survivor空间中相同年龄所有对象大小的总和大于Survivor空间的一半，年龄大于或等于该年龄的对象就可以直接进入老年代，无须等到MaxTenuringThreshold中要求的年龄。</p>
