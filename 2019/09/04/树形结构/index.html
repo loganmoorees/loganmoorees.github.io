@@ -6,26 +6,33 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>数据结构（一）：线性结构 | Logan Moorees</title>
+  <title>数据结构（二）：树形结构 | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是数据结构？数据结构就是计算机组织，存储数据的方式。数据结构是指互相之间一种或多种特定关  系的数据元素的集合。    数据类型：    根据数据与数据之间的互相关系，它们的逻辑结构可分为4类：    1.	集合    2.	线性结构    3.	树形结构    4.	图形结构    根据数据在计算机中存储的形式可分为2类：    1.	顺序存储结构    2.	链式存储结构">
+  <meta name="description" content="树形结构树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：   每个节点有零个或多个子节点 没有父节点的节点称为根节点 每一个非根节">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构（一）：线性结构">
-<meta property="og:url" content="http://yoursite.com/2019/08/29/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:title" content="数据结构（二）：树形结构">
+<meta property="og:url" content="http://yoursite.com/2019/09/04/%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/index.html">
 <meta property="og:site_name" content="Logan Moorees">
-<meta property="og:description" content="什么是数据结构？数据结构就是计算机组织，存储数据的方式。数据结构是指互相之间一种或多种特定关  系的数据元素的集合。    数据类型：    根据数据与数据之间的互相关系，它们的逻辑结构可分为4类：    1.	集合    2.	线性结构    3.	树形结构    4.	图形结构    根据数据在计算机中存储的形式可分为2类：    1.	顺序存储结构    2.	链式存储结构">
+<meta property="og:description" content="树形结构树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：   每个节点有零个或多个子节点 没有父节点的节点称为根节点 每一个非根节">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8.png">
-<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8.png">
-<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E5%88%A0%E9%99%A4.png">
-<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%A0%88%E7%BB%93%E6%9E%84%E9%A1%BA%E5%BA%8F.png">
-<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E9%98%9F%E5%88%97.png">
-<meta property="article:published_time" content="2019-08-29T08:20:07.000Z">
-<meta property="article:modified_time" content="2023-04-04T21:44:15.212Z">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%97%A0%E5%BA%8F%E6%A0%91.jpg">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%9C%89%E5%BA%8F%E6%A0%911.jpg">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E4%BA%8C%E5%8F%89%E6%A0%911.png">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E4%BA%8C%E5%8F%89%E6%A0%912%20.png">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%B9%B3%E8%A1%A1%E5%9B%A0%E5%AD%90.jpg">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%A4%B1%E8%A1%A1%E5%AD%90%E6%A0%91.jpg">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E7%BA%A2%E9%BB%91%E6%A0%911.png">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E7%BA%A2%E9%BB%91%E6%A0%91%E5%8F%98%E8%89%B2.png">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E7%BA%A2%E9%BB%91%E6%A0%91%E5%8F%98%E8%89%B21.jpg">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E7%BA%A2%E9%BB%91%E6%A0%91%E8%87%AA%E6%97%8B.png">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/B-Tree.png">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/B%2BTree.png">
+<meta property="article:published_time" content="2019-09-04T07:59:52.000Z">
+<meta property="article:modified_time" content="2023-05-07T14:55:11.762Z">
 <meta property="article:author" content="Logan Moore">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8.png">
+<meta name="twitter:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%97%A0%E5%BA%8F%E6%A0%91.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Logan Moorees" type="application/atom+xml">
   
@@ -145,59 +152,104 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-数据结构（一）：线性结构" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-树形结构" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      数据结构（一）：线性结构
+      数据结构（二）：树形结构
     </h1>
   
 
         
-        <a href="/2019/08/29/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E7%BA%BF%E6%80%A7%E7%BB%93%E6%9E%84/" class="archive-article-date">
-  	<time datetime="2019-08-29T08:20:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
+        <a href="/2019/09/04/%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/" class="archive-article-date">
+  	<time datetime="2019-09-04T07:59:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="什么是数据结构？"><a href="#什么是数据结构？" class="headerlink" title="什么是数据结构？"></a>什么是数据结构？</h4><pre><code>数据结构就是计算机组织，存储数据的方式。数据结构是指互相之间一种或多种特定关
+        <h4 id="树形结构"><a href="#树形结构" class="headerlink" title="树形结构"></a>树形结构</h4><pre><code>树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：
 </code></pre>
-<p>系的数据元素的集合。<br>    数据类型：<br>    根据数据与数据之间的互相关系，它们的逻辑结构可分为4类：<br>    1.	集合<br>    2.	线性结构<br>    3.	树形结构<br>    4.	图形结构<br>    根据数据在计算机中存储的形式可分为2类：<br>    1.	顺序存储结构<br>    2.	链式存储结构</p>
-<span id="more"></span>
-<h4 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h4><pre><code>集合结构中的数据元素除了属于同一个集合外，它们之间没有其他关系。各个数据元素
+<ol>
+<li>每个节点有零个或多个子节点</li>
+<li>没有父节点的节点称为根节点</li>
+<li>每一个非根节点有且只有一个父节点</li>
+<li>除了根节点外，每个子节点可以分为多个不相交的子树</li>
+</ol>
+<p><strong>树的种类大范围可以分为无序树和有序树。</strong></p>
+<ol>
+<li>节点的度：一个节点含有的子树的个数称为该节点的度；</li>
+<li>树的度：一棵树中，最大的节点的度称为树的度；</li>
+<li>叶节点或终端节点：度为零的节点；</li>
+<li>非终端节点或分支节点：度不为零的节点；</li>
+<li>父亲节点或父节点：若一个节点含有子节点，则这个节点称为其子节点的父节点；</li>
+<li>孩子节点或子节点：一个节点含有的子树的根节点称为该节点的子节点；</li>
+<li>兄弟节点：具有相同父节点的节点互称为兄弟节点；</li>
+<li>节点的层次：从根开始定义起，根为第1层，根的子节点为第2层，以此类推；</li>
+<li>深度：对于任意节点n,n的深度为从根到n的唯一路径长，根的深度为0；</li>
+<li>高度：对于任意节点n,n的高度为从n到一片树叶的最长路径长，所有树叶的高度为0；</li>
+<li>堂兄弟节点：父节点在同一层的节点互为堂兄弟；</li>
+<li>节点的祖先：从根到该节点所经分支上的所有节点；</li>
+<li>子孙：以某节点为根的子树中任一节点都称为该节点的子孙。</li>
+<li>森林：由m（m&gt;&#x3D;0）棵互不相交的树的集合称为森林；<span id="more"></span></li>
+</ol>
+<h4 id="无序树"><a href="#无序树" class="headerlink" title="无序树"></a>无序树</h4><pre><code>树中任意节点的子节点之间没有顺序关系，这种树称为无序树，也称为自由树。
 </code></pre>
-<p>是“平等”的，它们的共同属性是“同属于同一个集合”。</p>
-<h4 id="线性结构"><a href="#线性结构" class="headerlink" title="线性结构"></a>线性结构</h4><pre><code>线性结构是一个有序数据元素的集合，数据元素是一对一的概念系。
+<p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%97%A0%E5%BA%8F%E6%A0%91.jpg"></p>
+<h4 id="有序树"><a href="#有序树" class="headerlink" title="有序树"></a>有序树</h4><pre><code>用自己的话归纳就是兄弟节点有顺序的树就可以称为有序树
 </code></pre>
-<p>常用的线性结构有：线性表，栈，队列，数组，串。</p>
-<h5 id="1-线性表"><a href="#1-线性表" class="headerlink" title="1.	线性表"></a>1.	线性表</h5><pre><code>线性表中数据元素之间的关系是一对一的关系，即除了第一个和最后一个数据元素之外，其它数据元素都是首尾相接的。本质：线性表是数据结构中的逻辑结构。线性表可以通过数组（顺序存储结构）存储，也可以通过链式存储。
+<p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%9C%89%E5%BA%8F%E6%A0%911.jpg"></p>
+<h4 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h4><pre><code>二叉树是每个结点最多有两个子树的树结构。通常子树被称作“左子树”（left subtree）和“右子树”（right subtree）。二叉树常被用于实现二叉查找树和二叉堆
 </code></pre>
-<h5 id="2-数组"><a href="#2-数组" class="headerlink" title="2.	数组"></a>2.	数组</h5><p>数组就是相同数据类型的元素按一定顺序排列的集合。本质：物理上存储在一组联系的地址上，也就是数据结构中的顺序存储物理结构。数组的内存是连续分配的，并且是静态分配的，即在使用数组之前需要分配固定大小的空间。可以通过索引直接得到数组中的而元素，即获取数组中元素的时间复杂度为O(1)。</p>
-<h5 id="3-链表"><a href="#3-链表" class="headerlink" title="3.	链表"></a>3.	链表</h5><pre><code>链表就是线性表的链式存储方式。链表的内存是不连续的，前一个元素存储地址的下一个地址中存储的不一定是下一个元素。链表通过一个指向下一个元素地址的引用将链表中的元素串起来。
+<p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E4%BA%8C%E5%8F%89%E6%A0%911.png"><br>二叉树是递归定义的，其结点有左右子树之分，逻辑上二叉树有五种基本形态：<br>二叉树又可以被分为满二叉树 full binary tree（一棵深度为 k，且最底层有 2^(k- 1) 个节点称之为满二叉树；形如其名，所有的节点都是满的）和完全二叉树 complete binary tree（深度为 k，有 n 个节点的二叉树，当且仅当其每一个节点都与深度为 k 的满二叉树中序号为 1 至 n 的节点对应；简单来说，就是除深度是k 层之外，其他各层（1至k-1）的节点数都达到最大个数，第k 层的所有节点都连续几个在最左边）。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E4%BA%8C%E5%8F%89%E6%A0%912%20.png"></p>
+<pre><code>二叉树的遍历
 </code></pre>
-<p>链表又可以分为单向链表和双向链表<br>        a.	单向链表<br>        每一个节点包含了数据块和指向下一个节点的指针<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8.png"><br>        b.	双向链表<br>        双向链表就是有两个方向的链表。同单向链表不同，在双向链表中每一个节点不仅存储指向下一个节点的指针，而且存储指向前一个节点的指针。通过这种方式，能够通过在O(1)时间内通过目的节点直接找到前驱节点，但是同时会增加大量的指针存储空间。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8.png"><br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E5%88%A0%E9%99%A4.png"><br>        c.	栈<br>        栈是一种只能在表尾进行插入或者删除的线性表，通常称为表尾端为栈顶，表头端为栈底。它是一种先进后出的线性表，既只能在表尾端插入和删除元素，分别称为入栈和出栈，可以通过数组和链表实现。从栈中放入取出元素的顺序有它的专属名称Last In First Out(最后进，最先出；LIFO)。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%A0%88%E7%BB%93%E6%9E%84%E9%A1%BA%E5%BA%8F.png"><br>        d.	队列<br>        一个队列queue 是一种特殊的抽象数据类型(Abstract Data Type) 或其中元素保持一定顺序的集合。其中最主要的（或则说唯一的）的在此集合上的操作是加元素到队列的末端，被称为入队&#x2F;入列 enqueue；将元素从队列的前段移除，则称为出队&#x2F;出列 dequeue；这让队列成为了先进先出（First-In-First-Out，FIFO）的数据结构。在先进先出的数据结构中，添加到队列中的第一个元素将会是第一个被删除的元素。队列是线性数据结构中的一种，或者更抽象地说，是一种顺序收集sequential collection。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E9%98%9F%E5%88%97.png"><br>        e.  串<br>        字符串 string 通常是字符序列，要么是文字常量，要么是某种变量。后者可能允许其元素发生突变，长度改变，或者是固定的（在创建之后）。字符串通常被认为是一种数据类型，通常作为字节（或字）的数组数据结构来实现，它存储了一系列元素，通常是使用一些字符编码的字符。字符串还可以用来表示更一般的数组或其他序列（或列表）数据类型和结构。</p>
-<pre><code>    根据所使用的编程语言和精确的数据类型，声明为字符串的变量可能会导致内存中的存储被静态地分配给预先确定的最大长度，或者可以使用动态分配来容纳可变数量的元素。
-
-    当一个字符串在源代码中出现时，它被称为字符串文字或匿名字符串。
-    在数学逻辑和理论计算机科学中使用的正式语言中，string 是由一个叫做字母表的集合所选择的有限的符号序列。([维基百科](https://en.wikipedia.org/wiki/String_(computer_science)))
-    子串：串中任意几个连续的字符组成的子序列即为该串的子串
-
-    主串:相应地，包含该子串的串称为主串
-
-    子串的位置:子串在主串中首次出现时，该子串的首字符对应在主串中的序号，即为子串在主串中的位置。这里有一个很经典的例子用来辅助说明。例如，设A和B分别为 A=‘This is a string’ B=‘is’ 则B是A的子串，A为主串。B在A中出现了两次，其中首次出现所对应的主串位置是3。因此，称B在A中的位置为3。 特别地，空串是任意串的子串，任意串是其自身的子串。
-
-    连接(concatenation)：连接是一个重要的二进制操作。对于任意两个主串中的子串s和t，它们的连接根据放置s和t 的前后顺序来定符号序列。例如，子串s = love，t = hug，那么st 就是lovehug，ts 就是huglove。
-
-    前缀和后缀（prefixes and suffixes）：字符串s 可以说是t 的前缀，如果存在一个字符串u 满足条件t =su。如果u 是非空的，那么可以说s 是t 的一个合适的前缀；相应地，串s 可以说t 的后缀如果存在一个串u 满足条件t=us。如果u 是非空的，s 可以说是t 的一个合适的后缀。前缀和后缀可以说是t 的子串。
-
-    旋转：串s = uv 可以被说成t 的旋转如果t = vu. 举个例子，当u = 00110, v = 01的时候，串0011001 是0100110 的旋转。
+<ul>
+<li>先序遍历；根节点-&gt;左子树-&gt;右子树。</li>
+<li>中序遍历；左子树-&gt;根节点-&gt;右子树。</li>
+<li>后序遍历；左子树-&gt;右子树-&gt;根节点。</li>
+<li>层次遍历；根据层次遍历的顺序，每一层都按照从左到右的遍历输出。</li>
+</ul>
+<p><strong>树结构又可以分为：二叉树（二叉树，完全二叉树，平衡二叉树（AVL树），排序二叉树（二叉查找树）），霍夫曼树，B树等等</strong></p>
+<pre><code>    二叉树：二叉查找树（BST），笛卡尔树，MVP树，Top treeT，树
+    自平衡二叉查找树：AA树,AVL树,左倾红黑树,红黑树替,罪羊树,伸展树,树堆,加权平衡树
+    B树：B+树，B&amp;#42;树，Bx树，UB树，2-3树，2-3-4树，(a,b)-树，Dancing tree，H树
+    堆：二叉堆，二项堆，斐波那契堆，左偏树配对，堆斜，堆Van，Emde Boas tree
+    二叉空间分割（BSP）树：四叉树，八叉树，k-d树，隐式k-d树，VP树
+    非二叉树：指数树，融合树，区间树，PQ树，Range tree，SPQR树
+    空间数据分割树：R树，R*树，R+树，X树，M树，线段树，可持久化线段树，希尔伯特R树，优先R树
 </code></pre>
-<p>逆转：串的逆转就是具有相同符号单顺序相反的字符串。例如，如果s&#x3D;abc（a、b和c是字母表中符号），那么s 的逆转就是cba。一个与自身相反的字符串（例如，s&#x3D;madam，逆转还是madam）被称为回文 palindrome，它还包括空字符串和所有长度为1的字符串。</p>
+<h4 id="平衡二叉树（AVL树）"><a href="#平衡二叉树（AVL树）" class="headerlink" title="平衡二叉树（AVL树）"></a>平衡二叉树（AVL树）</h4><pre><code>在计算机科学中，AVL树是最早被发明的自平衡二叉查找树。在AVL树中，任一节点对应的两棵子树的最大高度差为1，因此它也被称为高度平衡树。查找、插入和删除在平均和最坏情况下的时间复杂度都是$$ O(logn) $$。增加和删除元素的操作则可能需要借由一次或多次树旋转，以实现树的重新平衡。
+节点的平衡因子是它的左子树的高度减去它的右子树的高度（有时相反）。带有平衡因子1、0或 -1的节点被认为是平衡的。带有平衡因子 -2或2的节点被认为是不平衡的，并需要重新平衡这个树。平衡因子可以直接存储在每个节点中，或从可能存储在节点中的子树高度计算出来。
+
+二叉搜索树一定程度上可以提高搜索效率，但是当原序列有序时，例如序列 A = &#123;1，2，3，4&#125;，构造二叉搜索树如图，依据此序列构造的二叉搜索树为右斜树，同时二叉树退化成单链表，搜索效率降低为 O(n)。
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%A0%91%E9%93%BE%E8%A1%A8.jpg">https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E6%A0%91%E9%93%BE%E8%A1%A8.jpg</a><br>    在此二叉搜索树中查找元素 4 需要查找 4 次。</p>
+<pre><code>二叉搜索树的查找效率取决于树的高度，因此保持树的高度最小，即可保证树的查找效率。同样的序列 A，将其改为图 1.2 的方式存储，查找元素 4 时只需比较 2 次，查找效率提升一倍。
+
+可以看出当节点数目一定，保持树的左右两端保持平衡，树的查找效率最高。
+可以是空树，这种左右子树的高度相差不超过 1 的树为平衡二叉树。
+</code></pre>
+<h4 id="建立树的过程中，我们如何知道左右子树的高度差呢？在这里我们采用了平衡因子进行记录。"><a href="#建立树的过程中，我们如何知道左右子树的高度差呢？在这里我们采用了平衡因子进行记录。" class="headerlink" title="建立树的过程中，我们如何知道左右子树的高度差呢？在这里我们采用了平衡因子进行记录。"></a>建立树的过程中，我们如何知道左右子树的高度差呢？在这里我们采用了平衡因子进行记录。</h4><pre><code> 平衡因子：左子树的高度减去右子树的高度。由平衡二叉树的定义可知，平衡因子的取值只可能为0,1,-1.分别对应着左右子树等高，左子树比较高，右子树比较高。如下图
+</code></pre>
+<p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%B9%B3%E8%A1%A1%E5%9B%A0%E5%AD%90.jpg"></p>
+<h4 id="AVL树插入时候的失衡与调整"><a href="#AVL树插入时候的失衡与调整" class="headerlink" title="AVL树插入时候的失衡与调整"></a>AVL树插入时候的失衡与调整</h4><pre><code>平衡二叉树的失衡调整主要是通过旋转最小失衡子树来实现的。
+</code></pre>
+<p>最小失衡子树：在新插入的结点向上查找，以第一个平衡因子的绝对值超过1的结点为根的子树称为最小不平衡子树。也就是说，一棵失衡的树，是有可能有多棵子树同时失衡的，如下。而这个时候，我们只要调整最小的不平衡子树，就能够将不平衡的树调整为平衡的树。</p>
+<pre><code>在图7中。2结点（左子树树高-右子树树高）的绝对值=2。同理，3结点的平衡因子也为2.此时同时存在了两棵不平衡子树，而以3为根的树是最小的不平衡子树。我们只要将其以3为中心，将最小不平衡树向左旋转，即可得到平衡二叉树，如图8。
+</code></pre>
+<p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%A4%B1%E8%A1%A1%E5%AD%90%E6%A0%91.jpg"></p>
+<h4 id="红黑树（binary-search-tree）"><a href="#红黑树（binary-search-tree）" class="headerlink" title="红黑树（binary search tree）"></a>红黑树（binary search tree）</h4><p>红黑树是一种典型的自平衡的二叉查找树：时间复杂度O（n）,二叉查找树，左子树小于根节点，右子树大于根节点。补足了二叉查找树的缺点，二叉查找树会退化成链表.<br>红黑树的特征：<br>1.节点都是红色或者黑色的。<br>2.根节点是黑色的。<br>3.每个叶子节点都是黑色或者空节点<br>4.每个红色节点的两个子节点都是黑色的（从每个叶子到根的所有路径上不能出现连续的红色节点）<br>5.从任意节点到其每个叶子的所有路径都包含相同数目的黑色节点<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E7%BA%A2%E9%BB%91%E6%A0%911.png"><br>但是插入或者删除节点时候，红黑树的规则可能被打破，这时候需要做出一些调整，从而维持这个原则，调整分为变色和自旋。自旋分为左旋转和右旋转。<br>变色：<br>当我们插入51节点，这时候红黑树破坏了规则4：<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E7%BA%A2%E9%BB%91%E6%A0%91%E5%8F%98%E8%89%B2.png"><br>所以需要调整，可以通过变色的方式达到目的：将43和49变色就满足了规律<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E7%BA%A2%E9%BB%91%E6%A0%91%E5%8F%98%E8%89%B21.jpg"></p>
+<p>很多时候，光靠变色无法达到目的，那么就得自旋了，如果在66下面插入一个65，无论64是红色还是黑色都会破坏规则5<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E7%BA%A2%E9%BB%91%E6%A0%91%E8%87%AA%E6%97%8B.png"><br>左旋，当前父结点是红色，叔叔是黑色的时候，且当前的结点是右子树。左旋以父节点作为左旋<br>右旋，当前父结点是红色，叔叔是黑色的时候，且当前的结点是左子树。右旋<br>右子树左璇，左子树右旋</p>
+<p>和AVL树的区别：<br>AVL树是严格的平衡二叉树，要求每个节点的左右子树高度差不超过1，而红黑树则要宽松一些，要求任何一条路径的长度不超过其他路径长度的2倍。正因为这个区别，AVL树查找效率更高，<br>但平衡的调整也更高，频繁查找时，选用AVL树更合适，频繁插入时，红黑树更合适。</p>
+<h4 id="B树："><a href="#B树：" class="headerlink" title="B树："></a>B树：</h4><p>B树和平衡二叉树稍有不同的是B树属于多叉树又名平衡多路查找树（查找路径不只两个），数据库索引技术里大量使用者B树和B+树的数据结构。<br>规则：<br>（1）排序方式：所有节点关键字是按递增次序排列，并遵循左小右大原则；<br>（2）子节点数：非叶节点的子节点数&gt;1，且&lt;&#x3D;M ，且M&gt;&#x3D;2，空树除外（注：M阶代表一个树节点最多有多少个查找路径，M&#x3D;M路,当M&#x3D;2则是2叉树,M&#x3D;3则是3叉）；<br>（3）关键字数：枝节点的关键字数量大于等于ceil(m&#x2F;2)-1个且小于等于M-1个（注：ceil()是个朝正无穷方向取整的函数 如ceil(1.1)结果为2);<br>（4）所有叶子节点均在同一层、叶子节点除了包含了关键字和关键字记录的指针外也有指向其子节点的指针只不过其指针地址都为null对应下图最后一层节点的空格子;<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/B-Tree.png"></p>
+<p>B树查询流程：<br>如上图我要从上图中找到E字母，查找流程如下（1）获取根节点的关键字进行比较，当前根节点关键字为M，E&lt;M（26个字母顺序），所以往找到指向左边的子节点（二分法规则，左小右大，左边放小于当前节点值的子节点、右边放大于当前节点值的子节点）；<br>（2）拿到关键字D和G，D&lt;E&lt;G 所以直接找到D和G中间的节点；（3）拿到E和F，因为E&#x3D;E 所以直接返回关键字和指针信息（如果树结构里面没有包含所要查找的节点则返回null）；</p>
+<p>B+Tree：<br>（1）B+跟B树不同B+树的非叶子节点不保存关键字记录的指针，只进行数据索引，这样使得B+树每个非叶子节点所能保存的关键字大大增加；<br>（2）B+树叶子节点保存了父节点的所有关键字记录的指针，所有数据地址必须要到叶子节点才能获取到。所以每次数据查询的次数都一样；<br>（3）B+树叶子节点的关键字从小到大有序排列，左边结尾数据都会保存右边节点开始数据的指针。<br>（4）非叶子节点的子节点数&#x3D;关键字数（来源百度百科）（根据各种资料 这里有两种算法的实现方式，另一种为非叶节点的关键字数&#x3D;子节点数-1（来源维基百科)，虽然他们数据排列结构不一样，<br>    但其原理还是一样的Mysql 的B+树是用第一种方式实现）;<br> <img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/B%2BTree.png">
+ </p>
 
       
 
@@ -230,15 +282,20 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/08/29/SpringCloud/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/10/Linux%E5%9F%BA%E7%A1%80/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          SpringCloud
+          Linux基础
         
       </div>
     </a>
   
+  
+    <a href="/2019/09/02/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">网络协议</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 

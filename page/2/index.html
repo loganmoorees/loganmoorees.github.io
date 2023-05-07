@@ -609,7 +609,8 @@
 <h4 id="内存屏障"><a href="#内存屏障" class="headerlink" title="内存屏障"></a>内存屏障</h4><p>为什么需要有内存屏障？<br>首先要了解Java内存模型，计算机运算任务需要CPU和内存相互配合共同完成，其中CPU负责逻辑计算，内存负责数据存储。CPU要与内存进行交互，在执行的过程中肯定有读取和写入，CPU小速度快，内存大速度较慢，因此CPU与内存之间就有了高速缓存，也称为工作内存，在执行过程中，会将主存的数据复制到缓存中去，运算完毕之后，又将缓存的数据刷新到主存中去，用volatile关键字修饰变量可以解决上述问题，那么volatile是如何做到这一点的呢？那就是内存屏障。</p>
 <p> <img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C.jpg" alt="Java内存屏障"><br> 其实本质上Java底层是由C++实现的，根据你的变量类型，如果用了volatile修饰，C++帮你加的内存屏障，禁止指令重排序</p>
 <p>为什么不保证原子性：<br>假设o &#x3D; 1; 线程1做了o++操作，线程2也做o++操作，线程1拿到o &#x3D; 1后阻塞了，线程2此时执行了o++后， o为2，刷新到主存中去，线程1读取到的是o &#x3D; 1；做o ++操作为2，继续刷新到主存，此时刷新了两次主存，所以不保证原子性<br>Java.util.concurrent.atomic包下对各种基本类型做了封装，采用CAS机制保证原子性操作类。</p>
-<h4 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h4><p>CAS（Compare And Swap）：比较和替换，CAS机制中使用了三个基本操作数，内存地址V，旧的预期地址A，要修改的值B，更新一个变量的时候，只有当变量的预期值A和内存地址V当中的实际值相同时，才会将内存地址V对应的值修改为B。<br>例如：<br>    V是10，线程1想增加1，旧的预期值A是10，则要修改的预期值是11。<br>    线程1提交之前，线程2抢先一步了，把内存中V的值10更新成了11<br>    等线程1提交更新，首先A和实际的V进行比较，发现A不等于V，提交失败。<br>    线程1重新获取内存值V，V &#x3D; 11，并重新计算修改后的新值，A &#x3D; 11，B &#x3D; 12，这个重新尝试的过程称之为自旋</p>
+<h4 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h4><p>CAS（Compare And Swap）：比较和替换，CAS机制中使用了三个基本操作数，内存地址V，旧的预期地址A，要修改的值B，更新一个变量的时候，只有当变量的旧的预期值A和内存地址V当中的实际值相同时，才会将内存地址V对应的值修改为B。<br>例如：<br>    V是10，线程1想增加1，旧的预期值A是10，则要修改的预期值是11。<br>    线程1提交之前，线程2抢先一步了，把内存中V的值10更新成了11<br>    等线程1提交更新，首先A和实际的V进行比较，发现A不等于V，提交失败。<br>    线程1重新获取内存值V，V &#x3D; 11，并重新计算修改后的新值，A &#x3D; 11，B &#x3D; 12，这个重新尝试的过程称之为自旋</p>
+<p>ABA问题，某个修改操作开启了两个线程，要将A修改为B，应该只有一个线程成功，结果一个线程阻塞了，另一个线程成功了，A改为B，这时候又有个请求将B改为A，结果阻塞的线程恢复了，又把A改为了B。<br>所以这种问题应该再加个乐观锁，修改的时候还要比较版本号。</p>
 <h4 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h4><p>ThreadLocal<br>    ThreadLocal线程本地变量，为私有变量在每个线程中都创建了一个副本，每个线程都可以独立的改变自己内部的变量副本，而不会影响到其他线程所对应的副本，从而实现各个线程之间的互不干扰。</p>
 <p>原理：<br>ThreadLocal核心就是ThreadLocalMap，是ThreadLocal的静态内部类，跟HashMap类似，每个线程中都有个独立的ThreadLocalMap副本，所以只能被当前线程操作，将ThreadLocal对象作为key，将存储的类型作为Value直接存储到ThreadLocalMap中。<br>注意点：<br>因为ThreadLocalMap的key是弱引用，而Value是强引用。这就导致了一个问题，ThreadLocal在没有外部对象强引用时，发生GC时弱引用Key会被回收，而Value不会回收，<br>如果创建ThreadLocal的线程<br>一直持续运行，那么这个Entry对象中的value就有可能一直得不到回收，发生内存泄露。使用完成后必须remove，它会将整个Entry置为Null，删除这个Entry和Map的联系，使得GC能够回收。</p>
 <p>ThreadLocal是线程私有的，如果想线程之间互相通信怎么处理？<br>InheritableThreadLocal可以解决线程之间互相传递，继承了ThreadLocal，重写了里面的几个方法，通过在线程创建的时候，会在子线程构造函数中将父线程中的值复制到本线程，实现线程之间的传递。<br>Transmittable-Thread-Local，阿里巴巴开源的，池化之间的线程传递。</p>
@@ -1005,84 +1006,6 @@ equals是Object类中的方法，如果没有重写equals方法的话，调用�
 
 
   
-    <article id="post-Lambda表达式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/22/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">Java8的操作</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/22/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2019-09-21T16:54:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code> Java8的特性虽然以前知道，但是没用过，同事之间也没人用，比如Lambda，Stream，最近看同事写出来的代码感觉更为简洁，而自己还在使用老一套的方式，特此学习一下Java8的操作
-</code></pre>
-<h4 id="什么是Lambda"><a href="#什么是Lambda" class="headerlink" title="什么是Lambda?"></a>什么是Lambda?</h4><pre><code> Lambda表达式是Java SE 8中包含的一项新的重要功能。它们提供了一种简洁明了的方式来使用表达式表示一个方法接口。Lambda表达式还改进了Collection库，使其更易于遍历，过滤和从中提取数据Collection。此外，新的并发功能提高了多核环境中的性能。
-Lambda表达式是一个匿名函数，可以理解为是一段可以传递的代码（将代码像数据一样进行传递）
-</code></pre>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/22/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Linux基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1142,6 +1065,105 @@ Lambda表达式是一个匿名函数，可以理解为是一段可以传递的�
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/09/10/Linux%E5%9F%BA%E7%A1%80/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-树形结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/04/%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/">数据结构（二）：树形结构</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/04/%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/" class="archive-article-date">
+  	<time datetime="2019-09-04T07:59:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="树形结构"><a href="#树形结构" class="headerlink" title="树形结构"></a>树形结构</h4><pre><code>树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：
+</code></pre>
+<ol>
+<li>每个节点有零个或多个子节点</li>
+<li>没有父节点的节点称为根节点</li>
+<li>每一个非根节点有且只有一个父节点</li>
+<li>除了根节点外，每个子节点可以分为多个不相交的子树</li>
+</ol>
+<p><strong>树的种类大范围可以分为无序树和有序树。</strong></p>
+<ol>
+<li>节点的度：一个节点含有的子树的个数称为该节点的度；</li>
+<li>树的度：一棵树中，最大的节点的度称为树的度；</li>
+<li>叶节点或终端节点：度为零的节点；</li>
+<li>非终端节点或分支节点：度不为零的节点；</li>
+<li>父亲节点或父节点：若一个节点含有子节点，则这个节点称为其子节点的父节点；</li>
+<li>孩子节点或子节点：一个节点含有的子树的根节点称为该节点的子节点；</li>
+<li>兄弟节点：具有相同父节点的节点互称为兄弟节点；</li>
+<li>节点的层次：从根开始定义起，根为第1层，根的子节点为第2层，以此类推；</li>
+<li>深度：对于任意节点n,n的深度为从根到n的唯一路径长，根的深度为0；</li>
+<li>高度：对于任意节点n,n的高度为从n到一片树叶的最长路径长，所有树叶的高度为0；</li>
+<li>堂兄弟节点：父节点在同一层的节点互为堂兄弟；</li>
+<li>节点的祖先：从根到该节点所经分支上的所有节点；</li>
+<li>子孙：以某节点为根的子树中任一节点都称为该节点的子孙。</li>
+<li>森林：由m（m&gt;&#x3D;0）棵互不相交的树的集合称为森林；
+        
+          <a class="article-more-a" href="/2019/09/04/%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/04/%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/">展开全文 >></a>
         </p>
       
 
