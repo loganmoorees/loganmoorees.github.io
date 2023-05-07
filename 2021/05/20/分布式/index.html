@@ -16,7 +16,7 @@
 <meta property="og:description" content="分布式ID 数据库自增： 优点： 简单易实现 缺点： a. 强依赖DB，不同数据库语法和实现不同，数据库迁移的时候会比较麻烦。   b. 单点故障。在单个数据库或读写分离或一主多从的情况下，只有一个主库可以生成。有单点故障的风险。   c. 数据一致性问题。配置主从复制可以尽可能的增加可用性，但是数据一致性在特殊情况下难以保证。主从切换时的不一致可能会导致重复发号。  UUID 优点： 本地生成，">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-05-20T00:57:48.000Z">
-<meta property="article:modified_time" content="2023-05-06T15:44:53.181Z">
+<meta property="article:modified_time" content="2023-05-06T19:31:54.719Z">
 <meta property="article:author" content="Logan Moore">
 <meta property="article:tag" content="SOA">
 <meta name="twitter:card" content="summary">
@@ -194,7 +194,7 @@
 
 然后要考虑到，内存是很容易丢失的，如果断电了，内存数据就丢失了，要记录日志到磁盘，即使发生意外情况，也不容易丢失数据。
 
-再就是内存也不能无限的使用，不需要的数据要及时清理，比如说限制最大内存不让继续使用，LRU策略，还是LFU策略，再或者参考redis的过期删除和惰性删除等等。
+再就是内存也不能无限的使用，不需要的数据要及时清理，比如说限制最大内存不让继续使用，LRU策略(最少使用的数据淘汰 least recently used)，还是FIFO策略（先进的数据先出 Fist in Fist out），再或者参考redis的过期删除和惰性删除等等。
 </code></pre>
 
       
