@@ -16,9 +16,10 @@
 <meta property="og:description" content="Spring宏观上Spring是一个Spring生态圈，比如下面的子项目Spring MVC，WebFlux等等，核心功能其实主要IOC和AOP，IOC：（Inversion of Control）控制反转，IOC 不是一种技术，只是一种思想，一个重要的面向对象编程的法则，它能指导我们如何设计出松耦合、更优良的程序。传统应用程序都是由我们在类内部主动创建依赖对象，从而导致类与类之间高耦合，难于测试">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/spring%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg">
+<meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Spring%E5%AE%8C%E6%95%B4%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96.png">
 <meta property="article:published_time" content="2021-03-31T08:28:07.000Z">
-<meta property="article:modified_time" content="2023-05-06T19:22:36.057Z">
+<meta property="article:modified_time" content="2023-08-06T01:20:56.299Z">
 <meta property="article:author" content="Logan Moore">
 <meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
@@ -192,6 +193,7 @@
 <li>通过initializeBean初始化对象</li>
 </ol>
 <p>Spring生命周期<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/spring%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg"></p>
+<p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Spring%E5%AE%8C%E6%95%B4%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png"></p>
 <p>IOC容器如何解决循环依赖的？<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96.png"><br>Spring通过三级缓存解决了循环依赖，其中一级缓存为单例池（singletonObjects）,二级缓存为早期曝光对象earlySingletonObjects（半成品bean），三级缓存为早期曝光对象工厂（singletonFactories）。<br>当A、B两个类发生循环引用时，在A完成实例化后，就使用实例化后的对象去创建一个对象工厂，并添加到三级缓存中，如果A被AOP代理，<br>那么通过这个工厂获取到的就是A代理后的对象，如果A没有被AOP代理，那么这个工厂获取到的就是A实例化的对象。<br>当A进行属性注入时，会去创建B，同时B又依赖了A，所以创建B的同时又会去调用getBean(a)来获取需要的依赖，此时的getBean(a)会从缓存中获取，第一步，先获取到三级缓存中的工厂；<br>第二步，调用对象工工厂的getObject方法来获取到对应的对象，得到这个对象后将其注入到B中。紧接着B会走完它的生命周期流程，包括初始化、后置处理器等。当B创建完后，会将B再注入到A中，<br>此时A再完成它的整个生命周期。至此，循环依赖结束！</p>
 <p>为什么要使用三级缓存呢？二级缓存能解决循环依赖吗:<br>主要还是因为spring开发者不希望循环依赖的处理影响了原本创建bean的流程，原本是在bean初始化之后，再通过后置处理来创建代理对象；如果只使用一级缓存，那势必要在实例化bean后直接创建代理对象放入缓存，这样就仅仅因为循环依赖破坏了原本的流程，违背了Spring设计的原则，<br>Spring在设计之初就是通过AnnotationAwareAspectJAutoProxyCreator这个后置处理器来在Bean生命周期的最后一步来完成AOP代理，而不是在实例化后就立马进行AOP代理。</p>
 <p>Aop原理：<br>核心就是拦截器和JDK代理以及Cglib代理，通过拦截器和动态代理，进行偷梁换柱，织入其他的操作，</p>

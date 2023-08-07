@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/redisson.jpg">
 <meta property="article:published_time" content="2021-03-24T08:30:40.000Z">
-<meta property="article:modified_time" content="2023-05-06T18:25:47.861Z">
+<meta property="article:modified_time" content="2023-08-06T05:36:31.851Z">
 <meta property="article:author" content="Logan Moore">
 <meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary">
@@ -228,6 +228,7 @@
 <p>当其中有节点宕机时，其他节点仍然含有锁信息，其他节点仍然有效</p>
 <p>读写锁<br>如果是同一个客户端同一个线程，先加了一次写锁，然后加读锁，是可以加成功的，默认是在同一个线程写锁的期间，可以多次加读锁<br>而同一个客户端同一个线程，先加了一次读锁，是不允许再被加写锁的<br>读的时候需要等待写锁的释放。</p>
 <p>比如说一个用户在修改数据，另个用户要统计数据，先更新数据库，再更新缓存，导致拿到的缓存数据不一致，所以分布式读写锁可以保证读写数据的一致性</p>
+<p>布隆过滤器：  能判断某个数据一定不存在，但是不能判断一定存在。<br>通过插件配置完成之后需要重启redis</p>
 
       
 

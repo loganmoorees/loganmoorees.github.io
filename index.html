@@ -136,6 +136,75 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-docker与k8s" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/08/07/docker%E4%B8%8Ek8s/">docker与k8s</a>
+    </h1>
+  
+
+        
+        <a href="/2023/08/07/docker%E4%B8%8Ek8s/" class="archive-article-date">
+  	<time datetime="2023-08-07T02:34:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Linux常用命令：<br>    查询进程：  ps -ef | grep tomcat<br>    查询磁盘空间：  df -h<br>    查询内存： top</p>
+<p>Docker<br>    Docker 是一个开源的轻量级容器，Go语言开发的，常用于自动化打包发布，自动化测试和持续集成等等</p>
+<p>Docker 包括三个基本概念：<br>    镜像（Image）、容器（Container）、仓库（Repository）<br>    docker images、 docker ps -a，start，stop，restart，docker exec等等</p>
+<p>经常性的和虚拟机作为比较，<br>docker和虚拟机都是虚拟化技术，<br>VM(VMware)在宿主机器、宿主机器操作系统的基础上创建虚拟层、虚拟化的操作系统、虚拟化的仓库，然后再安装应用，<br>Docker则是宿主机器操作系统上创建Docker引擎，在引擎的基础上再安装应用。</p>
+<p>Docker 容器很快，启动和停止可以在秒级实现，而VMware慢很多<br>Docker 容器对系统资源需求很少，一台主机上可以同时运行数千个Docker容器。<br>Docker 通过Dockerfile配置文件来支持灵活的自动化创建和部署机制，提高工作效率。</p>
+<p>k8s<br>容器(Container)<br>    任何程序和它的所有依赖项都可以打包成一个文件，然后在网络上共享。任何人都可以下载该容器并在其基础设施上部署它</p>
+<p>Pod<br>Kubernetes不直接运行容器;相反，它将一个或多个容器封装到一个称为Pod的高级结构中。相同Pod中的任何容器都将共享相同的名称空间和本地网络。容器可以很容易地与其他容器在相同的容器中进行通信，就像它们在同一台机器上同时保持一定程度的隔离。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/08/07/docker%E4%B8%8Ek8s/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-mysql分库分表" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -865,6 +934,7 @@
 <li>通过initializeBean初始化对象</li>
 </ol>
 <p>Spring生命周期<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/spring%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg"></p>
+<p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Spring%E5%AE%8C%E6%95%B4%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png"></p>
 <p>IOC容器如何解决循环依赖的？<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96.png"><br>Spring通过三级缓存解决了循环依赖，其中一级缓存为单例池（singletonObjects）,二级缓存为早期曝光对象earlySingletonObjects（半成品bean），三级缓存为早期曝光对象工厂（singletonFactories）。<br>当A、B两个类发生循环引用时，在A完成实例化后，就使用实例化后的对象去创建一个对象工厂，并添加到三级缓存中，如果A被AOP代理，<br>那么通过这个工厂获取到的就是A代理后的对象，如果A没有被AOP代理，那么这个工厂获取到的就是A实例化的对象。<br>当A进行属性注入时，会去创建B，同时B又依赖了A，所以创建B的同时又会去调用getBean(a)来获取需要的依赖，此时的getBean(a)会从缓存中获取，第一步，先获取到三级缓存中的工厂；<br>第二步，调用对象工工厂的getObject方法来获取到对应的对象，得到这个对象后将其注入到B中。紧接着B会走完它的生命周期流程，包括初始化、后置处理器等。当B创建完后，会将B再注入到A中，<br>此时A再完成它的整个生命周期。至此，循环依赖结束！</p>
 <p>为什么要使用三级缓存呢？二级缓存能解决循环依赖吗:<br>主要还是因为spring开发者不希望循环依赖的处理影响了原本创建bean的流程，原本是在bean初始化之后，再通过后置处理来创建代理对象；如果只使用一级缓存，那势必要在实例化bean后直接创建代理对象放入缓存，这样就仅仅因为循环依赖破坏了原本的流程，违背了Spring设计的原则，<br>Spring在设计之初就是通过AnnotationAwareAspectJAutoProxyCreator这个后置处理器来在Bean生命周期的最后一步来完成AOP代理，而不是在实例化后就立马进行AOP代理。</p>
 <p>Aop原理：<br>核心就是拦截器和JDK代理以及Cglib代理，通过拦截器和动态代理，进行偷梁换柱，织入其他的操作，</p>
@@ -906,154 +976,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/03/31/Spring/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mysql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/29/mysql/">mysql</a>
-    </h1>
-  
-
-        
-        <a href="/2021/03/29/mysql/" class="archive-article-date">
-  	<time datetime="2021-03-29T14:34:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Mysql结构："><a href="#Mysql结构：" class="headerlink" title="Mysql结构："></a>Mysql结构：</h4><p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Mysql%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84.png"></p>
-<h4 id="Mysql存储引擎："><a href="#Mysql存储引擎：" class="headerlink" title="Mysql存储引擎："></a>Mysql存储引擎：</h4><h5 id="InnoDB存储引擎"><a href="#InnoDB存储引擎" class="headerlink" title="InnoDB存储引擎"></a>InnoDB存储引擎</h5><p>InnoDB给MySQL的表提供了事务处理、回滚、崩溃修复能力和多版本并发控制的事务安全。在MySQL从3.23.34a开始包含InnnoDB。它是MySQL上第一个提供外键约束的表引擎。而且InnoDB对事务处理的能力，也是其他存储引擎不能比拟的。靠后版本的MySQL的默认存储引擎就是InnoDB。</p>
-<p>InnoDB存储引擎总支持AUTO_INCREMENT。自动增长列的值不能为空，并且值必须唯一。MySQL中规定自增列必须为主键。在插入值的时候，如果自动增长列不输入值，则插入的值为自动增长后的值；如果输入的值为0或空（NULL），则插入的值也是自动增长后的值；如果插入某个确定的值，且该值在前面没有出现过，就可以直接插入。</p>
-<p>InnoDB还支持外键（FOREIGN KEY）。外键所在的表叫做子表，外键所依赖（REFERENCES）的表叫做父表。父表中被字表外键关联的字段必须为主键。当删除、更新父表中的某条信息时，子表也必须有相应的改变，这是数据库的参照完整性规则。</p>
-<p>支持行锁: 操作时锁一行适合高并发</p>
-<p>InnoDB中，创建的表的表结构存储在.frm文件中（我觉得是frame的缩写吧）。数据和索引存储在innodb_data_home_dir和innodb_data_file_path定义的表空间中。</p>
-<p>InnoDB的优势在于提供了良好的事务处理、崩溃修复能力和并发控制。缺点是读写效率较差，占用的数据空间相对较大。<br>对于索引而言，InnoDB表数据文件本身就是索引文件。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/InnoDB%E7%B4%A2%E5%BC%95.png" alt="innodb索引"></p>
-<h5 id="MyISAM存储引擎"><a href="#MyISAM存储引擎" class="headerlink" title="MyISAM存储引擎"></a>MyISAM存储引擎</h5><p>MyISAM是MySQL中常见的存储引擎，曾经是MySQL的默认存储引擎。MyISAM是基于ISAM引擎发展起来的，增加了许多有用的扩展。</p>
-<p>MyISAM是表锁，即使操作一行也会锁整个表</p>
-<p>MyISAM的表存储成3个文件。文件的名字与表名相同。拓展名为frm、MYD、MYI。其实，frm文件存储表的结构；MYD文件存储数据，是MYData的缩写；MYI文件存储索引，是MYIndex的缩写。</p>
-<p>基于MyISAM存储引擎的表支持3种不同的存储格式。包括静态型、动态型和压缩型。其中，静态型是MyISAM的默认存储格式，它的字段是固定长度的；动态型包含变长字段，记录的长度不是固定的；压缩型需要用到myisampack工具，占用的磁盘空间较小。</p>
-<p>MyISAM的优势在于占用空间小，处理速度快。缺点是不支持事务的完整性和并发性。<br>MyISAM索引文件和数据是分离的，索引仅仅保存data域的地址，再进行读取相应的记录。<br><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/MyISAM.jpg" alt="myisam索引"></p>
-<h4 id="Memory存储引擎"><a href="#Memory存储引擎" class="headerlink" title="Memory存储引擎"></a>Memory存储引擎</h4><p>memory存储引擎是MySQL中的一类特殊的存储引擎。其使用存储在内存中的内容来创建表，而且所有数据也放在内存中。这些特性都与InnoDB，MyISAM存储引擎不同。</p>
-<p>OK，这里我们讲解一些memory存储引擎的文件存储形式，索引类型，存储周期和优缺点。</p>
-<p>每个基于memory存储引擎的表实际对应一个磁盘文件，该文件的文件名与表名相同，类型为frm类型。该文件只存储表的结构，而其数据文件，都是存储在内存中的，这样有利于对数据的快速的处理，提高整个表的处理效率。</p>
-<p>值得注意的是：服务器需要有足够的内存来维持memory存储引擎的表的使用。如果不需要了，可以释放这些内存，甚至可以删除不需要的表。</p>
-<p>Memory存储引擎默认使用哈希(HASH)索引，其速度比使用B型树(BTREE)索引快。如果我们需要使用B型树索引，可以在创建索引时选择使用。</p>
-<p>Memory存储引擎通常很少用到，至少我是没有用到过。因为Memory表的所有数据都是存储在内存上的，如果内存出现异常会影响到数据的完整性。</p>
-<p>如果重启机器或者关机，表中的所有数据都将消失，因此，基于Memory存储引擎的表的生命周期都比较短，一般都是一次性的。</p>
-<p>Memory表的大小是受到限制的，表的大小主要取决于2个参数，分别是max_rows和max_heap_table_size。其中，max_rows可以在创建表时指定，max_heap_table_size的大小默认为16MB，可以按需要进行扩大。</p>
-<p>因此，其基于内存中的特性，这类表的处理速度会非常快，但是，其数据易丢失，生命周期短。基于其这个缺陷，选择Memory存储引擎时需要特别小心。<br>        随着NoSQL数据库兴起，Memory存储引擎现在基本很少用到。</p>
-<h4 id="Mysql事务："><a href="#Mysql事务：" class="headerlink" title="Mysql事务："></a>Mysql事务：</h4><h5 id="事务的四个特征："><a href="#事务的四个特征：" class="headerlink" title="事务的四个特征："></a>事务的四个特征：</h5><p>a.	原子性（Atomicity）：要么同时成功要么同时失败<br>b.	一致性（Consistency）：事务开始和事务结束数据必须保持一致<br>c.	隔离性（Isolation）：事务A和事务B之间互不影响<br>d.	持久性（Durability）：事务处理完成之后，对数据的修改就是永久的</p>
-<h5 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h5><p>脏读：读到别人未提交的数据<br>        幻读（虚读）：读到别人新插入，或者删除的数据，前后数据不一致的问题（针对多条数据）<br>        不可重复读：读到别人修改的数据（侧重于单条数据）</p>
-<pre><code>    Mysql事务隔离级别有四种（从低到高）：
-        读未提交（read-uncommitted）	会发生脏读，会发生不可重复读，幻读
-        不可重复读（read-committed）	不会脏读，会发生不可重复读，幻读
-        可重复读（repeatable-read）	    不会脏读，不可重复读，会发生幻读
-        串行化（serializable）	            不会发生脏读不可重复读以及幻读
-    事务隔离级别越高，数据库效率越低。解决幻读需要锁表，解决不可重复读需要行锁。默认是可重复读（会发生幻读，但是基本上没什么影响）。
-
-    单服务直接使用Spring注解即可解决事务问题。多个服务之间推荐使用MQ来解决。其他方式还有TCC补偿机制，两段式提交XA等等
-</code></pre>
-<h4 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h4><p>索引是一个很常见的数据库辅助查询，提高查询效率的东西。<br>    索引种类本身分为<br>a.	主键索引（主键默认使用主键索引）<br>b.	联合索引（多个字段联合的索引）<br>c.	单列索引（某一个字段的索引）<br>d.	MyISAM引擎还有全文索引（like查询的）<br>e.	聚簇索引和非聚簇索引，聚簇索引查询效率会更快<br>    a)	每个表只能有一个聚簇索引，聚簇索引的叶节点就是数据节点<br>    b)	非聚簇索引的叶节点仍然是索引节点，并保留一个链接指向对应数据块</p>
-<p>   聚簇索引:<br>   <img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Mysql%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95.png"><br>   数据和索引在一起存储的索引方式叫做聚簇索引，一张表只能有一个聚簇索引。它的叶子节点保存的是数据本身</p>
-<p>   <img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Mysql%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95.jpg"><br>   非聚簇索引有二级索引，需要通过二级索引去查找数据，二级索引存储主键索引，需要回表去再查询一次。</p>
-<p>   覆盖索引：<br>   覆盖索引：覆盖索引（covering index）指一个查询语句的执行只用从索引中就能够取得，不必从数据表中读取。也可以称之为实现了索引覆盖。<br>   当一条查询语句符合覆盖索引条件时，MySQL只需要通过索引就可以返回查询所需要的数据，这样避免了查到索引后再返回表操作，减少I&#x2F;O提高效率。<br>   如，表covering_index_sample中有一个普通索引 idx_key1_key2(key1,key2)。<br>   当我们通过SQL语句：select key2 from covering_index_sample where key1 &#x3D; ‘keytest’;的时候，就可以通过覆盖索引查询，无需回表。</p>
-<p>   联合索引：多个where条件联合的索引，遵循最左匹配原则，应把识别度高的放在最前面<br>   where子句中使用最频繁的一列放在最左边，因为MySQL索引查询会遵循最左前缀匹配的原则，即最左优先，<br>   在检索数据时从联合索引的最左边开始匹配。所以当我们创建一个联合索引的时候，如(key1,key2,key3)，<br>   相当于创建了（key1）、(key1,key2)和(key1,key2,key3)三个索引，这就是最左匹配原则</p>
-<p>   按数据结构来分的话分为Hash和B+Tree<br>   因为Hash索引底层是哈希表，哈希表是一种以key-value存储数据的结构，所以多个数据在存储关系上是完全没有任何顺序关系的，所以，<br>   对于区间查询是无法直接通过索引查询的，就需要全表扫描。所以，哈希索引只适用于等值查询的场景。而B+ Tree是一种多路平衡查询树，<br>   所以他的节点是天然有序的（左子节点小于父节点、父节点小于右子节点），所以对于范围查询的时候不需要做全表扫描。<br>   Hash索引不支持联合索引的最左匹配原则，如果大量键值重复的情况下，由于Hash碰撞Hash索引的效率会很低<br>a. </p>
-<h5 id="有索引不会使用的情况："><a href="#有索引不会使用的情况：" class="headerlink" title="有索引不会使用的情况："></a>有索引不会使用的情况：</h5><ol>
-<li>有or条件的，即使部分有索引也不会用上</li>
-<li>like模糊查询 % 号在前</li>
-<li>where带有数学运算</li>
-<li>where带有函数</li>
-<li>还有数据量太少直接全表扫描不会使用索引</li>
-</ol>
-<p>数据唯一性差的不适合使用索引，比如性别，二叉树多是平级，无异于全表扫描<br>        频繁更新的数据不适合使用索引，导致索引频繁修改，加大数据库的压力，</p>
-<h4 id="Mysql当前读和快照读"><a href="#Mysql当前读和快照读" class="headerlink" title="Mysql当前读和快照读"></a>Mysql当前读和快照读</h4><p>当前读：也称锁定读(locking read),通过对读取到的数据(索引记录)加锁来保证数据一致性，当前读会对所有扫描到的索引记录进行加锁，无论该记录是否满足WHERE条件都会被加锁。</p>
-<p>快照读：MySQL使用MVCC (Multiversion Concurrency Control)机制来保证被读取到数据的一致性，读取数据时不需要对数据进行加锁，且快照读不会被其他事物阻塞。</p>
-<p>在读提交和可重复读两种事务隔离级别下，普通的SELECT操作使用“快照读”，不会对数据加锁，也不会被事务阻塞。</p>
-<p>在读提交和可重复读两种事务隔离级别下，使用“当前读”的操作包括：<br>1、SELECT LOCK IN SHARE MODE<br>2、SELECT FOR UPDATE<br>3、DELETE\UPDATE\INSERT INTO\REPLACE INTO</p>
-<p>在可重复读事务隔离级别下，“当前读”读取到的时数据库最新的数据，而“快照读”读取到的数据是事务中第一次建立ReadView时的数据+事务中修改的数据。</p>
-<h4 id="Redo-Log"><a href="#Redo-Log" class="headerlink" title="Redo Log"></a>Redo Log</h4><p>如果我们的账户中扣了100块钱，这个操作成功写入了磁盘，而在给商家增加100块钱的时候系统崩溃了（这么倒霉？），或者停电了（不会吧？），导致写入失败（经常会出现吧？）。</p>
-<p>为了避免这种情况发生，数据库就得想办法知道系统崩溃前完整的操作是怎么样的，这样等服务器恢复后，数据库要把还没来得及写入磁盘的那一部分数据重新写入，给商家的账号上加100块钱，完成未竟的事业。</p>
-<p>那么问题来了，系统恢复后数据库如何知道之前事务的所有信息呢？</p>
-<p>这就要求数据库在写磁盘之前要把事务所有的操作都先记录下来，比如修改什么数据、数据物理上位于哪个内存页和磁盘块中、从什么值改成什么值等等，以日志的形式先写到磁盘中。<br>只有在日志记录全部都安全落盘，然后在最后写上“Commit Record”后，表示所有的操作记录我都写完啦。<br>这时候数据库才会根据日志上的信息，对真正的数据进行修改，修改完成后，在日志中加入一条“End Record”，表示我已经按照日志里的步骤都做完啦，事务持久化的工作也就做完了。<br>这种事务实现方法被称为“Commit Logging”。<br>首先， 一旦日志成功写入了Commit Record，那就表示事务相关的所有信息都已经写到日志中了，如果修改数据的过程中系统崩溃了，重启后只要再根据日志的内容重新操作一遍就行了，这就保证了持久性。<br>其次，如果日志还没写完系统就崩溃了，系统重启后，数据库一看日志里没有Commit Record，这话就说明日志是不全的，还没有写完，那么就将这部分日志标记为回滚状态，整个事务就回滚了，这就保证了原子性。<br>换句话说就是，我先把我要改的东西记录在日志里，我再根据日志统一写到磁盘中，万一我在写入磁盘的过程中晕倒了，等我醒来的时候，我先查看日志的完整性。<br>如果日志是完整的，里面有Commit Record，我就照着日志重新做一遍，最后也能成功。如果日志是不完整的，里面没有Commit Record，我就回滚整个事务，什么都不做。<br>这个日志就叫做 Redo Log，也就是“重做日志”，中途崩溃的数据库，根据这个日志把事务重做一遍。</p>
-<h4 id="Undo-Log"><a href="#Undo-Log" class="headerlink" title="Undo Log"></a>Undo Log</h4><p>不过Redo Log有个问题，就是效率太慢。<br>因为数据库对数据的所有真实修改，都必须发生在事务提交之后，并且在日志写入了 Commit Record （提交记录）之后才能进行，没有写完Redo Log，数据库是不敢先写的。<br>即使事务提交前磁盘 I&#x2F;O 有足够空闲、即使某个事务修改的数据量非常庞大，占用大量的内存缓冲，无论何种理由，都决不允许在事务提交之前就开始修改磁盘上的数据，万一系统崩溃了，数据出差谁负责呀？<br>但是当一个事务中数据量特别大的时候，等全部变更写入Redo Log然后再统一写入磁盘，这样性能就不是很好，就会很慢<br>那能不能在事务提交之前，偷偷地先写一点数据到磁盘呢（偷跑）？<br>答案是可以的，这就是steal策略，但是问题来了，你偷摸地写了数据，万一事务要回滚，或者系统崩溃了，这些提前写入的数据就变成了脏数据，必须想办法把它恢复才行。<br>这就需要引入Undo Log（回滚日志），在偷摸写入数据之前，必须先在Undo Log中记录都写入了什么数据，改了什么地方，到时候事务回滚了，就按照Undo Log日志，一条条恢复到原来的样子，就像没有改过一样。</p>
-<p>Undo Log还有一个作用，就是实现多个行版本控制(MVCC)，当读取的某一行被其他事务锁定时，它可以从 Undo Log 中获取该行记录以前的数据是什么，从而提供该行版本信息，让用户读取。</p>
-<p>Undo Log（重做日志） 和 Redo Log（回滚日志）之间的区别，字面意思理解就行了。</p>
-<h4 id="MVVC-Multiversion-Concurrency-Control-多版本并发控制"><a href="#MVVC-Multiversion-Concurrency-Control-多版本并发控制" class="headerlink" title="MVVC(Multiversion Concurrency Control)多版本并发控制"></a>MVVC(Multiversion Concurrency Control)多版本并发控制</h4><p>MySQL中MVCC主要是通过行记录中的隐藏字段（隐藏主键 row_id、事务ID trx_id、回滚指针 roll_pointer）、undo log（版本链）、ReadView（一致性读视图）来实现的。</p>
-<p>ReadView 机制：<br>ReadView 其实就是一个保存事务ID的list列表。记录的是本事务执行时，MySQL还有哪些事务在执行，且还没有提交。(当前系统中还有哪些活跃的读写事务)</p>
-<p>m_ids，当前有哪些事务正在执行，且还没有提交，这些事务的 id 就会存在这里；<br>min_trx_id，是指 m_ids 里最小的值；<br>max_trx_id，是指下一个要生成的事务 id。下一个要生成的事务 id 肯定比现在所有事务的 id 都大；<br>creator_trx_id，每开启一个事务都会生成一个 ReadView，而 creator_trx_id 就是这个开启的事务的 id。</p>
-<p>这样在访问某条记录时，只需要按照下边的步骤判断该记录在版本链中的某个版本（trx_id）是否可见：<br>1、trx_id &lt; m_ids列表中最小的事务id<br>表明生成该版本的事务在生成ReadView前已经提交，所以该版本可以被当前事务访问。<br>2、trx_id &gt; m_ids列表中最大的事务id<br>表明生成该版本的事务在生成ReadView 后才生成，所以该版本不可以被当前事务访问。<br>3、m_ids列表中最小的事务id &lt; trx_id &lt; m_ids列表中最大的事务id<br>此处比如m_ids为[5,6,7,9,10]<br>①、若trx_id在m_ids中，比如是6，说明创建 ReadView 时生成该版本的事务还是活跃的，该版本不可以被访问。<br>②、若trx_id不在m_ids中，比如是8：说明创建 ReadView 时生成该版本的事务已经被提交，该版本可以被访问。</p>
-<p>一句话说：当trx_id在m_ids中，或者大于m_ids列表中最大的事务id的时候，这个版本就不能被访问。</p>
-<p>如果某个版本的数据对当前事务不可见的话，那就顺着版本链找到下一个版本的数据，继续按照上边的步骤判断可见性，依此类推，直到版本链中的最后一个版本，如果最后一个版本也不可见的话，那么就意味着该条记录对该事务不可见，查询结果就不包含该记录。</p>
-<p>事务是可以并发执行的，现在有事务 A、事务 B 这两个事务，且这两个都没有提交。事务 A 将会执行多次读操作，来模拟可重复读中多次读取同一行数据的场景。事务 B 则会修改这一行数据。</p>
-<p>MVCC主要是用来解决读未提交隔离级别下的脏读和RC隔离级别下的不可重复读的问题，所以MVCC只在读已提交（解决脏读）和RR（解决不可重复读）隔离级别下生效，也就是MySQL只会在读已提交和可重复读隔离级别下的快照读时才会生成ReadView。区别就是，在读已提交隔离级别下，每一次快照读都会生成一个最新的ReadView；在可重复读隔离级别下，只有事务中第一次快照读会生成ReadView，之后的快照读都使用第一次生成的ReadView。</p>
-<p>总结：MVCC是为了实现事务的隔离性，通过版本号，避免同一数据在不同事务间的竞争，你可以把它当成基于多版本号的一种乐观锁。当然，这种乐观锁只在事务级别提交读和可重复读有效。MVCC最大的好处，读不加锁，读写不冲突。在读多写少的应用中，读写不冲突是非常重要的，极大的增加了系统的并发性能。</p>
-<h4 id="mysql锁分类"><a href="#mysql锁分类" class="headerlink" title="mysql锁分类"></a>mysql锁分类</h4><p>按模式：  乐观锁和悲观锁</p>
-<p>按颗粒度：全局锁，表锁，行锁</p>
-<p>按属性：  共享锁（读锁： select … lock in share mode），排他锁（写锁： select … for update）</p>
-<p>按状态：  意向共享锁，意向排他锁</p>
-<p>按算法：  间隙锁，记录锁，临键锁</p>
-<p>什么是记录锁：<br>记录锁也叫行锁。它会在 id&#x3D;1 的记录上加上记录锁，以阻止其他事务插入，更新，删除 id&#x3D;1 这一行。</p>
-<p>什么是间隙锁：<br>间隙锁基于非唯一索引，它锁定一段范围内的索引记录。使用间隙锁锁住的是一个区间，而不仅仅是这个区间中的每一条数据。<br>select* from goods where id between 1 and 10 for update;<br>即所有在（1，10）区间内的记录行都会被锁住，所有id 为 2、3、4、5、6、7、8、9 的数据行的插入会被阻塞，但是 1和 10 两条记录行并不会被锁住。</p>
-<p>什么是临键锁：<br>临键锁，是记录锁与间隙锁的组合，它的封锁范围，既包含索引记录，又包含索引区间，是一个左开右闭区间。临键锁的主要目的，也是为了避免幻读(Phantom Read)。如果把事务的隔离级别降级为RC，临键锁则也会失效。<br>每个数据行上的非唯一索引列上都会存在一把临键锁，当某个事务持有该数据行的临键锁时，会锁住一段左开右闭区间的数据。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/29/mysql/">展开全文 >></a>
         </p>
       
 

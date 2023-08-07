@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Logan Moorees</title>
+  <title>docker与k8s | Logan Moorees</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Logan Moorees">
-<meta property="og:url" content="http://yoursite.com/page/3/index.html">
+  <meta name="description" content="Linux常用命令：    查询进程：  ps -ef | grep tomcat    查询磁盘空间：  df -h    查询内存： top Docker    Docker 是一个开源的轻量级容器，Go语言开发的，常用于自动化打包发布，自动化测试和持续集成等等 Docker 包括三个基本概念：    镜像（Image）、容器（Container）、仓库（Repository）    dock">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker与k8s">
+<meta property="og:url" content="http://yoursite.com/2023/08/07/docker%E4%B8%8Ek8s/index.html">
 <meta property="og:site_name" content="Logan Moorees">
+<meta property="og:description" content="Linux常用命令：    查询进程：  ps -ef | grep tomcat    查询磁盘空间：  df -h    查询内存： top Docker    Docker 是一个开源的轻量级容器，Go语言开发的，常用于自动化打包发布，自动化测试和持续集成等等 Docker 包括三个基本概念：    镜像（Image）、容器（Container）、仓库（Repository）    dock">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-08-07T02:34:49.000Z">
+<meta property="article:modified_time" content="2023-08-07T08:18:49.712Z">
 <meta property="article:author" content="Logan Moore">
 <meta name="twitter:card" content="summary">
   
@@ -134,55 +138,34 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-树形结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-docker与k8s" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/04/%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/">数据结构（二）：树形结构</a>
+    <h1 class="article-title" itemprop="name">
+      docker与k8s
     </h1>
   
 
         
-        <a href="/2019/09/04/%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/" class="archive-article-date">
-  	<time datetime="2019-09-04T07:59:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-04</time>
+        <a href="/2023/08/07/docker%E4%B8%8Ek8s/" class="archive-article-date">
+  	<time datetime="2023-08-07T02:34:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="树形结构"><a href="#树形结构" class="headerlink" title="树形结构"></a>树形结构</h4><pre><code>树（tree）是一种抽象数据类型（Abstract Data Type, ADT）或是实际操作这种抽象数据，用来模拟具有树状结构性质的数据结合。它是由n (n&gt;0) 个有限的节点组成一个具有层次关系的集合。至于为什么我们叫它“树”，是因为它看起来像一颗倒挂的树；也就是说它是根朝上，而叶朝下的。它具有以下的特点：
-</code></pre>
-<ol>
-<li>每个节点有零个或多个子节点</li>
-<li>没有父节点的节点称为根节点</li>
-<li>每一个非根节点有且只有一个父节点</li>
-<li>除了根节点外，每个子节点可以分为多个不相交的子树</li>
-</ol>
-<p><strong>树的种类大范围可以分为无序树和有序树。</strong></p>
-<ol>
-<li>节点的度：一个节点含有的子树的个数称为该节点的度；</li>
-<li>树的度：一棵树中，最大的节点的度称为树的度；</li>
-<li>叶节点或终端节点：度为零的节点；</li>
-<li>非终端节点或分支节点：度不为零的节点；</li>
-<li>父亲节点或父节点：若一个节点含有子节点，则这个节点称为其子节点的父节点；</li>
-<li>孩子节点或子节点：一个节点含有的子树的根节点称为该节点的子节点；</li>
-<li>兄弟节点：具有相同父节点的节点互称为兄弟节点；</li>
-<li>节点的层次：从根开始定义起，根为第1层，根的子节点为第2层，以此类推；</li>
-<li>深度：对于任意节点n,n的深度为从根到n的唯一路径长，根的深度为0；</li>
-<li>高度：对于任意节点n,n的高度为从n到一片树叶的最长路径长，所有树叶的高度为0；</li>
-<li>堂兄弟节点：父节点在同一层的节点互为堂兄弟；</li>
-<li>节点的祖先：从根到该节点所经分支上的所有节点；</li>
-<li>子孙：以某节点为根的子树中任一节点都称为该节点的子孙。</li>
-<li>森林：由m（m&gt;&#x3D;0）棵互不相交的树的集合称为森林；
-        
-          <a class="article-more-a" href="/2019/09/04/%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/#more">more >></a>
-        
+        <p>Linux常用命令：<br>    查询进程：  ps -ef | grep tomcat<br>    查询磁盘空间：  df -h<br>    查询内存： top</p>
+<p>Docker<br>    Docker 是一个开源的轻量级容器，Go语言开发的，常用于自动化打包发布，自动化测试和持续集成等等</p>
+<p>Docker 包括三个基本概念：<br>    镜像（Image）、容器（Container）、仓库（Repository）<br>    docker images、 docker ps -a，start，stop，restart，docker exec等等</p>
+<p>经常性的和虚拟机作为比较，<br>docker和虚拟机都是虚拟化技术，<br>VM(VMware)在宿主机器、宿主机器操作系统的基础上创建虚拟层、虚拟化的操作系统、虚拟化的仓库，然后再安装应用，<br>Docker则是宿主机器操作系统上创建Docker引擎，在引擎的基础上再安装应用。</p>
+<p>Docker 容器很快，启动和停止可以在秒级实现，而VMware慢很多<br>Docker 容器对系统资源需求很少，一台主机上可以同时运行数千个Docker容器。<br>Docker 通过Dockerfile配置文件来支持灵活的自动化创建和部署机制，提高工作效率。</p>
+<p>k8s<br>容器(Container)<br>    任何程序和它的所有依赖项都可以打包成一个文件，然后在网络上共享。任何人都可以下载该容器并在其基础设施上部署它</p>
+<p>Pod<br>Kubernetes不直接运行容器;相反，它将一个或多个容器封装到一个称为Pod的高级结构中。相同Pod中的任何容器都将共享相同的名称空间和本地网络。容器可以很容易地与其他容器在相同的容器中进行通信，就像它们在同一台机器上同时保持一定程度的隔离。</p>
+
       
 
       
@@ -190,23 +173,8 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/04/%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84/">展开全文 >></a>
-        </p>
       
 
       
@@ -214,6 +182,18 @@
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2023/04/07/mysql%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql分库分表</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -233,336 +213,14 @@
 
 
 
-
-  
-    <article id="post-网络协议" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/02/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">网络协议</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/02/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" class="archive-article-date">
-  	<time datetime="2019-09-02T08:43:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&amp;emsp;&amp;emsp;网络： 网络就是一些设备通过交换机组成的局域网就可以称之为网络。<br>互联网： 互联网就是一个又一个的网络组成的。通过路由器连接交换机，就可以将网络连接起来。<br>因特网：internet，全球最大的一个互联网。</p>
-<p>&amp;emsp;&amp;emsp;互联网的发展：起源1969年，美国国防部研发的第一个分组交换arpanet，1975年出现了互联网，1975年的互联网就是因特网的雏形，1983年TCP&#x2F;IP协议就是互联网的标准协议，通常我们都说因特网起源1983年，中国1994年4月20日正式接入互联网。</p>
-        
-          <a class="article-more-a" href="/2019/09/02/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络协议</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/02/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Shiro" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/31/Shiro/">安全框架</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/31/Shiro/" class="archive-article-date">
-  	<time datetime="2019-08-31T09:49:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Shiro"><a href="#Shiro" class="headerlink" title="Shiro"></a>Shiro</h2><pre><code>Shiro是一个安全框架，开始于2003年初称为JSecurity，2008年提供给Apache，Apache提供的解释是Shiro是一个强大易用的 Java 安全框架，提供了认证、授权、加密和会话管理功能。
-1.	认证：用户身份识别，常被称为用户“登录”；
-2.	授权：访问控制权限；
-3.	密码加密 - 保护或隐藏数据防止被偷窥；
-4.	会话管理 - 每用户相关的时间敏感的状态。
-</code></pre>
-<p><img src="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/Shiro%E6%9E%B6%E6%9E%84%E5%9B%BE.jpg"></p>
-        
-          <a class="article-more-a" href="/2019/08/31/Shiro/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Framework</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/31/Shiro/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JVM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/31/JVM/">JVM</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/31/JVM/" class="archive-article-date">
-  	<time datetime="2019-08-31T06:29:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h4><pre><code>JDK(Java Development Kit)，Java开发工具集，它提供了Java的开发环境(提供了编译器javac等工具，用于将java文件编译为class文件)和运行环境(提 供了JVM和Runtime辅助包，用于解析class文件使其得到运行)。还包含了很多java程序调试和分析的工具：jconsole，jvisualvm等工具软件，如果你下载并安装了JDK，那么你不仅可以开发Java程序，也同时拥有了运行Java程序的平台。JDK是整个Java的核心，包括了Java运行环境(JRE)，一堆Java工具tools.jar和Java标准类库 (rt.jar)。JDK包含了JRE。
-</code></pre>
-<h4 id="JRE"><a href="#JRE" class="headerlink" title="JRE"></a>JRE</h4><pre><code>JRE(Java Runtime Enviroment)是Java的运行环境。面向Java程序的使用者，而不是开发者。如果你仅下载并安装了JRE，那么你的系统只能运行Java程序。JRE是运行Java程序所必须环境的集合，包含JVM标准实现及 Java核心类库。它包括Java虚拟机、Java平台核心类和支持文件。它不包含开发工具(编译器、调试器等)。
-</code></pre>
-<h4 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h4><p>Java虚拟机，Java程序的运行只与虚拟机有关，与操作系统无关。</p>
-        
-          <a class="article-more-a" href="/2019/08/31/JVM/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/31/JVM/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SpringCloud" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/29/SpringCloud/">SpringCloud</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/29/SpringCloud/" class="archive-article-date">
-  	<time datetime="2019-08-29T08:51:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>Spring Cloud为开发人员提供了快速构建分布式系统中一些常见模式的工具，我们常说的SpringCloud其实大部门指的是Spring Cloud for Netflix。因为市面上用的基本上都是Netflix开源的一系列组件工具。其中包含了各种组件，解决不同的问题。
-</code></pre>
-        
-          <a class="article-more-a" href="/2019/08/29/SpringCloud/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Framework</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">微服务</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SOA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/29/SpringCloud/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -585,8 +243,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

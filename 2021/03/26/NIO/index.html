@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/BIO.jpg">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/NIO.png">
 <meta property="article:published_time" content="2021-03-26T09:27:50.000Z">
-<meta property="article:modified_time" content="2021-03-30T15:43:08.000Z">
+<meta property="article:modified_time" content="2023-05-08T01:24:01.966Z">
 <meta property="article:author" content="Logan Moore">
 <meta property="article:tag" content="网络协议">
 <meta name="twitter:card" content="summary">
@@ -176,6 +176,11 @@
 <h5 id="Selector选择器"><a href="#Selector选择器" class="headerlink" title="Selector选择器"></a>Selector选择器</h5><p>多个Channel以事件的方式可以注册到同一个Selector，可以检测多个NIO channel，看看读或者写事件是否就绪。从而达到用一个线程处理多个请求成为可能。多路复用</p>
 <h4 id="NIO存在的问题"><a href="#NIO存在的问题" class="headerlink" title="NIO存在的问题"></a>NIO存在的问题</h4><p>使用NIO不等于高性能，当连接数&lt;1000，并发程度不高或者局域网环境下NIO并没有显著的性能优势。</p>
 <h5 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h5><p>异步非阻塞IO，适合比较重的操作，例如QQ相册，上传一大批文件，然后可以去做别的，等它处理完会有个回调通知。</p>
+<p>select，poll 和 epoll</p>
+<ol>
+<li>select主要将一堆文件描述符传到select的参数中，然后返回有时间就绪的文件描述符的个数，但是还是需要用户线程去主动轮训有哪些文件描述符有事件产生，缺点一是需要将文件描述符从用户态内核态之间拷贝，二是需要用户线程主动轮训文件描述符。</li>
+<li>epoll是基于事件的回调的，可以通知用户线程那个文件描述符有事件就绪， 用户线程就不需要遍历了。</li>
+</ol>
 
       
 

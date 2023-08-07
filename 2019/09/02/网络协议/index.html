@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/internet5.png">
 <meta property="og:image" content="https://blog-1254224452.cos.ap-shanghai.myqcloud.com/internet6.jpg">
 <meta property="article:published_time" content="2019-09-02T08:43:27.000Z">
-<meta property="article:modified_time" content="2023-05-06T19:00:21.981Z">
+<meta property="article:modified_time" content="2023-05-08T09:36:22.901Z">
 <meta property="article:author" content="Logan Moore">
 <meta property="article:tag" content="网络协议">
 <meta name="twitter:card" content="summary">
@@ -207,6 +207,8 @@ Http1.0，Http1.1,Http2.0之间的区别：
 (例如： a对B说我挂了， b回应a 我的事情没说完，等我一下， b然后说完之后告诉a，我说完了， a对b说， 好的我挂了)。目的是确认双方都能完成之后。
 </code></pre>
 <p>为什么不能用两次握手进行连接？<br>    三次握手是确保双方都能够正常通行，<br>    为了实现可靠数据传输， TCP 协议的通信双方， 都必须维护一个序列号， 以标识发送出去的数据包中， 哪些是已经被对方收到的。 三次握手的过程即是通信双方相互告知序列号起始值， 并确认对方已经收到了序列号起始值的必经步骤<br>    如果只是两次握手， 至多只有连接发起方的起始序列号能被确认， 另一方选择的序列号则得不到确认</p>
+<h4 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h4><p>HTTPS其实是有两部分组成：HTTP + SSL &#x2F; TLS，也就是在HTTP上又加了一层处理加密信息的模块。服务端和客户端的信息传输都会通过TLS进行加密，所以传输的数据都是加密后的数据。</p>
+<p>1、客户端向服务端发起建立HTTPS请求(客户端支持的算法等等)。<br>2、服务器向客户端发送数字证书（公钥，企业信息。域名过期时间，摘要）。<br>3、客户端验证数字证书，证书验证通过后客户端生成会话密钥（双向验证则此处客户端也会向服务器发送证书）。<br>4、服务器生成会话密钥（双向验证此处服务端也会对客户端的证书验证）。<br>5、客户端与服务端开始进行加密会话。</p>
 
       
 
